@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layout_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@drawable/login_background"
+        android:padding="25dp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:src="@mipmap/panamera"
+            android:layout_marginTop="-50dp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/email_label"
+            style="@style/EdittextStyle"
+            android:hint="@string/email_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/cardview_light_background"
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="5dp"
+            android:drawableStart="@drawable/baseline_person_black"
+            android:padding="5dp"
+            android:drawablePadding="-15dp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/label_pwd"
+            android:hint="@string/pwd_label"
+            style="@style/EdittextStyle"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/cardview_light_background"
+            android:background="@drawable/edittext_background"
+            android:layout_marginTop="5dp"/>
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:buttonTint="@color/cardview_light_background"
+            android:text="@string/checkbox_label"
+            android:textColor="@color/cardview_light_background"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="25dp"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/ButtonSubmitStryle"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>
