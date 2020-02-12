@@ -4,22 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="
-"
-        android:text="Instagrammo"
-        app:layout_constraintLeft_toRightOf="@id/img"
-        />
+    >
+
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:src="@drawable/instalogo"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
+        app:layout_constraintBottom_toTopOf="@id/user"
         app:layout_constraintTop_toTopOf="parent"
 
         />
@@ -29,28 +24,28 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:hint="Username"
-        app:layout_constraintBottom_toTopOf="@id/password"/>
+        app:layout_constraintBottom_toTopOf="@id/password" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:hint="Password"
-        app:layout_constraintBottom_toTopOf="@+id/remind"/>
+        app:layout_constraintBottom_toTopOf="@+id/remind" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/remind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/login"
-        android:hint="Ricorda credenziali"/>
+        android:hint="Ricorda credenziali"
+        app:layout_constraintBottom_toTopOf="@+id/login" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/roundbutton"
-        android:text="Login" />
+        android:text="Login"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
