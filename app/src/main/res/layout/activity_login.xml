@@ -35,7 +35,19 @@
         android:layout_marginTop="104dp"
         android:hint="@string/password"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/username" />
+        app:layout_constraintTop_toTopOf="@id/username"
+        android:inputType="textPassword"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/password"
+        android:layout_marginTop="96dp"
+
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

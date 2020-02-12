@@ -1,13 +1,11 @@
 package thushyanthan.scott.javalynx.instagrammo
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiInterface {
-
-
-       /* @POST(value = "auth.php")
+        @POST(value = "auth.php")
         fun doAuth(
-            @Body auth: AuthRequest
-        ):Call<AuthResponse>*/
-
+            @Body auth: DataRequest
+        ):Call<AuthResponse>
 }

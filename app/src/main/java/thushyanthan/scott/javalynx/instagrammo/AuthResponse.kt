@@ -1,10 +1,13 @@
 package thushyanthan.scott.javalynx.instagrammo
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 data class AuthResponse (
-    @SerializedName("result")
+    @Expose
     val result: Boolean,
-    @SerializedName("authToken")
-    val authToken: ,
-    @SerializedName("profileId")
+    @Expose
+    val authToken: String,
+    @Expose
     val profileID: Int
 )
