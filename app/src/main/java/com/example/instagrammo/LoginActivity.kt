@@ -1,13 +1,54 @@
 package com.example.instagrammo
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.instagrammo.beans.request.AuthRequest
+import com.example.instagrammo.beans.response.AuthResponse
+import com.example.instagrammo.retrofit.RetrofitController
+import kotlinx.android.synthetic.main.activity_login.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class LoginActivity:Activity() {
+class LoginActivity:AppCompatActivity() {
+
+    val ctx = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_login)
+
+        bn_login.setOnClickListener { view -> doLogin() }
+    }
+
+
+
+    fun doLogin(){
+        val call = RetrofitController.getClient.doAuth(AuthRequest(username.text.toString(), password.text.toString()))
+
+        call.enqueue(object: Callback<AuthResponse>{
+            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+                if(response.isSuccessful){
+                    if(response.body()!= null && response.body() is AuthResponse){
+                        if(response.body()!!.result){
+                            Toast.makeText(ctx, "Successo", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(ctx, "Autenticazione fallita", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(ctx, "body null o body non AuthResponse", Toast.LENGTH_SHORT).show()
+                    }
+                } else{
+                    Toast.makeText(ctx, "response not successful", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+                Toast.makeText(ctx, "Sei un coglione", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
