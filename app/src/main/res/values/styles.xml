@@ -18,7 +18,7 @@
     </style>
 
     <style name="ButtonSubmitStryle">
-        <item name="android:text">Submit</item>
+        <item name="android:text">@string/login_btn</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:background">@drawable/btn_submit_background</item>
         <item name="android:textColor">@color/cardview_light_background</item>
