@@ -1,12 +1,17 @@
 package com.example.instagrammo
 
-import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.loader.content.Loader
 import kotlinx.android.synthetic.main.login_activity.*
+import model.AuthResponse
+import model.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
@@ -14,12 +19,39 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
 
-        val nome :EditText= findViewById<EditText>(R.id.editText)
-        nome.setTextColor(Color.RED)
-        val button = findViewById<Button>(R.id.btn)
-        button.setOnClickListener{
-            Toast.makeText(this,"Ciao ${nome.text}",Toast.LENGTH_SHORT).show()
+        val retrofit = RetrofitController.getIstance()
+
+        Log.d("NOME", editText.text.toString() + " " +editTextpwd.text.toString())
+        btn.setOnClickListener { v ->
+            val call: Call<AuthResponse> =
+                retrofit.auth(User(editText.text.toString(),editTextpwd.text.toString()))
+            progressBar1.visibility = View.VISIBLE
+            btn.visibility = View.GONE
+            call.enqueue(object : Callback<AuthResponse> {
+                override fun onFailure(call: Call<AuthResponse>?, t: Throwable?) {
+                    Log.d("RESPONSE", call.toString())
+                    progressBar1.visibility = View.GONE
+                    btn.visibility = View.VISIBLE
+                    Toast.makeText(applicationContext, "Chiamata non riuscita", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                override fun onResponse(
+                    call: Call<AuthResponse>?,
+                    response: Response<AuthResponse>?
+                ) {
+                    val valori = AuthResponse(response?.body()!!.result,response?.body()!!.authToken,response?.body()!!.profileId)
+
+                    Log.d("RESPONSE", valori.toString())
+                    progressBar1.visibility = View.GONE
+                    btn.visibility = View.VISIBLE
+                    Toast.makeText(applicationContext, "Chiamata riuscita", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            })
         }
+
 
     }
 }
