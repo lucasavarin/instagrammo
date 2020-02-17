@@ -2,12 +2,14 @@ package com.example.instagrammo
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.instagrammo.beans.request.AuthRequest
 import com.example.instagrammo.beans.response.AuthResponse
 import com.example.instagrammo.retrofit.RetrofitController
+import com.example.instagrammo.util.Session
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,22 +34,25 @@ class LoginActivity:AppCompatActivity() {
         call.enqueue(object: Callback<AuthResponse>{
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if(response.isSuccessful){
-                    if(response.body()!= null && response.body() is AuthResponse){
-                        if(response.body()!!.result){
-                            Toast.makeText(ctx, "Successo", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Toast.makeText(ctx, "Autenticazione fallita", Toast.LENGTH_SHORT).show()
-                        }
+                    val body = response.body()!!
+                    if(body.result){
+                        Toast.makeText(ctx, "Autenticazione riuscita", Toast.LENGTH_SHORT).show()
+                        Session.user = username.text.toString()
+                        Session.token = body.authToken
+                        Session.profileId = body.profileId
+
+                        val intent = Intent(applicationContext, MainActivity::class.java)
+                        startActivity(intent)
                     } else {
-                        Toast.makeText(ctx, "body null o body non AuthResponse", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(ctx, "Autenticazione fallita", Toast.LENGTH_SHORT).show()
                     }
-                } else{
-                    Toast.makeText(ctx, "response not successful", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(ctx, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                Toast.makeText(ctx, "Sei un coglione", Toast.LENGTH_SHORT).show()
+                Toast.makeText(ctx, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
             }
         })
     }
