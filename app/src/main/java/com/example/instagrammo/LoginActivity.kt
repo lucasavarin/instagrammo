@@ -1,5 +1,6 @@
 package com.example.instagrammo
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,8 +21,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.login_activity)
 
         val retrofit = RetrofitController.getIstance()
-
-        Log.d("NOME", editText.text.toString() + " " +editTextpwd.text.toString())
         btn.setOnClickListener { v ->
             val call: Call<AuthResponse> =
                 retrofit.auth(User(editText.text.toString(),editTextpwd.text.toString()))
@@ -40,13 +39,18 @@ class LoginActivity : AppCompatActivity() {
                     call: Call<AuthResponse>?,
                     response: Response<AuthResponse>?
                 ) {
-                    val valori = AuthResponse(response?.body()!!.result,response?.body()!!.authToken,response?.body()!!.profileId)
-
-                    Log.d("RESPONSE", valori.toString())
+                    val valori:AuthResponse= AuthResponse(response?.body()!!.result,response?.body()!!.authToken,response?.body()!!.profileId)
                     progressBar1.visibility = View.GONE
                     btn.visibility = View.VISIBLE
-                    Toast.makeText(applicationContext, "Chiamata riuscita", Toast.LENGTH_SHORT)
-                        .show()
+                    val bundle  = Bundle()
+                    bundle.putString("profiloId",valori.profileId)
+                    val intent : Intent = Intent(applicationContext,MainActivity::class.java)
+                    if(valori.authToken!=null && valori.profileId!=null)
+                            startActivity(intent,bundle)
+                    else{
+                        Toast.makeText(applicationContext, "Credenziali Errate", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
 
             })
