@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.instagrammo.beans.request.AuthRequest
 import com.example.instagrammo.beans.response.AuthResponse
 import com.example.instagrammo.retrofit.Client
+import com.example.instagrammo.shared_prefs.Prefs
+import com.example.instagrammo.shared_prefs.prefs
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,7 +18,12 @@ class LoginActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        val remember_user = prefs.remember_user
+
         btn_submit.setOnClickListener{ view-> doLogin()}
+//        remember_me.setOnCheckedChangeListener{buttonView, isChecked ->
+//            remember_user
+//        }
     }
 
     fun doLogin(){
