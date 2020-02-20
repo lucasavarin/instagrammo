@@ -19,12 +19,12 @@ class LoginActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val remember_user = prefs.remember_user
+        remember_me.isChecked = prefs.remember_user
 
         btn_submit.setOnClickListener{ view-> doLogin()}
-//        remember_me.setOnCheckedChangeListener{buttonView, isChecked ->
-//            remember_user
-//        }
+        remember_me.setOnCheckedChangeListener{buttonView, isChecked ->
+            prefs.remember_user = isChecked
+        }
     }
 
     fun doLogin(){
@@ -39,6 +39,7 @@ class LoginActivity: AppCompatActivity() {
                 if (response.isSuccessful){
                     intent = Intent(applicationContext, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                     Toast.makeText(applicationContext,"Successo",Toast.LENGTH_LONG).show()
                 }else{
                     Toast.makeText(applicationContext,"Fallimento",Toast.LENGTH_LONG).show()

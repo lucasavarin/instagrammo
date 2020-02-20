@@ -31,9 +31,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_background"
             android:layout_marginBottom="5dp"
-            android:drawableStart="@drawable/baseline_person_white_18"
-            android:padding="5dp"
-            android:drawablePadding="-15dp"/>
+            android:drawableStart="@drawable/baseline_person_white_18"/>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/label_pwd"
@@ -44,18 +42,14 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_background"
             android:layout_marginTop="5dp"
-            android:drawableStart="@drawable/baseline_lock_white_18"
-            android:padding="5dp"
-            android:drawablePadding="-15dp"/>
+            android:drawableStart="@drawable/baseline_lock_white_18"/>
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/remember_me"
+            style="@style/CheckBoxStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            app:buttonTint="@color/cardview_light_background"
-            android:text="@string/checkbox_label"
-            android:textColor="@color/cardview_light_background"/>
+            app:buttonTint="@color/cardview_light_background"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"

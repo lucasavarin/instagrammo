@@ -3,6 +3,7 @@
     package="com.example.instagrammo">
 
     <application
+        android:name=".shared_prefs.ApplicationContext"
         android:allowBackup="true"
         android:icon="@mipmap/ic_splashp"
         android:label="@string/app_name"
