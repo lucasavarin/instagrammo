@@ -5,11 +5,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApiClient {
+object ApiClient {
 
     val URL = "http://www.nbarresi.it"
 
-    val getClient : APiInterface
+    val getUser : APiInterface
         get() {
         val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 

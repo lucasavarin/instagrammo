@@ -10,4 +10,8 @@
     <string name="password_login">Password</string>
     <string name="remember_me_checkbox">Remember me</string>
     <string name="Home">Home</string>
+    <string name="search_bottomNavigationMenu">Search</string>
+    <string name="add_bottomNavigationMenu">Add</string>
+    <string name="follow_bottomNavigationMenu">Follow</string>
+    <string name="profile_bottomNavigationMenu">Profile</string>
 </resources>

@@ -1,19 +1,23 @@
 package com.example.login
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.afterLogin.FragmentsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val intent = Intent(this, FragmentsActivity::class.java)
 
         login.setOnClickListener{
             val username = user.text.toString()
@@ -21,13 +25,14 @@ class MainActivity : AppCompatActivity() {
 
             ApiClient.getUser.getUser(AuthRequest(username,password)).enqueue(object : Callback<AuthResponse>{
                 override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                    Toast.makeText(this@MainActivity, "hai sbagliato credenziali", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@LoginActivity, "hai sbagliato credenziali", Toast.LENGTH_LONG).show()
                 }
 
                 override fun onResponse(
                     call: Call<AuthResponse>,
                     response: Response<AuthResponse>) {
-                    Toast.makeText(applicationContext, response.body().toString(), Toast.LENGTH_LONG)
+                    Toast.makeText(applicationContext, response.body().toString(), Toast.LENGTH_LONG).show()
+                    startActivity(intent)
                 }
             })
 

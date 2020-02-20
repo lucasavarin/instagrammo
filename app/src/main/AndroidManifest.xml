@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.afterLogin.SecondActivity" />
+        <activity android:name="com.example.afterLogin.FragmentsActivity" />
     </application>
 
 </manifest>
