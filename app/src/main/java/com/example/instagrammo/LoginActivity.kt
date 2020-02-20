@@ -1,5 +1,6 @@
 package com.example.instagrammo
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,8 @@ class LoginActivity: AppCompatActivity() {
 
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if (response.isSuccessful){
+                    intent = Intent(applicationContext, MainActivity::class.java)
+                    startActivity(intent)
                     Toast.makeText(applicationContext,"Successo",Toast.LENGTH_LONG).show()
                 }else{
                     Toast.makeText(applicationContext,"Fallimento",Toast.LENGTH_LONG).show()
