@@ -9,14 +9,14 @@ import com.example.login.R
 import kotlinx.android.synthetic.main.second_layout.*
 
 
-class HomeFragment : Fragment() {
+class ProfileFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.home_layout,container,false)
+        return inflater.inflate(R.layout.profile_layout,container,false)
     }
 
 }
