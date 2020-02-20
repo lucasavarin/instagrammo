@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.instagrammo.applicationUtils.prefs
 import com.example.instagrammo.beans.request.AuthRequest
 import com.example.instagrammo.beans.response.AuthResponse
 import com.example.instagrammo.retrofit.RetrofitController
@@ -24,11 +25,17 @@ class LoginActivity:AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         bn_login.setOnClickListener { view -> doLogin() }
+
+        checkbox.isChecked = prefs.rememberMe
+
+        checkbox.setOnCheckedChangeListener { _, isChecked ->
+            prefs.rememberMe = isChecked
+        }
     }
 
 
 
-    fun doLogin(){
+    private fun doLogin(){
         val call = RetrofitController.getClient.doAuth(AuthRequest(username.text.toString(), password.text.toString()))
 
         call.enqueue(object: Callback<AuthResponse>{

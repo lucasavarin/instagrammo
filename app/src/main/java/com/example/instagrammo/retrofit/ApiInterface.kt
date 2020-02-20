@@ -17,11 +17,11 @@ interface ApiInterface {
     @GET("followers.php/{profiloUtente}")
     fun getFollowers(
         @Path("profiloUtente") profileId:Int,
-        @Header("authToken") authToken:String
+        @Header("x-api-key") authToken:String
     ):Call<FollowersWrapper>
 
     @GET("posts.php")
     fun getPosts(
-        @Header("authToken") authToken:String
+        @Header("x-api-key") authToken:String
     ):Call<PostsWrapper>
 }

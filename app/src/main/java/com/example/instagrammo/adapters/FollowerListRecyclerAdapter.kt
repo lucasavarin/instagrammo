@@ -16,7 +16,7 @@ class FollowerListRecyclerAdapter(private val followers: List<Followers>): Recyc
     override fun getItemCount()= followers.size
 
     override fun onBindViewHolder(holder: FollowersListHolder, position: Int) {
-        holder.bindFollower(followers.get(position))
+        holder.bindFollower(followers[position])
     }
 
 }

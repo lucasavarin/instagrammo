@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.adapters.FollowerListRecyclerAdapter
+import com.example.instagrammo.adapters.FollowersListHolder
 import com.example.instagrammo.beans.response.Followers
 import com.example.instagrammo.beans.response.FollowersWrapper
 import com.example.instagrammo.beans.response.Post
@@ -36,15 +39,16 @@ class HomeFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        inflater.inflate(R.layout.fragment_home, container)
-        loadHome()
-        return super.onCreateView(inflater, container, savedInstanceState)
+        super.onCreateView(inflater, container, savedInstanceState)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        linearLayoutManager = LinearLayoutManager(activity)
-        homeFollowerListLayout.layoutManager = linearLayoutManager
         super.onViewCreated(view, savedInstanceState)
+        loadHome()
+        linearLayoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+        homeFollowerListLayout.layoutManager = linearLayoutManager
+
     }
 
     private fun loadHome(){
@@ -55,8 +59,10 @@ class HomeFragment: Fragment() {
                     val body = response.body()!!
                     if(body.result){
                         followers = body.payload
+                        homeFollowerListLayout.adapter = FollowerListRecyclerAdapter(followers)
+                        homeFollowerListLayout.adapter?.notifyDataSetChanged()
                     }else{
-                        Toast.makeText(activity, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Nessun follower trovato", Toast.LENGTH_SHORT).show()
                     }
                 }else{
                     Toast.makeText(activity, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
