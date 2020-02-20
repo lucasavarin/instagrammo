@@ -4,48 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    android:padding="25dp"
+    tools:context=".LoginActivity"
+    android:background="@drawable/black_gradient">
 
-    >
-
-
-<!--    <androidx.appcompat.widget.AppCompatImageView-->
-<!--        android:id="@+id/img"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--&lt;!&ndash;        android:src="@drawable/instalogo"&ndash;&gt;-->
-<!--        app:layout_constraintBottom_toTopOf="@id/user"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-
-<!--        />-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="126dp"
+        android:src="@drawable/gglogo"
+        android:layout_marginTop="56dp"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/user"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:hint="Username"
-        app:layout_constraintBottom_toTopOf="@id/password" />
+        android:layout_height="48dp"
+        android:hint="@string/username_login"
+        android:background="@drawable/edit_text_back"
+        android:layout_marginTop="32dp"
+        android:drawableStart="@drawable/ic_person_outline"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/password"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:hint="Password"
-        app:layout_constraintBottom_toTopOf="@+id/remind" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/remind"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Ricorda credenziali"
-        app:layout_constraintBottom_toTopOf="@+id/login" />
+        android:layout_height="48dp"
+        android:hint="@string/password_login"
+        android:background="@drawable/edit_text_back"
+        android:layout_marginTop="32dp"
+        android:drawableStart="@drawable/ic_lock_outline_black"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/user" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/roundbutton"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:text="@string/textLogin"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/remember" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/remember"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/password"
+    />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:text="@string/remember_me_checkbox"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintTop_toBottomOf="@id/password"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

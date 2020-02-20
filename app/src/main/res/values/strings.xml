@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Login</string>
+    <string name="title_activity_bottom_view">BottomViewActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="textLogin">Login</string>
+    <string name="ricorda_credenziali_schermata_login">Ricorda credenziali</string>
+    <string name="username_login">Username</string>
+    <string name="password_login">Password</string>
+    <string name="remember_me_checkbox">Remember me</string>
+    <string name="Home">Home</string>
 </resources>
