@@ -1,6 +1,7 @@
 package com.example.login
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -13,9 +14,11 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         val intent = Intent(this, FragmentsActivity::class.java)
 
@@ -33,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
                     response: Response<AuthResponse>) {
                     Toast.makeText(applicationContext, response.body().toString(), Toast.LENGTH_LONG).show()
                     startActivity(intent)
+                    prefs.rememberUser
                 }
             })
 
