@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import thushyanthan.scott.javalynx.instagrammo.fragments.HomeFragment
 
 class LoginActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,11 +48,15 @@ class LoginActivity : Activity() {
                     call: Call<AuthResponse>,
                     response: Response<AuthResponse>
                 ) {
-                    Toast.makeText(applicationContext,"Success",Toast.LENGTH_SHORT).show()
-                    //Intent intent = new Intent(HomeActivity);
-                    //startActivity(intent)
-                    sp.save("username", username.text.toString())
-                    sp.save("password", password.text.toString())
+
+                    if (response.body()?.authToken != null && response.body()?.profileID != null){
+                        Toast.makeText(applicationContext,"Success",Toast.LENGTH_SHORT).show()
+                        val intent =  Intent(applicationContext,MainActivity::class.java)
+                        startActivity(intent)
+                        sp.save("username", username.text.toString())
+                        sp.save("password", password.text.toString())
+                    }
+
                 }
 
 
