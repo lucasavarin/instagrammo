@@ -3,6 +3,7 @@ package com.example.afterLogin
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.HomeFragment.HomeFragment
 import com.example.login.R
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,8 +23,14 @@ class FragmentsActivity : AppCompatActivity(){
                     loadFragment(HomeFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
+
+                R.id.Profile -> {
+                    loadFragment(ProfileFragment())
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                else -> return@setOnNavigationItemSelectedListener false
             }
-            true
         }
     }
 
@@ -33,6 +40,7 @@ class FragmentsActivity : AppCompatActivity(){
             fragmentTransaction.commit()
         }
     }
+
 
 
 }

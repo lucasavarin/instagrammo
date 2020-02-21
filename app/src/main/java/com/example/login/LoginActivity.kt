@@ -11,14 +11,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class LoginActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         val intent = Intent(this, FragmentsActivity::class.java)
 
@@ -26,20 +23,30 @@ class LoginActivity : AppCompatActivity() {
             val username = user.text.toString()
             val password = password.text.toString()
 
-            ApiClient.getUser.getUser(AuthRequest(username,password)).enqueue(object : Callback<AuthResponse>{
+            ClientInterceptor.getUser.getUser(AuthRequest(username,password)).enqueue(object : Callback<AuthResponse>{
                 override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
                     Toast.makeText(this@LoginActivity, "hai sbagliato credenziali", Toast.LENGTH_LONG).show()
+
                 }
 
                 override fun onResponse(
                     call: Call<AuthResponse>,
                     response: Response<AuthResponse>) {
-                    Toast.makeText(applicationContext, response.body().toString(), Toast.LENGTH_LONG).show()
-                    startActivity(intent)
-                    prefs.rememberUser
+                    if(response.isSuccessful){
+                        if(response.body()?.result != null){
+                            Session.token = response.body()!!.token
+                            Session.profileId = response.body()!!.profileId
+                            startActivity(intent)
+                        } else{
+                            Toast.makeText(this@LoginActivity, response.message(), Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    else {
+                        Toast.makeText(this@LoginActivity, "Il servizio non è disponibile", Toast.LENGTH_LONG).show()
+                    }
+
                 }
             })
-
         }
 
     }
