@@ -21,5 +21,6 @@ class SplashScreenActivity : AppCompatActivity(){
             // close this activity
             finish()
         }, SPLASH_TIME_OUT)
+
     }
 }
