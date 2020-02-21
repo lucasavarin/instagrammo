@@ -2,27 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/home"
         android:icon="@drawable/baseline_home_white_24"
         android:title="Home"/>
 
     <item
-        android:id="@+id/navigation_search"
+        android:id="@+id/search"
         android:icon="@drawable/baseline_search_white_24"
         android:title="Search"/>
 
     <item
-        android:id="@+id/navigation_add"
+        android:id="@+id/add"
         android:icon="@drawable/baseline_add_box_white_24"
         android:title="Add"/>
 
     <item
-        android:id="@+id/navigation_favorite"
+        android:id="@+id/favorite"
         android:icon="@drawable/baseline_favorite_border_white_24"
         android:title="Favorite"/>
 
     <item
-        android:id="@+id/navigation_person"
+        android:id="@+id/user"
         android:icon="@drawable/baseline_person_outline_white_24"
         android:title="Person"/>
 
