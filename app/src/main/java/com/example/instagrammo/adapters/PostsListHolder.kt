@@ -1,0 +1,32 @@
+package com.example.instagrammo.adapters
+
+import android.view.View
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.beans.response.Followers
+import com.example.instagrammo.beans.response.Post
+import com.example.instagrammo.util.CircleTransform
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.RequestCreator
+import kotlinx.android.synthetic.main.followers_layout_item.view.*
+import kotlinx.android.synthetic.main.post_layout_item.view.*
+
+class PostsListHolder(v:View):RecyclerView.ViewHolder(v), View.OnClickListener {
+
+    private var view: View = v
+    private var post: Post? = null
+
+    fun bindPost(post: Post){
+        this.post = post
+        Picasso.get().load(post.picture).into(view.img)
+        Picasso.get().load(post.profile.picture).transform(CircleTransform()).into(view.propic)
+        view.title.text = post.title
+        view.date.text = post.uploadTime
+        view.name.text = post.profile.name
+    }
+
+
+    override fun onClick(p0: View?) {
+        Toast.makeText(view.context, post.toString(), Toast.LENGTH_LONG).show()
+    }
+}

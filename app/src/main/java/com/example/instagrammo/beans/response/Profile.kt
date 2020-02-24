@@ -5,5 +5,6 @@ data class Profile(
     val name:String,
     val description:String,
     val followersNumber:String,
-    val postsNumber:String
+    val postsNumber:String,
+    val picture: String
 )

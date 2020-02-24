@@ -16,8 +16,8 @@
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
         android:fullBackupContent="@xml/backup_descriptor">
 
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".activities.MainActivity"/>
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name = "android:intent.action.MAIN"/>
                 <category android:name = "androi.intent.category.LAUNCHER"/>

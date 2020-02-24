@@ -1,11 +1,10 @@
-package com.example.instagrammo
+package com.example.instagrammo.activities
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.instagrammo.R
 import com.example.instagrammo.applicationUtils.prefs
 import com.example.instagrammo.beans.request.AuthRequest
 import com.example.instagrammo.beans.response.AuthResponse
@@ -28,6 +27,11 @@ class LoginActivity:AppCompatActivity() {
 
         checkbox.isChecked = prefs.rememberMe
 
+        if (checkbox.isChecked){
+            username.setText(prefs.username)
+            password.setText(prefs.password)
+        }
+
         checkbox.setOnCheckedChangeListener { _, isChecked ->
             prefs.rememberMe = isChecked
         }
@@ -48,6 +52,13 @@ class LoginActivity:AppCompatActivity() {
                         Session.token = body.authToken
                         Session.profileId = body.profileId
 
+                        if(checkbox.isChecked) {
+                            prefs.username = username.text.toString()
+                            prefs.password = password.text.toString()
+                        } else{
+                            prefs.username = ""
+                            prefs.password = ""
+                        }
                         val intent = Intent(applicationContext, MainActivity::class.java)
                         startActivity(intent)
                     } else {
