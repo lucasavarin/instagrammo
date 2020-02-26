@@ -26,19 +26,18 @@ class LoginActivity : AppCompatActivity() {
             ClientInterceptor.getUser.getUser(AuthRequest(username,password)).enqueue(object : Callback<AuthResponse>{
                 override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
                     Toast.makeText(this@LoginActivity, "hai sbagliato credenziali", Toast.LENGTH_LONG).show()
-
                 }
 
                 override fun onResponse(
                     call: Call<AuthResponse>,
                     response: Response<AuthResponse>) {
                     if(response.isSuccessful){
-                        if(response.body()?.result != null){
+                        if(response.body()?.result == true){
                             Session.token = response.body()!!.token
                             Session.profileId = response.body()!!.profileId
                             startActivity(intent)
                         } else{
-                            Toast.makeText(this@LoginActivity, response.message(), Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@LoginActivity, "hai sbagliato credenziali", Toast.LENGTH_LONG).show()
                         }
                     }
                     else {

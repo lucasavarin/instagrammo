@@ -3,16 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@color/colorAccent">
+    android:background="@color/design_default_color_on_primary">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/HomeFollowerStory"
-        android:layout_width  ="0dp"
-        android:layout_height = "wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf = "parent"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/HomeFollowerPosts"
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/HomeFollowerStory"
+        app:layout_constraintLeft_toLeftOf="parent"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

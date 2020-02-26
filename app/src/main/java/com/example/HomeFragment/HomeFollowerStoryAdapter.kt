@@ -5,20 +5,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.login.R
-import com.squareup.picasso.Picasso
 
-class RecycleViewVerticalAdapter (private val dataList : List<HomeUserResponseBean>) : RecyclerView.Adapter<RecycleViewVerticalHolder>(){
+class HomeFollowerStoryAdapter (private val dataList : List<HomeUserResponseBean>) : RecyclerView.Adapter<HomeFollowerStoryHolder>(){
 
     private lateinit var context : Context
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecycleViewVerticalHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFollowerStoryHolder {
         context = parent.context
         val inflatedView = LayoutInflater.from(context).inflate(R.layout.item_horizontal_view, parent,false)
-        return RecycleViewVerticalHolder(inflatedView)
+        return HomeFollowerStoryHolder(inflatedView)
     }
 
     override fun getItemCount(): Int = dataList.size
 
-    override fun onBindViewHolder(holder: RecycleViewVerticalHolder, position: Int) {
+    override fun onBindViewHolder(holder: HomeFollowerStoryHolder, position: Int) {
         holder.bindFollower(dataList.get(position))
     }
 

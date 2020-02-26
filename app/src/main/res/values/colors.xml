@@ -6,4 +6,5 @@
     <color name="primaryColour">#018C89</color>
     <color name="primaryColourEditText">#33018C89</color>
     <color name="colorFinal">#06635F</color>
+    <color name="progressBarColor">#00bb2d</color>
 </resources>
