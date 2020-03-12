@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.example.bean.rest.request.AuthRequest
 import com.example.bean.rest.response.AuthResponse
 import com.example.util.retrofit.ClientInterceptor
@@ -41,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
                             Session.token = response.body()!!.token
                             Session.profileId = response.body()!!.profileId
                             startActivity(intent)
+                            finish()
                         } else{
                             Toast.makeText(this@LoginActivity, "hai sbagliato credenziali", Toast.LENGTH_LONG).show()
                         }
@@ -52,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             })
         }
-
+        
     }
+
 }
