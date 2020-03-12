@@ -1,4 +1,4 @@
-package com.example.HomeFragment
+package com.example.bean.buissnes
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

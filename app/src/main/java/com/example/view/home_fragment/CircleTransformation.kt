@@ -1,4 +1,4 @@
-package com.example.HomeFragment
+package com.example.view.home_fragment
 
 import android.graphics.*
 import com.squareup.picasso.Transformation

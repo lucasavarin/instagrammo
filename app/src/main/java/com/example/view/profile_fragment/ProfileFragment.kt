@@ -1,4 +1,4 @@
-package com.example.afterLogin
+package com.example.view.profile_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.login.R
 
-class AddFragment : Fragment(){
+
+class ProfileFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.add_layout,container,false)
+        return inflater.inflate(R.layout.profile_layout,container,false)
     }
+
 }

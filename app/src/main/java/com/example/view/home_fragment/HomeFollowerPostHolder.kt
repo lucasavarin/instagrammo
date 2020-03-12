@@ -1,7 +1,8 @@
-package com.example.HomeFragment
+package com.example.view.home_fragment
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bean.buissnes.HomePayloadPostBean
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_home_follower_story.view.*
 
@@ -10,7 +11,7 @@ class HomeFollowerPostHolder(itemView: View)  : RecyclerView.ViewHolder(itemView
     private var view: View = itemView
     private var followerPost: HomePayloadPostBean? = null
 
-    fun bindFollowerPost(followerPost :  HomePayloadPostBean){
+    fun bindFollowerPost(followerPost : HomePayloadPostBean){
         this.followerPost = followerPost
         Picasso.get().load(followerPost.picture).into(view.userPost)
         Picasso.get().load(followerPost.HomeProfilePostBean.picture).transform(CircleTransform()).into(view.userPostProfile)

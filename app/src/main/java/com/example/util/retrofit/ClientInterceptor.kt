@@ -1,4 +1,4 @@
-package com.example.login
+package com.example.util.retrofit
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

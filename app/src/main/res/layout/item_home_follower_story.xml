@@ -17,7 +17,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="208dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         android:id="@+id/userPost"
         app:layout_constraintTop_toBottomOf="@id/userPostProfile"

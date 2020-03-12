@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.afterLogin.FragmentsActivity"
+    tools:context="com.example.view.login.FragmentsActivity"
     android:background="@drawable/black_gradient">
 
     <FrameLayout

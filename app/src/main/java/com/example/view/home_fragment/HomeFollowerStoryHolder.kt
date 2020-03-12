@@ -1,9 +1,9 @@
-package com.example.HomeFragment
+package com.example.view.home_fragment
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bean.buissnes.HomeUserResponseBean
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_home_follower_story.view.*
 import kotlinx.android.synthetic.main.item_horizontal_view.view.*
 
 class HomeFollowerStoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{

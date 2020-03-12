@@ -1,8 +1,9 @@
-package com.example.login
+package com.example.util.retrofit
 
-import com.example.HomeFragment.HomeWrapperPostBean
-import com.example.HomeFragment.HomeWrapperResponse
-import com.example.login.AuthRequest as AuthRequest1
+import com.example.bean.buissnes.HomeWrapperPostBean
+import com.example.bean.buissnes.HomeWrapperResponse
+import com.example.bean.rest.response.AuthResponse
+import com.example.bean.rest.request.AuthRequest as AuthRequest1
 import retrofit2.Call
 import retrofit2.http.*
 

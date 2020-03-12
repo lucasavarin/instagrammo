@@ -1,9 +1,10 @@
-package com.example.HomeFragment
+package com.example.view.home_fragment
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bean.buissnes.HomeUserResponseBean
 import com.example.login.R
 
 class HomeFollowerStoryAdapter (private val dataList : List<HomeUserResponseBean>) : RecyclerView.Adapter<HomeFollowerStoryHolder>(){

@@ -1,11 +1,14 @@
-package com.example.login
+package com.example.view.login
 
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.afterLogin.FragmentsActivity
+import com.example.bean.rest.request.AuthRequest
+import com.example.bean.rest.response.AuthResponse
+import com.example.util.retrofit.ClientInterceptor
+import com.example.util.retrofit.Session
+import com.example.login.*
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,7 +26,9 @@ class LoginActivity : AppCompatActivity() {
             val username = user.text.toString()
             val password = password.text.toString()
 
-            ClientInterceptor.getUser.getUser(AuthRequest(username,password)).enqueue(object : Callback<AuthResponse>{
+            ClientInterceptor.getUser.getUser(
+                AuthRequest(username, password)
+            ).enqueue(object : Callback<AuthResponse>{
                 override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
                     Toast.makeText(this@LoginActivity, "hai sbagliato credenziali", Toast.LENGTH_LONG).show()
                 }
