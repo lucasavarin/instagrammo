@@ -70,11 +70,12 @@ class LoginActivity : AppCompatActivity() {
                     val valori:AuthResponse= AuthResponse(response?.body()!!.result,response?.body()!!.authToken,response?.body()!!.profileId)
                     progressBar1.visibility = View.GONE
                     btn.visibility = View.VISIBLE
-                    val bundle  = Bundle()
-                    bundle.putString("profiloId",valori.profileId)
+                    Session.user = editText.text.toString()
+                    Session.token = valori.authToken!!
+                    Session.profileId = Integer.parseInt(valori.profileId!!)
                     val intent : Intent = Intent(applicationContext,MainActivity::class.java)
                     if(valori.authToken!=null && valori.profileId!=null)
-                            startActivity(intent,bundle)
+                            startActivity(intent)
                     else{
                         Toast.makeText(applicationContext, "Credenziali Errate", Toast.LENGTH_SHORT)
                             .show()

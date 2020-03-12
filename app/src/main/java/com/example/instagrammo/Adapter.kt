@@ -1,12 +1,14 @@
 package com.example.instagrammo
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import model.Payload
 import model.StoriesResponse
 
-class Adapter(private val myDataset: Array<StoriesResponse>) :
+class Adapter(private val myDataset: Array<Payload>, private val context : Context) :
     RecyclerView.Adapter<MyViewHolder>() {
 
 
@@ -19,7 +21,8 @@ class Adapter(private val myDataset: Array<StoriesResponse>) :
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
+        val item = myDataset[position]
+        holder.fillData(item,context)
     }
 
 }

@@ -1,14 +1,14 @@
 package com.example.instagrammo
 
-import model.Session
 import com.google.gson.GsonBuilder
+import model.Session
+import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 object RetrofitController{
 
@@ -19,8 +19,14 @@ object RetrofitController{
 
             val interceptor : HttpLoggingInterceptor=  HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
-
-            val client =  OkHttpClient.Builder().addInterceptor(interceptor).build();
+            val client =  OkHttpClient.Builder().addInterceptor(interceptor)
+                .addInterceptor({chain ->
+                    val originalRequest = chain.request()
+                    val builder = originalRequest.newBuilder().header("x-api-key",
+                        Session.token)
+                    val finalRequest = builder.build()
+                     chain.proceed(finalRequest)
+                }).build()
             val gson = GsonBuilder().create()
 
             val retrofit = Retrofit.Builder()
