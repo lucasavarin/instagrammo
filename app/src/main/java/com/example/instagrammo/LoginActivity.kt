@@ -1,5 +1,6 @@
 package com.example.instagrammo
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -7,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.instagrammo.beans.request.AuthRequest
 import com.example.instagrammo.beans.response.AuthResponse
 import com.example.instagrammo.retrofit.Client
-import com.example.instagrammo.shared_prefs.Prefs
 import com.example.instagrammo.shared_prefs.prefs
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
@@ -18,13 +18,13 @@ class LoginActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
         remember_me.isChecked = prefs.remember_user
 
         btn_submit.setOnClickListener{ view-> doLogin()}
         remember_me.setOnCheckedChangeListener{buttonView, isChecked ->
             prefs.remember_user = isChecked
         }
+//        managePrefs()
     }
 
     fun doLogin(){
@@ -37,10 +37,16 @@ class LoginActivity: AppCompatActivity() {
 
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if (response.isSuccessful){
-                    intent = Intent(applicationContext, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    Toast.makeText(applicationContext,"Successo",Toast.LENGTH_LONG).show()
+                    if (response.body()!= null) {
+                        val body = response.body()!!
+                        if(body.result) {
+                            Session.token = response.body()?.authToken
+                            Session.profileId = response.body()!!.profileId
+                            intent = Intent(applicationContext, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
                 }else{
                     Toast.makeText(applicationContext,"Fallimento",Toast.LENGTH_LONG).show()
                 }
@@ -48,4 +54,18 @@ class LoginActivity: AppCompatActivity() {
 
         })
     }
+
+//    fun managePrefs(){
+//        val prefsUser = getSharedPreferences("com.example.instagrammo.shared_prefs.prefs", Context.MODE_PRIVATE)
+//        val editor = prefsUser.edit()
+//        if (remember_me.isChecked){
+//            editor.putString("username", email_label.toString())
+//            editor.putString("password", label_pwd.toString())
+//            editor.apply()
+//        }else{
+//            editor.remove("username")
+//            editor.remove("password")
+//            editor.apply()
+//        }
+//    }
 }

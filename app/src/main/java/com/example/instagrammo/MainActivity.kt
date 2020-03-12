@@ -3,6 +3,7 @@ package com.example.instagrammo
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.example.instagrammo.home_fragment.HomeFragment
 import com.example.instagrammo.util.addFragment
 import com.example.instagrammo.util.replaceFragment
 import kotlinx.android.synthetic.main.activity_main.*

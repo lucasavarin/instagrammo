@@ -5,9 +5,12 @@ import com.google.gson.annotations.SerializedName
 
 data class AuthResponse(
     @Expose
+    @SerializedName(value = "result")
+    val result: Boolean,
+    @Expose
     @SerializedName(value = "authToken")
-    val authToken: String?,
+    val authToken: String,
     @Expose
     @SerializedName(value = "IdProfile")
-    val profileId: String?
+    val profileId: String
 )

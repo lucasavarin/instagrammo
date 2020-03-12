@@ -1,10 +1,11 @@
-package com.example.instagrammo
+package com.example.instagrammo.home_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.instagrammo.R
 
 class HomeFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
