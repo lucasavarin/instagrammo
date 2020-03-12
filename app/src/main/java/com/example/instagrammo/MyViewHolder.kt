@@ -20,7 +20,8 @@ class MyViewHolder (val v: View) : RecyclerView.ViewHolder(v) , View.OnClickList
 
 fun fillData(s : Payload,ctx  :Context){
 
-        Picasso.with(ctx).load(s.picture).resize(300,300).centerInside().into(v.recyclerViewFollowers)
+        Picasso.with(ctx).load(s.picture).resize(300,300).centerInside()
+            .transform(CircleTrasformation()).into(v.recyclerViewFollowers)
 }
 
 

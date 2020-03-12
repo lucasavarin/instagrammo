@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
             showpsw(isShowPsw)
 
         //SharedPref
-        btn.setOnClickListener { view -> doLogin() }
+      //  btn.setOnClickListener { view -> doLogin() }
 
         if (save.isChecked){
 
@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
         */
 
         Log.d("NOME", editText.text.toString() + " " +editTextpwd.text.toString())
-        btn.setOnClickListener { v ->
+       btn.setOnClickListener { v ->
             val call: Call<AuthResponse> =
                 retrofit.auth(User(editText.text.toString(),editTextpwd.text.toString()))
             progressBar1.visibility = View.VISIBLE
