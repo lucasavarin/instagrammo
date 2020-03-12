@@ -16,19 +16,11 @@ interface APiInterface {
     fun getFollowers (
 
         @Path("profiloUtente")
-        profiloUtente : String = Session.profileId,
-
-        @Header("x-api-key")
-        token: String = Session.token
+        profiloUtente : String = Session.profileId
 
     ) : Call<HomeWrapperResponse>
 
     @GET(value = "posts.php")
-    fun getFollowerPost(
-
-        @Header("x-api-key")
-        token: String = Session.token
-
-    ) : Call<HomeWrapperPostBean>
+    fun getFollowerPost() : Call<HomeWrapperPostBean>
 
 }

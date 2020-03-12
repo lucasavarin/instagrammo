@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
             val username = user.text.toString()
             val password = password.text.toString()
 
-            ClientInterceptor.getUser.getUser(
+            ClientInterceptor.getLogin.getUser(
                 AuthRequest(username, password)
             ).enqueue(object : Callback<AuthResponse>{
                 override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
