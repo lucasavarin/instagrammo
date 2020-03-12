@@ -1,6 +1,7 @@
 package com.example.instagrammo
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.main_activity.*
@@ -18,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
             when (it.itemId) {
                 R.id.home -> {
-
                     makeTransaction(HomeFragment.newInstance())
                     true
                 }

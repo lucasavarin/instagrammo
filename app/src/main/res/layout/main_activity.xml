@@ -24,9 +24,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/navigation_item_layout"
         android:background="?colorPrimary"
-        app:itemIconTint="@color/colorAccent"
-    app:itemTextColor="#000"
+        app:itemIconTint="@color/blue"
+         app:itemTextColor="#000"
         android:id="@+id/bottom"
+        app:labelVisibilityMode="labeled"
         android:layout_marginBottom="0dp"
         />
 

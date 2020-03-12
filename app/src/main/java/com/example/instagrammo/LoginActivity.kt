@@ -71,11 +71,13 @@ class LoginActivity : AppCompatActivity() {
                     progressBar1.visibility = View.GONE
                     btn.visibility = View.VISIBLE
                     Session.user = editText.text.toString()
-                    Session.token = valori.authToken!!
-                    Session.profileId = Integer.parseInt(valori.profileId!!)
                     val intent : Intent = Intent(applicationContext,MainActivity::class.java)
-                    if(valori.authToken!=null && valori.profileId!=null)
-                            startActivity(intent)
+                    if(valori.authToken!=null && valori.profileId!=null) {
+                        Session.token = valori.authToken
+                        Session.profileId = Integer.parseInt(valori.profileId)
+                        startActivity(intent)
+                        this@LoginActivity.finish()
+                    }
                     else{
                         Toast.makeText(applicationContext, "Credenziali Errate", Toast.LENGTH_SHORT)
                             .show()
