@@ -55,6 +55,7 @@ class LoginActivity : Activity() {
                         startActivity(intent)
                         sp.save("username", username.text.toString())
                         sp.save("password", password.text.toString())
+                        Token.authToken = response.body()?.authToken.toString()
                     }
 
                 }
