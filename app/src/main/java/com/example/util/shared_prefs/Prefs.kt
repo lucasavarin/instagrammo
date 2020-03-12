@@ -1,4 +1,4 @@
-package com.example.login
+package com.example.util.shared_prefs
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="25dp"
-    tools:context=".LoginActivity"
+    tools:context="com.example.view.login.LoginActivity"
     android:background="@drawable/black_gradient">
 
     <androidx.appcompat.widget.AppCompatImageView

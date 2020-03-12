@@ -1,4 +1,4 @@
-package com.example.HomeFragment
+package com.example.view.home_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.*
-import com.example.login.ClientInterceptor
+import com.example.bean.buissnes.HomeWrapperPostBean
+import com.example.bean.buissnes.HomeWrapperResponse
+import com.example.util.retrofit.ClientInterceptor
 import com.example.login.R
 import kotlinx.android.synthetic.main.home_layout.*
 import retrofit2.Call
@@ -56,7 +58,8 @@ class HomeFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
         HomeFollowerStory.layoutManager = linearLayoutManager
         HomeFollowerStory.setHasFixedSize(true)
-        val adapterFollowers = HomeFollowerStoryAdapter(response.body()!!.payload)
+        val adapterFollowers =
+            HomeFollowerStoryAdapter(response.body()!!.payload)
         HomeFollowerStory.adapter = adapterFollowers
 
         return HomeFollowerStory
@@ -66,7 +69,8 @@ class HomeFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(this.context)
         HomeFollowerPosts.layoutManager = linearLayoutManager
         HomeFollowerPosts.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        val adapterFollowerPost = HomeFollowerPostAdapter(response.body()!!.payload)
+        val adapterFollowerPost =
+            HomeFollowerPostAdapter(response.body()!!.payload)
         HomeFollowerPosts.adapter = adapterFollowerPost
         return HomeFollowerPosts
     }

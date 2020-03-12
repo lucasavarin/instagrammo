@@ -12,15 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".SharedPreference">
-        <activity android:name=".LoginActivity">
+        android:name="com.example.util.shared_prefs.SharedPreference">
+        <activity android:name="com.example.view.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.afterLogin.FragmentsActivity" />
+        <activity android:name="com.example.view.login.FragmentsActivity" />
     </application>
 
 </manifest>

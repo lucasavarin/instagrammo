@@ -1,9 +1,10 @@
-package com.example.afterLogin
+package com.example.view.login
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.HomeFragment.HomeFragment
+import com.example.view.home_fragment.HomeFragment
+import com.example.view.profile_fragment.ProfileFragment
 import com.example.login.R
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
