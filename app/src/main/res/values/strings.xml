@@ -3,4 +3,5 @@
     <string name="nomeUtente">Username</string>
     <string name="pass">Password</string>
     <string name="login">Login</string>
+    <string name="Remember">Ricordami</string>
 </resources>

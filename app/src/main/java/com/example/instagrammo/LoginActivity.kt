@@ -2,6 +2,8 @@ package com.example.instagrammo
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -9,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.loader.content.Loader
 import kotlinx.android.synthetic.main.login_activity.*
 import model.AuthResponse
+import model.Session
 import model.User
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,17 +26,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
 
-        val retrofit = RetrofitController.getIstance()
+        val retrofit = RetrofitController.getClient
         btn.setOnClickListener { v ->
             val call: Call<AuthResponse> =
                 retrofit.auth(User(editText.text.toString(),editTextpwd.text.toString()))
             progressBar1.visibility = View.VISIBLE
-            btn_login.visibility = View.GONE
+            btn.visibility = View.GONE
             call.enqueue(object : Callback<AuthResponse> {
                 override fun onFailure(call: Call<AuthResponse>?, t: Throwable?) {
                     Log.d("RESPONSE", call.toString())
                     progressBar1.visibility = View.GONE
-                    btn_login.visibility = View.VISIBLE
+                    btn.visibility = View.VISIBLE
                     Toast.makeText(applicationContext, "Chiamata non riuscita", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -44,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                 ) {
                     val valori:AuthResponse= AuthResponse(response?.body()!!.result,response?.body()!!.authToken,response?.body()!!.profileId)
                     progressBar1.visibility = View.GONE
-                    btn_login.visibility = View.VISIBLE
+                    btn.visibility = View.VISIBLE
                     val bundle  = Bundle()
                     bundle.putString("profiloId",valori.profileId)
                     val intent : Intent = Intent(applicationContext,MainActivity::class.java)
