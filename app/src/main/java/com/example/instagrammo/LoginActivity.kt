@@ -25,8 +25,30 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
-
         val retrofit = RetrofitController.getClient
+
+        //Show/Hide button
+        show_pass_btn.setOnClickListener{
+            isShowPsw = !isShowPsw
+            showpsw(isShowPsw)
+        }
+            showpsw(isShowPsw)
+
+        //SharedPref
+        btn.setOnClickListener { view -> doLogin() }
+
+        if (save.isChecked){
+
+            save.isChecked = prefs.rememberMe
+            editText.setText(prefs.username)
+        }
+
+       /* save.setOnCheckedChangeListener { _, isChecked ->
+            prefs.rememberMe = isChecked
+        }
+        */
+
+        Log.d("NOME", editText.text.toString() + " " +editTextpwd.text.toString())
         btn.setOnClickListener { v ->
             val call: Call<AuthResponse> =
                 retrofit.auth(User(editText.text.toString(),editTextpwd.text.toString()))
