@@ -7,7 +7,7 @@
     android:background="@color/colorTest">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewSignUp"
+        android:id="@+id/textViewLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
@@ -30,7 +30,7 @@
         android:hint="Username"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSignUp" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewLogin" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextPswd"
@@ -46,7 +46,8 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextUser" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonSignUp"
+        android:id="@+id/buttonLogin"
+        android:text="Login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"

@@ -1,4 +1,4 @@
-package com.mst.instagrammo.beans
+package com.mst.instagrammo.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

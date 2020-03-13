@@ -1,7 +1,7 @@
 package com.mst.instagrammo.api
 
-import com.mst.instagrammo.beans.AuthRequest
-import com.mst.instagrammo.beans.AuthResponse
+import com.mst.instagrammo.model.AuthRequest
+import com.mst.instagrammo.model.AuthResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
