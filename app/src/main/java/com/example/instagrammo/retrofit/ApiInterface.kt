@@ -1,6 +1,6 @@
 package com.example.instagrammo.retrofit
 
-import com.example.instagrammo.Session
+import com.example.instagrammo.ResponseStories
 import com.example.instagrammo.beans.request.AuthRequest
 import com.example.instagrammo.beans.response.AuthResponse
 import com.example.instagrammo.beans.response.HomeWrapperPostBean
@@ -17,8 +17,10 @@ interface ApiInterface {
     ): Call<AuthResponse>
 
     @GET(value = "followers.php/{profiloUtente}")
-    fun getFollowers(@Path ("profiloUtente") profiloUser : String? = Session.profileId)
+    fun getStoriesList(@Path ("profiloUtente") id : String): Call<ResponseStories>
 
     @GET(value = "posts.php")
     fun getFollowersPosts(): Call<HomeWrapperPostBean>
+
+
 }

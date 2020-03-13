@@ -1,6 +1,7 @@
 package com.example.instagrammo.home_fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.Adapter
 import com.example.instagrammo.HomePostAdapter
 import com.example.instagrammo.R
+import com.example.instagrammo.ResponseStories
 import com.example.instagrammo.beans.response.HomeWrapperPostBean
 import com.example.instagrammo.retrofit.Client
+import com.example.instagrammo.retrofit.Session
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 class HomeFragment: Fragment() {
@@ -26,10 +32,8 @@ class HomeFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        super.onCreateView(inflater, container, savedInstanceState)
-//        return inflater.inflate(R.layout.fragment_home, container, false)
 
-        Client.getClient.getFollowersPosts().enqueue(object : retrofit2.Callback<HomeWrapperPostBean>{
+        Client.getClient.getFollowersPosts().enqueue(object : Callback<HomeWrapperPostBean>{
             override fun onFailure(call : Call<HomeWrapperPostBean>, t : Throwable){
 
             }
@@ -41,6 +45,30 @@ class HomeFragment: Fragment() {
             }
         })
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false)
+        rView.layoutManager = layoutManager
+
+        val retrofit = Client.getClient
+        retrofit.getStoriesList(Session.profileId.toString()).enqueue(object :
+            Callback<ResponseStories> {
+            override fun onFailure(call: Call<ResponseStories>, t: Throwable) {
+
+            }
+
+            override fun onResponse(
+                call: Call<ResponseStories>,
+                response: Response<ResponseStories>
+            ) {
+               Log.d("response", response.body()!!.payload.toString())
+                view.rView.adapter = Adapter(response.body()!!.payload)
+            }
+        })
+
     }
 
     companion object{

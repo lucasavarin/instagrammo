@@ -1,5 +1,4 @@
 package com.example.instagrammo.retrofit
-import com.example.instagrammo.Session
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

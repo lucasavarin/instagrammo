@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.instagrammo.beans.request.AuthRequest
 import com.example.instagrammo.beans.response.AuthResponse
 import com.example.instagrammo.retrofit.Client
+import com.example.instagrammo.retrofit.Session
 import com.example.instagrammo.shared_prefs.prefs
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call

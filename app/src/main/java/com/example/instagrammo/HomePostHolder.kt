@@ -3,6 +3,7 @@ package com.example.instagrammo
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.beans.response.HomePayloadPostBean
+import com.example.instagrammo.util.CircleTrasformation
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_layout.view.*
 
@@ -16,7 +17,7 @@ class HomePostHolder(item : View) : RecyclerView.ViewHolder(item), View.OnClickL
         view.Post_title.text = followerPost.title
         view.Post_hour.text = followerPost.uploadTime
         Picasso.get().load(followerPost.picture).into(view.Post_user)
-        Picasso.get().load(followerPost.profile.picture).into(view.Post_user_profile)
+        Picasso.get().load(followerPost.profile.picture).transform(CircleTrasformation()).into(view.Post_user_profile)
     }
 
     override fun onClick(v: View?) {
