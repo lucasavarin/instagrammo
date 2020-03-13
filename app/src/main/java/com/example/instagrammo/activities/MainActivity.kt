@@ -7,13 +7,16 @@ import com.example.instagrammo.R
 import com.example.instagrammo.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.instagrammo.util.*
-import kotlinx.android.synthetic.main.post_layout_item.*
+
 
 class MainActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+
 
         addFragment(
             HomeFragment.makeInstance(),
@@ -67,7 +70,6 @@ class MainActivity: AppCompatActivity() {
             }
         }
     }
-
     override fun onBackPressed() {
         super.onBackPressed()
         if(getFragmentByTag("home") != null){

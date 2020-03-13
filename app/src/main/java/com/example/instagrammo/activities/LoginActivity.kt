@@ -2,6 +2,10 @@ package com.example.instagrammo.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.instagrammo.R
@@ -33,8 +37,22 @@ class LoginActivity:AppCompatActivity() {
         checkbox.setOnCheckedChangeListener { _, isChecked ->
             prefs.rememberMe = isChecked
         }
+
+        checkbox2.setOnCheckedChangeListener {_,isChecked ->
+            checkbox2.isChecked = isChecked
+            onChackedChange(isChecked)
+        }
     }
 
+    private fun onChackedChange(isChecked: Boolean){
+        if(isChecked){
+            password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+        }
+        else{
+            password.transformationMethod = PasswordTransformationMethod.getInstance()
+        }
+        password.setSelection(password.text.toString().length)
+    }
 
 
     private fun doLogin(){
