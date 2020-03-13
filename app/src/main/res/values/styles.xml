@@ -12,7 +12,7 @@
 
     <style name="EdittextStyle">
         <item name="android:textColor">@color/cardview_light_background</item>
-        <item name="android:textColorHint">@color/cardview_light_background</item>
+        <item name="android:textColorHint">@color/lightGrey</item>
         <item name="android:textAlignment">center</item>
         <item name="android:singleLine">true</item>
         <item name="android:drawablePadding">-15dp</item>
