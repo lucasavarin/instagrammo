@@ -11,6 +11,6 @@ data class AuthResponse(
     @SerializedName(value = "authToken")
     val authToken: String,
     @Expose
-    @SerializedName(value = "IdProfile")
+    @SerializedName(value = "profileId")
     val profileId: String
 )

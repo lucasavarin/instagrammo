@@ -16,7 +16,7 @@ class ViewHolderStories (val v: View) : RecyclerView.ViewHolder(v) , View.OnClic
 
     fun fillStories(s : Profilo){
 
-        Picasso.get().load(s.picture).centerInside()
+        Picasso.get().load(s.picture).fit()
             .transform(CircleTrasformation()).into(v.recyclerViewFollowers)
     }
 
