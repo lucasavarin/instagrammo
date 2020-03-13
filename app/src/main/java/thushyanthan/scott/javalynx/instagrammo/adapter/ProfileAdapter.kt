@@ -1,4 +1,4 @@
-package thushyanthan.scott.javalynx.instagrammo.fragments
+package thushyanthan.scott.javalynx.instagrammo.adapter
 
 import android.content.Context
 
