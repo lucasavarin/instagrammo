@@ -54,6 +54,11 @@ class LoginActivity: AppCompatActivity() {
         })
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
+
 //    fun managePrefs(){
 //        val prefsUser = getSharedPreferences("com.example.instagrammo.shared_prefs.prefs", Context.MODE_PRIVATE)
 //        val editor = prefsUser.edit()
