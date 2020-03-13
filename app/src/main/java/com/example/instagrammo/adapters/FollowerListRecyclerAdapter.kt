@@ -3,7 +3,7 @@ package com.example.instagrammo.adapters
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
-import com.example.instagrammo.beans.response.Followers
+import com.example.instagrammo.beans.business.Followers
 import com.example.instagrammo.util.inflate
 
 class FollowerListRecyclerAdapter(private val followers: List<Followers>): RecyclerView.Adapter<FollowersListHolder>() {

@@ -3,12 +3,9 @@ package com.example.instagrammo.adapters
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.instagrammo.beans.response.Followers
-import com.example.instagrammo.beans.response.Post
+import com.example.instagrammo.beans.business.Post
 import com.example.instagrammo.util.CircleTransform
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.RequestCreator
-import kotlinx.android.synthetic.main.followers_layout_item.view.*
 import kotlinx.android.synthetic.main.post_layout_item.view.*
 
 class PostsListHolder(v:View):RecyclerView.ViewHolder(v), View.OnClickListener {

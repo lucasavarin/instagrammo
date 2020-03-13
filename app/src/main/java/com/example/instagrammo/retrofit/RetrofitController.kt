@@ -24,7 +24,7 @@ object RetrofitController {
                     val request = chain.request().newBuilder().addHeader("x-api-key", Session.token).build()
                     return chain.proceed(request)
                 }
-            }).build()
+            }).addInterceptor(interceptor).build()
             val gson = GsonBuilder().create()
 
             val retrofit = Retrofit.Builder()

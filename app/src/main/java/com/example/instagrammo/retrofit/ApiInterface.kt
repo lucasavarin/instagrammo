@@ -1,11 +1,8 @@
 package com.example.instagrammo.retrofit
 
-import com.example.instagrammo.beans.request.AuthRequest
-import com.example.instagrammo.beans.response.AuthResponse
-import com.example.instagrammo.beans.response.FollowersWrapper
-import com.example.instagrammo.beans.response.PostsWrapper
-import com.example.instagrammo.beans.rest.FollowersWrapperREST
-import com.example.instagrammo.beans.rest.PostsWrapperResponseREST
+import com.example.instagrammo.beans.request.AuthRequestREST
+import com.example.instagrammo.beans.business.AuthResponse
+import com.example.instagrammo.beans.rest.*
 import com.example.instagrammo.util.Session
 import retrofit2.Call
 import retrofit2.http.*
@@ -14,7 +11,7 @@ interface ApiInterface {
 
     @POST("auth.php")
     fun doAuth(
-        @Body authRequest: AuthRequest
+        @Body authRequest: AuthRequestREST
     ): Call<AuthResponse>
 
     @GET("followers.php/{profiloUtente}")
@@ -24,4 +21,17 @@ interface ApiInterface {
 
     @GET("posts.php")
     fun getPosts():Call<PostsWrapperResponseREST>
+
+    @GET("profiles.php/{profiloUtente}")
+    fun getProfileSingle(
+        @Path("profiloUtente") profileId: Int
+    ):Call<ProfileWrapperResponseREST>
+
+    @GET("profiles.php")
+    fun getProfileList():Call<ProfileWrapperResponseREST>
+
+    @GET("posts.php/{profiloUtente}")
+    fun getProfilePosts(
+        @Path("profiloUtente") profileId: Int
+    ):Call<ProfilePostResponseWrapperREST>
 }

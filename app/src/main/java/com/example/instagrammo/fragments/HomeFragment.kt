@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
 import com.example.instagrammo.adapters.FollowerListRecyclerAdapter
 import com.example.instagrammo.adapters.PostsListRecyclerAdapter
-import com.example.instagrammo.beans.response.Followers
-import com.example.instagrammo.beans.response.FollowersWrapper
-import com.example.instagrammo.beans.response.Post
-import com.example.instagrammo.beans.response.PostsWrapper
+import com.example.instagrammo.beans.business.Followers
+import com.example.instagrammo.beans.business.Post
 import com.example.instagrammo.beans.rest.FollowersWrapperREST
 import com.example.instagrammo.beans.rest.PostsWrapperResponseREST
 import com.example.instagrammo.retrofit.RetrofitController
@@ -25,8 +23,8 @@ import retrofit2.Response
 
 class HomeFragment: Fragment() {
 
-    var followers: List<Followers> = ArrayList()
-    var posts: List<Post> = ArrayList()
+    var followers: MutableList<Followers> = ArrayList()
+    var posts: MutableList<Post> = ArrayList()
 
     private lateinit var linearLayoutManagerFollowers: LinearLayoutManager
     private lateinit var linearLayoutManagerPosts: LinearLayoutManager
@@ -64,8 +62,9 @@ class HomeFragment: Fragment() {
                 if(response.isSuccessful){
                     val body = response.body()!!
                     if(body.result){
-                        val bean = FollowersWrapper.createBusinessBean(body)
-                        followers = bean.payload
+                        for(follower in body.payload) {
+                            followers.add(Followers.createBusinessBean(follower))
+                        }
                         homeFollowerListLayout.adapter = FollowerListRecyclerAdapter(followers)
                         homeFollowerListLayout.adapter?.notifyDataSetChanged()
                     }else{
@@ -88,8 +87,9 @@ class HomeFragment: Fragment() {
                 if(response.isSuccessful){
                     val body = response.body()!!
                     if(body.result){
-                        val bean = PostsWrapper.createBusinessBean(body)
-                        posts = bean.payload
+                        for(post in body.payload) {
+                            posts.add(Post.createBusinessBean(post))
+                        }
                         homePostListLayout.adapter = PostsListRecyclerAdapter(posts)
                         homePostListLayout.adapter?.notifyDataSetChanged()
                     }else{

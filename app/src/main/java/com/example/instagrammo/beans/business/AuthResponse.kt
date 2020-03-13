@@ -1,4 +1,4 @@
-package com.example.instagrammo.beans.response
+package com.example.instagrammo.beans.business
 import com.example.instagrammo.beans.rest.AuthResponseREST
 
 class AuthResponse(
@@ -7,7 +7,7 @@ class AuthResponse(
     val profileId: Int
 ){
     companion object AuthResponse{
-        fun createBusinessBean(rest: AuthResponseREST): com.example.instagrammo.beans.response.AuthResponse{
+        fun createBusinessBean(rest: AuthResponseREST): com.example.instagrammo.beans.business.AuthResponse {
             return AuthResponse(
                 rest.result,
                 rest.authToken,
