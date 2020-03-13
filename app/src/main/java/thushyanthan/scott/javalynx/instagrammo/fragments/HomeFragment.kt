@@ -13,6 +13,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import thushyanthan.scott.javalynx.instagrammo.*
+import thushyanthan.scott.javalynx.instagrammo.adapter.FollowerAdapter
+import thushyanthan.scott.javalynx.instagrammo.adapter.HomeAdapter
+import thushyanthan.scott.javalynx.instagrammo.util.rest.FollowerPayload
+import thushyanthan.scott.javalynx.instagrammo.util.rest.FollowerResponse
+import thushyanthan.scott.javalynx.instagrammo.util.rest.PostPayload
+import thushyanthan.scott.javalynx.instagrammo.util.rest.PostsResponse
+import thushyanthan.scott.javalynx.instagrammo.util.sharedPrefs.prefs
 import java.util.ArrayList
 
 class HomeFragment: Fragment() {
@@ -29,8 +36,6 @@ class HomeFragment: Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        homePostsListLayout.layoutManager = LinearLayoutManager(context)
-        homeFollowersListLayout.layoutManager = LinearLayoutManager(context)
         getPosts()
         getFollowers()
 
@@ -55,7 +60,11 @@ class HomeFragment: Fragment() {
                     val resultBody = response.body()!!
                     if(resultBody.result){
                         posts = resultBody.payload
-                        homePostsListLayout.adapter = HomeAdapter(posts,context!!)
+                        homePostsListLayout.adapter =
+                            HomeAdapter(
+                                posts,
+                                context!!
+                            )
                         homePostsListLayout.adapter?.notifyDataSetChanged()
                     }
                 }else
@@ -66,7 +75,7 @@ class HomeFragment: Fragment() {
     }
 
     fun getFollowers(){
-        val followersCall = ApiClient.getClient.requestFollowers(Token.profiloUtente)
+        val followersCall = ApiClient.getClient.requestFollowers(prefs.profiloUtente)
         followersCall.enqueue(object : Callback<FollowerResponse>{
             override fun onFailure(call: Call<FollowerResponse>, t: Throwable) {
                 Toast.makeText(activity, "Error1Followers", Toast.LENGTH_SHORT).show()
@@ -80,7 +89,11 @@ class HomeFragment: Fragment() {
                     val resultBody = response.body()!!
                     if(resultBody.result){
                         followers = resultBody.payload
-                        homeFollowersListLayout.adapter = FollowerAdapter(followers,context!!)
+                        homeFollowersListLayout.adapter =
+                            FollowerAdapter(
+                                followers,
+                                context!!
+                            )
                         homeFollowersListLayout.adapter?.notifyDataSetChanged()
                     }
                 }else

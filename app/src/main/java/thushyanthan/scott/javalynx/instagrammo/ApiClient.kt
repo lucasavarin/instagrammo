@@ -10,6 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.internal.platform.Platform.get
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import thushyanthan.scott.javalynx.instagrammo.util.sharedPrefs.prefs
 import kotlin.coroutines.coroutineContext
 
 object ApiClient {
@@ -21,7 +22,7 @@ object ApiClient {
 
            httpClient.addInterceptor(object :Interceptor{
                override fun intercept(chain: Interceptor.Chain): Response {
-                   val req = chain.request().newBuilder().addHeader("x-api-key",Token.authToken).build()
+                   val req = chain.request().newBuilder().addHeader("x-api-key", prefs.token).build()
                    return chain.proceed(req)
                }
            })

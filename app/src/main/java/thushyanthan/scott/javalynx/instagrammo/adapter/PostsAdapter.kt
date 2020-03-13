@@ -1,4 +1,4 @@
-package thushyanthan.scott.javalynx.instagrammo.fragments
+package thushyanthan.scott.javalynx.instagrammo.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,13 +7,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.post_list_item.view.*
-import thushyanthan.scott.javalynx.instagrammo.PostPayload
+import thushyanthan.scott.javalynx.instagrammo.util.rest.PostPayload
 import thushyanthan.scott.javalynx.instagrammo.R
 
 class HomeAdapter (val posts:List<PostPayload>, val context:Context) : RecyclerView.Adapter<ViewHolder>() {
 
      override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.post_list_item, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(
+                context
+            ).inflate(R.layout.post_list_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -32,7 +36,7 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     var v:View = view
     var post: PostPayload? = null
 
-    fun assemblePost(post:PostPayload){
+    fun assemblePost(post: PostPayload){
         this.post = post
         Picasso.get().load(post.picture).into(v.imagePost)
         v.titlePost.text = post.title

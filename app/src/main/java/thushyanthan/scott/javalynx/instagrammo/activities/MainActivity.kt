@@ -1,11 +1,10 @@
-package thushyanthan.scott.javalynx.instagrammo
+package thushyanthan.scott.javalynx.instagrammo.activities
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
+import thushyanthan.scott.javalynx.instagrammo.R
 import thushyanthan.scott.javalynx.instagrammo.fragments.*
 
 class MainActivity: AppCompatActivity(){
@@ -18,7 +17,8 @@ class MainActivity: AppCompatActivity(){
 
         //I added this if statement to keep the selected fragment when rotating the device
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+            supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container,
                 HomeFragment()).commit()
         }
 
@@ -37,7 +37,8 @@ class MainActivity: AppCompatActivity(){
         }
 
         if (selectedFragment != null) {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container
+            supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container
                 , selectedFragment).commit()
         }
 

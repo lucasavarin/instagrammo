@@ -1,33 +1,35 @@
-package thushyanthan.scott.javalynx.instagrammo
+package thushyanthan.scott.javalynx.instagrammo.activities
 
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import thushyanthan.scott.javalynx.instagrammo.fragments.HomeFragment
+import thushyanthan.scott.javalynx.instagrammo.ApiClient
+import thushyanthan.scott.javalynx.instagrammo.R
+import thushyanthan.scott.javalynx.instagrammo.util.rest.AuthResponse
+import thushyanthan.scott.javalynx.instagrammo.util.rest.DataRequest
+import thushyanthan.scott.javalynx.instagrammo.util.sharedPrefs.prefs
 
 class LoginActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val sp = SharedPrefs(context = applicationContext)
+        //val sp =SharedPrefs(context = applicationContext)
 
-        if(!sp.getValueString("username").equals("") && !sp.getValueString("password").equals("") ){
+
+
             val user: EditText = username
-            user.setText(sp.getValueString("username"))
+            user.setText(prefs.username)
             val pw : EditText = password
-            pw.setText(sp.getValueString("password"))
-        }
+            pw.setText(prefs.password)
+
 
         loginButton.setOnClickListener { view ->
 
@@ -51,12 +53,13 @@ class LoginActivity : Activity() {
 
                     if (response.body()?.authToken != null && response.body()?.profileID != null){
                         Toast.makeText(applicationContext,"Success",Toast.LENGTH_SHORT).show()
-                        val intent =  Intent(applicationContext,MainActivity::class.java)
+                        val intent =  Intent(applicationContext,
+                            MainActivity::class.java)
                         startActivity(intent)
-                        sp.save("username", username.text.toString())
-                        sp.save("password", password.text.toString())
-                        Token.authToken = response.body()?.authToken.toString()
-                        Token.profiloUtente = response.body()?.profileID.toString()
+                        prefs.username= username.text.toString()
+                        prefs.password = password.text.toString()
+                        prefs.token = response.body()?.authToken.toString()
+                        prefs.profiloUtente = response.body()?.profileID.toString()
                     }
 
                 }
