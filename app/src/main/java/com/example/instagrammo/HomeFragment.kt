@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.*
 import kotlinx.android.synthetic.main.home_fragment_layout.*
+import model.HomeWrapperPostBean
 import kotlinx.android.synthetic.main.home_fragment_layout.view.*
 import model.Payload
 import model.Session
@@ -40,6 +41,17 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        RetrofitController.getClient.getFollowerPost().enqueue(object : Callback<HomeWrapperPostBean>{
+            override fun onFailure(call: Call<HomeWrapperPostBean>, t: Throwable) {
+
+            }
+            override fun onResponse(
+                call: Call<HomeWrapperPostBean>,
+                response: Response<HomeWrapperPostBean>
+            ) {
+                createPost(response)
+            }
+        })
         return inflater.inflate(R.layout.home_fragment_layout, container, false)
 
     }
@@ -53,7 +65,6 @@ class HomeFragment : Fragment() {
         val retrofit = RetrofitController.getClient
         retrofit.getStoriesList(Session.profileId.toString()).enqueue(object :Callback<StoriesResponse>{
             override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
             }
 
@@ -74,5 +85,14 @@ class HomeFragment : Fragment() {
 
     }
 
+    private fun createPost(response : Response<HomeWrapperPostBean>) : RecyclerView {
+        val linearLayoutManager = LinearLayoutManager(this.context)
+        HomeFollowerPosts.layoutManager = linearLayoutManager
+        HomeFollowerPosts.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        val adapterFollowerPost =
+            HomeFollowerPostAdapter(response.body()!!.payload)
+        HomeFollowerPosts.adapter = adapterFollowerPost
+        return HomeFollowerPosts
+    }
 
 }

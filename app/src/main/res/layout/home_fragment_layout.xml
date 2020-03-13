@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/delius_unicase_bold"
-        android:text="Instagrammo"
+        android:text="@string/app_name"
         android:textSize="20sp"
         android:textColor="@color/blue"
         android:textAlignment="center"
@@ -27,8 +27,7 @@
         app:layout_constraintTop_toBottomOf="@id/textView"
         android:layout_marginTop="16dp"
 
-
-      />
+        />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progressBar2"
@@ -42,5 +41,13 @@
         app:layout_constraintTop_toBottomOf="@id/textView" />
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/HomeFollowerPosts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

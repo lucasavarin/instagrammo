@@ -14,13 +14,12 @@ import kotlinx.android.synthetic.main.item_list_view_layout.view.*
 class MyViewHolder (val v: View) : RecyclerView.ViewHolder(v) , View.OnClickListener{
 
     override fun onClick(v: View?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 
 fun fillData(s : Payload){
 
-        Picasso.get().load(s.picture).resize(300,300).centerInside()
+        Picasso.get().load(s.picture).resize(175,175).centerInside()
             .transform(CircleTrasformation()).into(v.recyclerViewFollowers)
 }
 

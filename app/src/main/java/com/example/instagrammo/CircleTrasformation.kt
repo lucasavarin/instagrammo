@@ -5,11 +5,6 @@ import com.squareup.picasso.Transformation
 import java.nio.file.Files.size
 
 
-
-
-
-
-
 class CircleTrasformation : Transformation{
     override fun key(): String = "Circle"
 
