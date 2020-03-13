@@ -1,4 +1,4 @@
-package thushyanthan.scott.javalynx.instagrammo
+package thushyanthan.scott.javalynx.instagrammo.util.rest
 
 import com.google.gson.annotations.SerializedName
 
