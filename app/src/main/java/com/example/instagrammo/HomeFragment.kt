@@ -1,12 +1,14 @@
 package com.example.instagrammo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.home_fragment_layout.*
+import kotlinx.android.synthetic.main.home_fragment_layout.view.*
 import model.Payload
 import model.Session
 import model.StoriesResponse
@@ -23,7 +25,6 @@ class HomeFragment : Fragment() {
             return fragment
         }
 
-       lateinit var payloads : Array<Payload>
 
     }
 
@@ -40,12 +41,15 @@ class HomeFragment : Fragment() {
     ): View? {
 
         return inflater.inflate(R.layout.home_fragment_layout, container, false)
+
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBar2.visibility = View.VISIBLE
+        view.progressBar2.visibility = View.VISIBLE
+        val lManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false )
+        rView.layoutManager = lManager
         val retrofit = RetrofitController.getClient
         retrofit.getStoriesList(Session.profileId.toString()).enqueue(object :Callback<StoriesResponse>{
             override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
@@ -57,11 +61,14 @@ class HomeFragment : Fragment() {
                 call: Call<StoriesResponse>,
                 response: Response<StoriesResponse>
             ) {
-                progressBar2.visibility = View.GONE
-                payloads = response!!.body()!!.payload
-                val lManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false)
-                rView.layoutManager = lManager
-                rView.adapter = Adapter(payloads,context!!)
+                view.progressBar2.visibility = View.GONE
+
+
+               // val ad = Adapter( response!!.body()!!.payload)
+                Log.d("response",response!!.body()!!.payload.toString())
+                view.rView.adapter = Adapter( response!!.body()!!.payload)
+
+
             }
         })
 

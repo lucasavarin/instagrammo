@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import model.Payload
 import model.StoriesResponse
 
-class Adapter(private val myDataset: Array<Payload>, private val context : Context) :
+class Adapter(private val myDataset: Array<Payload>) :
     RecyclerView.Adapter<MyViewHolder>() {
 
 
@@ -22,7 +22,7 @@ class Adapter(private val myDataset: Array<Payload>, private val context : Conte
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = myDataset[position]
-        holder.fillData(item,context)
+        holder.fillData(item)
     }
 
 }
