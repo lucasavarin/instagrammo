@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_background"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:drawableStart="@drawable/baseline_person_white_18"/>
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_background"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:drawableStart="@drawable/baseline_lock_white_18"/>
 
         <androidx.appcompat.widget.AppCompatCheckBox
