@@ -56,6 +56,7 @@ class LoginActivity : Activity() {
                         sp.save("username", username.text.toString())
                         sp.save("password", password.text.toString())
                         Token.authToken = response.body()?.authToken.toString()
+                        Token.profiloUtente = response.body()?.profileID.toString()
                     }
 
                 }

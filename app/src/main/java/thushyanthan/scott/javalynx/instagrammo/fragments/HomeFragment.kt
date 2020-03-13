@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,39 +17,28 @@ import java.util.ArrayList
 
 class HomeFragment: Fragment() {
     var posts: List<PostPayload> = ArrayList()
+    var followers : List<FollowerPayload> = ArrayList()
+    private lateinit var linearLayoutManagerFollowers: LinearLayoutManager
+    private lateinit var linearLayoutManagerPosts: LinearLayoutManager
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_home,container,false)
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         homePostsListLayout.layoutManager = LinearLayoutManager(context)
-        //getPosts()
-        val postsCall = ApiClient.getClient.requestPosts()
+        homeFollowersListLayout.layoutManager = LinearLayoutManager(context)
+        getPosts()
+        getFollowers()
 
-        postsCall.enqueue(object : Callback<PostsResponse>{
-            override fun onFailure(call: Call<PostsResponse>, t: Throwable) {
-                Toast.makeText(activity, "Error1", Toast.LENGTH_SHORT).show()
-            }
+        linearLayoutManagerPosts = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+        linearLayoutManagerFollowers = LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false)
 
-
-            override fun onResponse(call: Call<PostsResponse>, response: Response<PostsResponse>) {
-                if(response.isSuccessful){
-                    val resultBody = response.body()!!
-                    if(resultBody.result){
-                        posts = resultBody.payload
-                        homePostsListLayout.adapter = HomeAdapter(posts,context!!)
-                        homePostsListLayout.adapter?.notifyDataSetChanged()
-                    }
-                }else
-                    Toast.makeText(activity, "Error2", Toast.LENGTH_SHORT).show()
-
-            }
-        })
-
+        homePostsListLayout.layoutManager = linearLayoutManagerPosts
+        homeFollowersListLayout.layoutManager = linearLayoutManagerFollowers
     }
 
     fun getPosts(){
@@ -56,7 +46,7 @@ class HomeFragment: Fragment() {
 
         postsCall.enqueue(object : Callback<PostsResponse>{
             override fun onFailure(call: Call<PostsResponse>, t: Throwable) {
-                Toast.makeText(activity, "Error1", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Error1Posts", Toast.LENGTH_SHORT).show()
             }
 
 
@@ -69,8 +59,32 @@ class HomeFragment: Fragment() {
                         homePostsListLayout.adapter?.notifyDataSetChanged()
                     }
                 }else
-                    Toast.makeText(activity, "Error2", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Error2Posts", Toast.LENGTH_SHORT).show()
 
+            }
+        })
+    }
+
+    fun getFollowers(){
+        val followersCall = ApiClient.getClient.requestFollowers(Token.profiloUtente)
+        followersCall.enqueue(object : Callback<FollowerResponse>{
+            override fun onFailure(call: Call<FollowerResponse>, t: Throwable) {
+                Toast.makeText(activity, "Error1Followers", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(
+                call: Call<FollowerResponse>,
+                response: Response<FollowerResponse>
+            ) {
+                if(response.isSuccessful){
+                    val resultBody = response.body()!!
+                    if(resultBody.result){
+                        followers = resultBody.payload
+                        homeFollowersListLayout.adapter = FollowerAdapter(followers,context!!)
+                        homeFollowersListLayout.adapter?.notifyDataSetChanged()
+                    }
+                }else
+                    Toast.makeText(activity, "Error2Followers", Toast.LENGTH_SHORT).show()
             }
         })
     }

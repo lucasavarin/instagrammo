@@ -1,8 +1,7 @@
 package thushyanthan.scott.javalynx.instagrammo
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
+import thushyanthan.scott.javalynx.instagrammo.Token.profiloUtente
 
 interface ApiInterface {
         @POST(value = "auth.php")
@@ -12,4 +11,7 @@ interface ApiInterface {
 
         @GET("posts.php")
         fun requestPosts(): Call<PostsResponse>
+
+        @GET("followers.php/{profiloUtente}")
+        fun requestFollowers(@Path("profiloUtente") profiloUtente:String ): Call<FollowerResponse>
 }
