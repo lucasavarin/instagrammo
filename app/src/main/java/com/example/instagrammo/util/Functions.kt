@@ -15,14 +15,16 @@ fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit){
     fragmentTransaction.commit()
 }
 
-fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int): Boolean{
-    supportFragmentManager.inTransaction { add(frameId, fragment) }
-    return true
+fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int, tag:String): Unit{
+    supportFragmentManager.inTransaction { add(frameId, fragment, tag) }
 }
 
-fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int): Boolean{
-    supportFragmentManager.inTransaction { replace(frameId, fragment) }
-    return true
+fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int, tag: String): Unit{
+    supportFragmentManager.inTransaction { replace(frameId, fragment, tag) }
+}
+
+fun AppCompatActivity.getFragmentByTag(tag: String):Fragment? {
+    return supportFragmentManager.findFragmentByTag(tag)
 }
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {

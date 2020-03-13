@@ -1,5 +1,7 @@
 package com.example.instagrammo.beans.response
 
+import com.example.instagrammo.beans.rest.ProfileResponseREST
+
 data class Profile(
     val profileId:String,
     val name:String,
@@ -7,4 +9,17 @@ data class Profile(
     val followersNumber:String,
     val postsNumber:String,
     val picture: String
-)
+){
+    companion object Profile{
+        fun createBusinessBean(rest: ProfileResponseREST): com.example.instagrammo.beans.response.Profile{
+            return Profile(
+                rest.profileId,
+                rest.name,
+                rest.description,
+                rest.followersNumber,
+                rest.postsNumber,
+                rest.picture
+            )
+        }
+    }
+}

@@ -24,7 +24,7 @@ import retrofit2.Response
 class SearchFragment: Fragment() {
 
     companion object{
-        fun makeInstance():Fragment {
+        fun makeInstance():SearchFragment {
             return SearchFragment()
         }
     }

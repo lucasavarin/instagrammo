@@ -7,6 +7,7 @@ import com.example.instagrammo.R
 import com.example.instagrammo.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.instagrammo.util.*
+import kotlinx.android.synthetic.main.post_layout_item.*
 
 class MainActivity: AppCompatActivity() {
 
@@ -16,33 +17,67 @@ class MainActivity: AppCompatActivity() {
 
         addFragment(
             HomeFragment.makeInstance(),
-            R.id.container
+            R.id.container,
+            "home"
         )
 
         bottom_navigation.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
             when (menuItem.itemId) {
-                R.id.home -> replaceFragment(
-                    HomeFragment.makeInstance(),
-                    R.id.container
-                )
-                R.id.search -> replaceFragment(
-                    SearchFragment.makeInstance(),
-                    R.id.container
-                )
-                R.id.add -> replaceFragment(
-                    AddFragment.makeInstance(),
-                    R.id.container
-                )
-                R.id.follow -> replaceFragment(
-                    FavoritesFragment.makeInstance(),
-                    R.id.container
-                )
-                R.id.profile -> replaceFragment(
-                    ProfileFragment.makeInstance(),
-                    R.id.container
-                )
+                R.id.home -> {
+                    replaceFragment(
+                        HomeFragment.makeInstance(),
+                        R.id.container,
+                        "home"
+                    )
+                    true
+                }
+                R.id.search -> {
+                    replaceFragment(
+                        SearchFragment.makeInstance(),
+                        R.id.container,
+                        "search"
+                    )
+                    true
+                }
+                R.id.add -> {
+                    replaceFragment(
+                        AddFragment.makeInstance(),
+                        R.id.container,
+                        "add"
+                    )
+                    true
+                }
+                R.id.follow -> {
+                    replaceFragment(
+                        FavoritesFragment.makeInstance(),
+                        R.id.container,
+                        "follow"
+                    )
+                    true
+                }
+                R.id.profile -> {
+                    replaceFragment(
+                        ProfileFragment.makeInstance(),
+                        R.id.container,
+                        "profile"
+                    )
+                    true
+                }
                 else -> false
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if(getFragmentByTag("home") != null){
+            finishAffinity()
+        } else {
+            replaceFragment(
+                HomeFragment.makeInstance(),
+                R.id.container,
+                "home"
+            )
         }
     }
 }

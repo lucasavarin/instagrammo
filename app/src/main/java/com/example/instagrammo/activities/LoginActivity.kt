@@ -17,8 +17,6 @@ import retrofit2.Response
 
 class LoginActivity:AppCompatActivity() {
 
-    val ctx = this
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -47,7 +45,7 @@ class LoginActivity:AppCompatActivity() {
                 if(response.isSuccessful){
                     val body = response.body()!!
                     if(body.result){
-                        Toast.makeText(ctx, "Autenticazione riuscita", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "Autenticazione riuscita", Toast.LENGTH_SHORT).show()
                         Session.user = username.text.toString()
                         Session.token = body.authToken
                         Session.profileId = body.profileId
@@ -62,15 +60,15 @@ class LoginActivity:AppCompatActivity() {
                         val intent = Intent(applicationContext, MainActivity::class.java)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(ctx, "Autenticazione fallita", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "Autenticazione fallita", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(ctx, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                Toast.makeText(ctx, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
             }
         })
     }

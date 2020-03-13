@@ -24,7 +24,7 @@ import retrofit2.Response
 class AddFragment: Fragment() {
 
     companion object{
-        fun makeInstance():Fragment {
+        fun makeInstance():AddFragment {
             return AddFragment()
         }
     }

@@ -24,7 +24,7 @@ import retrofit2.Response
 class FavoritesFragment: Fragment() {
 
     companion object{
-        fun makeInstance():Fragment {
+        fun makeInstance():FavoritesFragment {
             return FavoritesFragment()
         }
     }

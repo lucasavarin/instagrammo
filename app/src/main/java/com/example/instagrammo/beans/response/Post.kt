@@ -1,5 +1,7 @@
 package com.example.instagrammo.beans.response
 
+import com.example.instagrammo.beans.rest.PostResponseREST
+
 data class Post(
     val profileId:String,
     val postId:String,
@@ -7,4 +9,17 @@ data class Post(
     val picture:String,
     val uploadTime:String,
     val profile:Profile
-)
+){
+    companion object Post{
+        fun createBusinessBean(rest: PostResponseREST): com.example.instagrammo.beans.response.Post{
+            return Post(
+                rest.profileId,
+                rest.postId,
+                rest.title,
+                rest.picture,
+                rest.uploadTime,
+                Profile.createBusinessBean(rest.profile)
+            )
+        }
+    }
+}

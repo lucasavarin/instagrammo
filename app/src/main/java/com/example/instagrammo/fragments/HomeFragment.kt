@@ -15,6 +15,8 @@ import com.example.instagrammo.beans.response.Followers
 import com.example.instagrammo.beans.response.FollowersWrapper
 import com.example.instagrammo.beans.response.Post
 import com.example.instagrammo.beans.response.PostsWrapper
+import com.example.instagrammo.beans.rest.FollowersWrapperREST
+import com.example.instagrammo.beans.rest.PostsWrapperResponseREST
 import com.example.instagrammo.retrofit.RetrofitController
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
@@ -30,7 +32,7 @@ class HomeFragment: Fragment() {
     private lateinit var linearLayoutManagerPosts: LinearLayoutManager
 
     companion object{
-        fun makeInstance():Fragment {
+        fun makeInstance():HomeFragment {
             return HomeFragment()
         }
     }
@@ -57,12 +59,13 @@ class HomeFragment: Fragment() {
 
     private fun loadHome(){
         val callFollowers = RetrofitController.getClient.getFollowers()
-        callFollowers.enqueue(object: Callback<FollowersWrapper> {
-            override fun onResponse(call: Call<FollowersWrapper>, response: Response<FollowersWrapper>) {
+        callFollowers.enqueue(object: Callback<FollowersWrapperREST> {
+            override fun onResponse(call: Call<FollowersWrapperREST>, response: Response<FollowersWrapperREST>) {
                 if(response.isSuccessful){
                     val body = response.body()!!
                     if(body.result){
-                        followers = body.payload
+                        val bean = FollowersWrapper.createBusinessBean(body)
+                        followers = bean.payload
                         homeFollowerListLayout.adapter = FollowerListRecyclerAdapter(followers)
                         homeFollowerListLayout.adapter?.notifyDataSetChanged()
                     }else{
@@ -73,19 +76,20 @@ class HomeFragment: Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<FollowersWrapper>, t: Throwable) {
+            override fun onFailure(call: Call<FollowersWrapperREST>, t: Throwable) {
                 Toast.makeText(activity, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
             }
         })
 
         val callPosts = RetrofitController.getClient.getPosts()
 
-        callPosts.enqueue(object: Callback<PostsWrapper> {
-            override fun onResponse(call: Call<PostsWrapper>, response: Response<PostsWrapper>) {
+        callPosts.enqueue(object: Callback<PostsWrapperResponseREST> {
+            override fun onResponse(call: Call<PostsWrapperResponseREST>, response: Response<PostsWrapperResponseREST>) {
                 if(response.isSuccessful){
                     val body = response.body()!!
                     if(body.result){
-                        posts = body.payload
+                        val bean = PostsWrapper.createBusinessBean(body)
+                        posts = bean.payload
                         homePostListLayout.adapter = PostsListRecyclerAdapter(posts)
                         homePostListLayout.adapter?.notifyDataSetChanged()
                     }else{
@@ -96,7 +100,7 @@ class HomeFragment: Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<PostsWrapper>, t: Throwable) {
+            override fun onFailure(call: Call<PostsWrapperResponseREST>, t: Throwable) {
                 Toast.makeText(activity, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
             }
         })

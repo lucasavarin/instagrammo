@@ -24,7 +24,7 @@ import retrofit2.Response
 class ProfileFragment: Fragment() {
 
     companion object{
-        fun makeInstance():Fragment {
+        fun makeInstance():ProfileFragment {
             return ProfileFragment()
         }
     }
