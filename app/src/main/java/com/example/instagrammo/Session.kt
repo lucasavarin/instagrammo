@@ -1,6 +1,6 @@
 package com.example.instagrammo
 
 object Session {
-    var token : String? = null
+    var token : String = ""
     var profileId : String? = null
 }

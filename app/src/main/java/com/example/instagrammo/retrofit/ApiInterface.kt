@@ -3,6 +3,7 @@ package com.example.instagrammo.retrofit
 import com.example.instagrammo.Session
 import com.example.instagrammo.beans.request.AuthRequest
 import com.example.instagrammo.beans.response.AuthResponse
+import com.example.instagrammo.beans.response.HomeWrapperPostBean
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -17,4 +18,7 @@ interface ApiInterface {
 
     @GET(value = "followers.php/{profiloUtente}")
     fun getFollowers(@Path ("profiloUtente") profiloUser : String? = Session.profileId)
+
+    @GET(value = "posts.php")
+    fun getFollowersPosts(): Call<HomeWrapperPostBean>
 }

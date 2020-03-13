@@ -4,18 +4,18 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class HomePayloadPostBean (
-    @Expose()
+    @Expose
     @SerializedName(value = "profileId") val profileId : String,
-    @Expose()
+    @Expose
     @SerializedName(value = "postId") val postId : String,
-    @Expose()
+    @Expose
     @SerializedName(value = "title") val title : String,
-    @Expose()
+    @Expose
     @SerializedName(value = "uploadTime") val uploadTime : String,
-    @Expose()
+    @Expose
     @SerializedName(value = "picture") val picture : String,
-    @Expose()
-    @SerializedName(value = "profile") val profile : String
+    @Expose
+    @SerializedName(value = "profile") val profile : HomeProfilePostBean
 
 
 )

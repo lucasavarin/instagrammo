@@ -1,12 +1,11 @@
 package com.example.instagrammo.beans.response
 
-import android.service.voice.AlwaysOnHotwordDetector
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class HomeWrapperPostBean(
-    @Expose()
+    @Expose
     @SerializedName(value = "result") val result : Boolean,
-    @Expose()
+    @Expose
     @SerializedName(value = "payload") val payload: List<HomePayloadPostBean>
 )

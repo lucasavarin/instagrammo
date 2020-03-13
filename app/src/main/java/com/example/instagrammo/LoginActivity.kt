@@ -1,6 +1,5 @@
 package com.example.instagrammo
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -40,7 +39,7 @@ class LoginActivity: AppCompatActivity() {
                     if (response.body()!= null) {
                         val body = response.body()!!
                         if(body.result) {
-                            Session.token = response.body()?.authToken
+                            Session.token = response.body()!!.authToken
                             Session.profileId = response.body()!!.profileId
                             intent = Intent(applicationContext, MainActivity::class.java)
                             startActivity(intent)
