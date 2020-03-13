@@ -17,4 +17,8 @@ interface ApiInterface {
 
         @PUT("profiles.php")
         fun saveProfileEdits(@Body bodyProfilo: EditProfileBody): OnlyResultResponse
+
+        @GET("profiles.php/{profiloUtente}")
+        fun getSingleProfile(@Path("profiloUtente") profiloUtente: String): Call<ProfileResponse>
+
 }
