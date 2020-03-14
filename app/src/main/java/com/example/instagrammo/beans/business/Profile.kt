@@ -10,6 +10,7 @@ data class Profile(
     val postsNumber:String,
     val picture: String
 ){
+
     companion object Profile{
         fun createBusinessBean(rest: ProfileResponseREST): com.example.instagrammo.beans.business.Profile {
             return Profile(

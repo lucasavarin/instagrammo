@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.beans.business.Followers
 import com.example.instagrammo.util.CircleTransform
+import com.example.instagrammo.util.NO_PROFILE_PIC
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.followers_layout_item.view.*
 
@@ -15,7 +16,11 @@ class FollowersListHolder(v:View):RecyclerView.ViewHolder(v), View.OnClickListen
 
     fun bindFollower(follower: Followers){
         this.follower = follower
-        Picasso.get().load(follower.picture).transform(CircleTransform()).into(view.followerImage)
+        if(follower.picture.isNotEmpty()) {
+            Picasso.get().load(follower.picture).transform(CircleTransform()).into(view.followerImage)
+        }else{
+            Picasso.get().load(NO_PROFILE_PIC).transform(CircleTransform()).into(view.followerImage)
+        }
     }
 
 

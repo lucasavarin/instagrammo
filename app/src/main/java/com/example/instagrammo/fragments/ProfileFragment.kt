@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
 import com.example.instagrammo.adapters.PostGridRecyclerAdapter
 import com.example.instagrammo.adapters.PostsListRecyclerAdapter
+import com.example.instagrammo.adapters.TabAdapter
 import com.example.instagrammo.beans.business.Post
 import com.example.instagrammo.beans.business.Profile
 import com.example.instagrammo.beans.business.ProfilePost
@@ -21,6 +23,7 @@ import com.example.instagrammo.beans.rest.ProfileWrapperResponseREST
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.util.CircleTransform
 import com.example.instagrammo.util.Session
+import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
 import retrofit2.Call
@@ -29,10 +32,9 @@ import retrofit2.Response
 
 class ProfileFragment: Fragment(){
 
-    private lateinit var gridLayoutManager: GridLayoutManager
-    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var adapter:TabAdapter
 
-    private lateinit var profile: Profile
+    private var profile: Profile? = null
     private lateinit var posts: MutableList<ProfilePost>
 
     companion object{
@@ -53,41 +55,8 @@ class ProfileFragment: Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        gridLayoutManager = GridLayoutManager(activity, 3)
-        linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-
-        grid_list_recycler_view.layoutManager = gridLayoutManager
-
+        adapter = TabAdapter(childFragmentManager)
         performCall()
-
-        navigation.setOnNavigationItemSelectedListener { item: MenuItem ->
-            when(item.itemId){
-                R.id.grid -> {
-                    grid_list_recycler_view.layoutManager = gridLayoutManager
-                    grid_list_recycler_view.adapter = PostGridRecyclerAdapter(posts.toList())
-                    true
-                }
-                R.id.list -> {
-                    grid_list_recycler_view.layoutManager = linearLayoutManager
-                    var postToAdapter:MutableList<Post> = ArrayList<Post>()
-                    for(post in posts){
-                        postToAdapter.add(
-                            Post(
-                            profile.profileId,
-                            post.postId,
-                            post.title,
-                            post.picture,
-                            post.uploadTime,
-                            profile
-                        ))
-                    }
-                    grid_list_recycler_view.adapter = PostsListRecyclerAdapter(postToAdapter.toList())
-                    true
-                }
-                else -> false
-            }
-        }
     }
 
     private fun performCall(){
@@ -103,11 +72,11 @@ class ProfileFragment: Fragment(){
                     val body = response.body()!!
                     if (body.result) {
                         profile = Profile.createBusinessBean(body.payload[0])
-                        Picasso.get().load(profile.picture).transform(CircleTransform()).into(profile_pic)
-                        amici_number.text = profile.followersNumber
-                        post_number.text = profile.postsNumber
-                        name.text = profile.name
-                        description.text = profile.description
+                        Picasso.get().load(profile?.picture).transform(CircleTransform()).into(profile_pic)
+                        amici_number.text = profile?.followersNumber
+                        post_number.text = profile?.postsNumber
+                        name.text = profile?.name
+                        description.text = profile?.description
                     } else {
                         Toast.makeText(activity, "Profilo non trovato", Toast.LENGTH_SHORT).show()
                     }
@@ -132,8 +101,39 @@ class ProfileFragment: Fragment(){
                         for(post in body.payload){
                             posts.add(ProfilePost.createBusinessBean(post))
                         }
-                        grid_list_recycler_view.adapter = PostGridRecyclerAdapter(posts.toList())
-                        grid_list_recycler_view.adapter?.notifyDataSetChanged()
+                        val gridFragment = GridProfileFragment.makeInstance()
+
+                        val listFragment = ListProfileFragment.makeInstance()
+
+                        val postsToAdapter: MutableList<Post> = ArrayList()
+                        for(post in posts){
+                            postsToAdapter.add(Post(
+                                profile?.profileId,
+                                post.postId,
+                                post.title,
+                                post.picture,
+                                post.uploadTime,
+                                profile
+                            ))
+                        }
+
+                        listFragment.posts = postsToAdapter
+                        gridFragment.posts = posts
+
+                        listFragment.adapter = PostsListRecyclerAdapter(postsToAdapter)
+                        gridFragment.adapter = PostGridRecyclerAdapter(posts)
+
+                        listFragment.adapter.notifyDataSetChanged()
+                        gridFragment.adapter.notifyDataSetChanged()
+
+                        adapter.addFragment(gridFragment)
+                        adapter.addFragment(listFragment)
+
+                        viewPager.adapter = adapter
+                        navigation.setupWithViewPager(viewPager)
+
+                        navigation.getTabAt(0)?.setIcon(R.drawable.ic_view_module)
+                        navigation.getTabAt(1)?.setIcon(R.drawable.ic_view_stream_black_24dp)
                     }
                 } else{
                     Toast.makeText(activity, "Profilo non trovato", Toast.LENGTH_SHORT).show()

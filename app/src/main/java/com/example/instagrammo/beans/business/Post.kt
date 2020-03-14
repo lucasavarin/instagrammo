@@ -3,12 +3,12 @@ package com.example.instagrammo.beans.business
 import com.example.instagrammo.beans.rest.PostResponseREST
 
 data class Post(
-    val profileId:String,
+    val profileId:String?,
     val postId:String,
     val title:String,
     val picture:String,
     val uploadTime:String,
-    val profile: Profile
+    val profile: Profile?
 ){
     companion object Post{
         fun createBusinessBean(rest: PostResponseREST): com.example.instagrammo.beans.business.Post {
