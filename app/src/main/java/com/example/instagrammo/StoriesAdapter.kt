@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class Adapter(private val myDataset: Array<Profilo>) :
+class StoriesAdapter(private val myDataset: Array<Profilo>) :
     RecyclerView.Adapter<ViewHolderStories>() {
 
 

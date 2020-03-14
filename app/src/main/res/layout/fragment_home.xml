@@ -11,16 +11,13 @@
         android:id="@+id/header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="40dp"
-        android:text="SplashPanamera"
-        android:textColor="@color/lightPurple"
-        android:textAlignment="center"
+        style="@style/headerStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rView"
+        android:id="@+id/storiesV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,9 +27,9 @@
         android:padding="5dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/homeFollowersPost"
+        android:id="@+id/homePost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/rView"
+        app:layout_constraintTop_toBottomOf="@id/storiesV"
         app:layout_constraintLeft_toLeftOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

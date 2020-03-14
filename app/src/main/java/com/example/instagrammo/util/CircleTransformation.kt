@@ -31,10 +31,10 @@ class CircleTrasformation : Transformation{
         val r = minEdge / 2f
         val paintBorder = Paint()
         paintBorder.style = Paint.Style.STROKE
-        paintBorder.color = Color.argb(84, 200, 0, 0)
+        paintBorder.color = Color.argb(84, 133, 60, 203)
         paintBorder.isAntiAlias = true
         paintBorder.setStrokeWidth(12F)
-        canvas.drawCircle(r, r, r - 1, paintBorder)
+        canvas.drawCircle(r, r, r , paintBorder)
 
         source.recycle()
 

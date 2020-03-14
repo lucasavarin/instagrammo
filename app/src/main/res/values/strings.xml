@@ -4,4 +4,5 @@
     <string name="pwd_label">Password</string>
     <string name="checkbox_label">Ricordami</string>
     <string name="login_btn">Login</string>
+    <string name="title">SplashPanamera</string>
 </resources>

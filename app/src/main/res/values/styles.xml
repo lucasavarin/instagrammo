@@ -31,4 +31,11 @@
         <item name="android:background">@drawable/btn_submit_background</item>
         <item name="android:textColor">@color/cardview_light_background</item>
     </style>
+
+    <style name="headerStyle">
+        <item name="android:text">@string/title</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@color/lightPurple</item>
+        <item name="android:textAlignment">center</item>
+    </style>
 </resources>

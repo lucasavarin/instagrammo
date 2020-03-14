@@ -13,16 +13,17 @@ object Client {
     get() {
         val interceptor= HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
+
         val client = OkHttpClient.Builder().addInterceptor(interceptor)
-            .addInterceptor({chain ->
-                val originalRequest = chain.request()
-                val builder = originalRequest.newBuilder().header("x-api-key",
+            .addInterceptor { chain ->
+                val firstRequest = chain.request()
+                val builder = firstRequest.newBuilder().header("x-api-key",
                     Session.token)
                 val finalRequest = builder.build()
                 chain.proceed(finalRequest)
-            }).build()
-        val gson = GsonBuilder().create()
+            }.build()
 
+        val gson = GsonBuilder().create()
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)

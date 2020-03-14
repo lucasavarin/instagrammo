@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.instagrammo.Adapter
-import com.example.instagrammo.HomePostAdapter
+import com.example.instagrammo.StoriesAdapter
+import com.example.instagrammo.HomePAdapter
 import com.example.instagrammo.R
 import com.example.instagrammo.ResponseStories
 import com.example.instagrammo.beans.response.HomeWrapperPostBean
@@ -33,15 +33,14 @@ class HomeFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        Client.getClient.getFollowersPosts().enqueue(object : Callback<HomeWrapperPostBean>{
+        Client.getClient.getPosts().enqueue(object : Callback<HomeWrapperPostBean>{
             override fun onFailure(call : Call<HomeWrapperPostBean>, t : Throwable){
-
+//                Toast.makeText(this, "error", Toast.LENGTH_SHORT)
             }
             override fun onResponse(
-                call: Call<HomeWrapperPostBean>,
-                response: Response<HomeWrapperPostBean>
+                call: Call<HomeWrapperPostBean>, response: Response<HomeWrapperPostBean>
             ){
-                createPost(response)
+                addPost(response)
             }
         })
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -51,7 +50,7 @@ class HomeFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false)
-        rView.layoutManager = layoutManager
+        storiesV.layoutManager = layoutManager
 
         val retrofit = Client.getClient
         retrofit.getStoriesList(Session.profileId.toString()).enqueue(object :
@@ -65,7 +64,7 @@ class HomeFragment: Fragment() {
                 response: Response<ResponseStories>
             ) {
                Log.d("response", response.body()!!.payload.toString())
-                view.rView.adapter = Adapter(response.body()!!.payload)
+                view.storiesV.adapter = StoriesAdapter(response.body()!!.payload)
             }
         })
 
@@ -77,13 +76,12 @@ class HomeFragment: Fragment() {
         }
     }
 
-    private fun createPost(response: Response<HomeWrapperPostBean>) : RecyclerView{
+    private fun addPost(response: Response<HomeWrapperPostBean>) : RecyclerView{
         val linearLayoutManager = LinearLayoutManager(this.context)
-        homeFollowersPost.layoutManager = linearLayoutManager
-        homeFollowersPost.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        val adapterPosts =
-            HomePostAdapter(response.body()!!.payload)
-        homeFollowersPost.adapter = adapterPosts
-        return homeFollowersPost
+        homePost.layoutManager = linearLayoutManager
+        homePost.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        val adapterPosts = HomePAdapter(response.body()!!.payload)
+        homePost.adapter = adapterPosts
+        return homePost
     }
 }

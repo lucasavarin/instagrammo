@@ -20,7 +20,7 @@ interface ApiInterface {
     fun getStoriesList(@Path ("profiloUtente") id : String): Call<ResponseStories>
 
     @GET(value = "posts.php")
-    fun getFollowersPosts(): Call<HomeWrapperPostBean>
+    fun getPosts(): Call<HomeWrapperPostBean>
 
 
 }
