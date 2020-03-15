@@ -1,5 +1,5 @@
 package com.example.instagrammo.beans.business
-import com.example.instagrammo.beans.rest.AuthResponseREST
+import com.example.instagrammo.beans.response.AuthResponseREST
 
 class AuthResponse(
     val result: Boolean,

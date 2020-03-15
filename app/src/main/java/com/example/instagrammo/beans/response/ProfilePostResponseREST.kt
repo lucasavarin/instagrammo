@@ -1,12 +1,9 @@
-package com.example.instagrammo.beans.rest
+package com.example.instagrammo.beans.response
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class PostResponseREST(
-    @Expose
-    @SerializedName("profileId")
-    val profileId:String,
+data class ProfilePostResponseREST(
     @Expose
     @SerializedName("postId")
     val postId:String,
@@ -18,8 +15,6 @@ data class PostResponseREST(
     val picture:String,
     @Expose
     @SerializedName("uploadTime")
-    val uploadTime:String,
-    @Expose
-    @SerializedName("profile")
-    val profile:ProfileResponseREST
+    val uploadTime:String
+
 )

@@ -1,16 +1,13 @@
-package com.example.instagrammo.beans.rest
+package com.example.instagrammo.beans.response
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class ProfilePostResponseWrapperREST(
+data class PostsWrapperResponseREST(
     @Expose
     @SerializedName("result")
     val result:Boolean,
     @Expose
     @SerializedName("payload")
-    val payload: List<ProfilePostResponseREST>,
-    @Expose
-    @SerializedName("count")
-    val count:Int
+    val payload: List<PostResponseREST>
 )

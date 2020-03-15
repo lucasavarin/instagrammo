@@ -1,6 +1,6 @@
 package com.example.instagrammo.beans.business
 
-import com.example.instagrammo.beans.rest.PostResponseREST
+import com.example.instagrammo.beans.response.PostResponseREST
 
 data class Post(
     val profileId:String?,

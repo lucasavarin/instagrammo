@@ -2,15 +2,10 @@ package com.example.instagrammo.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
 import com.example.instagrammo.adapters.PostGridRecyclerAdapter
 import com.example.instagrammo.adapters.PostsListRecyclerAdapter
@@ -18,12 +13,11 @@ import com.example.instagrammo.adapters.TabAdapter
 import com.example.instagrammo.beans.business.Post
 import com.example.instagrammo.beans.business.Profile
 import com.example.instagrammo.beans.business.ProfilePost
-import com.example.instagrammo.beans.rest.ProfilePostResponseWrapperREST
-import com.example.instagrammo.beans.rest.ProfileWrapperResponseREST
+import com.example.instagrammo.beans.response.ProfilePostResponseWrapperREST
+import com.example.instagrammo.beans.response.ProfileWrapperResponseREST
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.util.CircleTransform
 import com.example.instagrammo.util.Session
-import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
 import retrofit2.Call

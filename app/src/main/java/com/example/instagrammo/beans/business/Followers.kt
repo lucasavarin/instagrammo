@@ -1,6 +1,6 @@
 package com.example.instagrammo.beans.business
 
-import com.example.instagrammo.beans.rest.FollowersResponseREST
+import com.example.instagrammo.beans.response.FollowersResponseREST
 
 data class Followers(
     val id:String,

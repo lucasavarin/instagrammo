@@ -2,7 +2,7 @@ package com.example.instagrammo.retrofit
 
 import com.example.instagrammo.beans.request.AuthRequestREST
 import com.example.instagrammo.beans.business.AuthResponse
-import com.example.instagrammo.beans.rest.*
+import com.example.instagrammo.beans.response.*
 import com.example.instagrammo.util.Session
 import retrofit2.Call
 import retrofit2.http.*

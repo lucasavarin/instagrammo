@@ -13,8 +13,8 @@ import com.example.instagrammo.adapters.FollowerListRecyclerAdapter
 import com.example.instagrammo.adapters.PostsListRecyclerAdapter
 import com.example.instagrammo.beans.business.Followers
 import com.example.instagrammo.beans.business.Post
-import com.example.instagrammo.beans.rest.FollowersWrapperREST
-import com.example.instagrammo.beans.rest.PostsWrapperResponseREST
+import com.example.instagrammo.beans.response.FollowersWrapperREST
+import com.example.instagrammo.beans.response.PostsWrapperResponseREST
 import com.example.instagrammo.retrofit.RetrofitController
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
