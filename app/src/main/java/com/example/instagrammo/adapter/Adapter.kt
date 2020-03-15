@@ -1,12 +1,10 @@
-package com.example.instagrammo
+package com.example.instagrammo.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import model.Payload
-import model.StoriesResponse
+import com.example.instagrammo.R
+import com.example.instagrammo.model.Payload
 
 class Adapter(private val myDataset: Array<Payload>) :
     RecyclerView.Adapter<MyViewHolder>() {

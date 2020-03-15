@@ -1,12 +1,10 @@
-package com.example.instagrammo
+package com.example.instagrammo.adapter
 
-import android.content.Context
 import android.view.View
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.picassotransformation.CircleTrasformation
 import com.squareup.picasso.Picasso
-import model.Payload
-import model.StoriesResponse
+import com.example.instagrammo.model.Payload
 import kotlinx.android.synthetic.main.item_list_view_layout.view.*
 
 

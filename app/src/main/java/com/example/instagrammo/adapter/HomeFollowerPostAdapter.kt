@@ -1,10 +1,11 @@
-package com.example.instagrammo
+package com.example.instagrammo.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import model.Post
+import com.example.instagrammo.R
+import com.example.instagrammo.model.Post
 
 
 class HomeFollowerPostAdapter(private val dataList: List<Post>): RecyclerView.Adapter<HomeFollowerPostHolder>(){
@@ -13,7 +14,9 @@ class HomeFollowerPostAdapter(private val dataList: List<Post>): RecyclerView.Ad
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFollowerPostHolder {
         context = parent.context
         val inflatedView = LayoutInflater.from(context).inflate(R.layout.post_layout_home, parent,false)
-        return HomeFollowerPostHolder(inflatedView)
+        return HomeFollowerPostHolder(
+            inflatedView
+        )
     }
 
     override fun getItemCount(): Int = dataList.size

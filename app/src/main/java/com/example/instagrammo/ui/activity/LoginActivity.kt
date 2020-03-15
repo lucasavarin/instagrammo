@@ -1,4 +1,4 @@
-package com.example.instagrammo
+package com.example.instagrammo.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,13 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.loader.content.Loader
+import com.example.instagrammo.R
+import com.example.instagrammo.retrofit.RetrofitController
 import kotlinx.android.synthetic.main.login_activity.*
-import model.AuthResponse
-import model.Session
-import model.User
+import com.example.instagrammo.model.AuthResponse
+import com.example.instagrammo.model.Session
+import com.example.instagrammo.model.User
+import com.example.instagrammo.prefs
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -71,7 +73,8 @@ class LoginActivity : AppCompatActivity() {
                     progressBar1.visibility = View.GONE
                     btn.visibility = View.VISIBLE
                     Session.user = editText.text.toString()
-                    val intent : Intent = Intent(applicationContext,MainActivity::class.java)
+                    val intent : Intent = Intent(applicationContext,
+                        MainActivity::class.java)
                     if(valori.authToken!=null && valori.profileId!=null) {
                         Session.token = valori.authToken
                         Session.profileId = Integer.parseInt(valori.profileId)

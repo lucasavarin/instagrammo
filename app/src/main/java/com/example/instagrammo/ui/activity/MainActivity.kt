@@ -1,9 +1,10 @@
-package com.example.instagrammo
+package com.example.instagrammo.ui.activity
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.instagrammo.*
+import com.example.instagrammo.ui.fragment.*
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun makeTransaction(f: Fragment) {
+    fun AppCompatActivity.makeTransaction(f: Fragment) {
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
         if (f != null) {

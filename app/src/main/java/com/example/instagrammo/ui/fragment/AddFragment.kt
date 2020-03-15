@@ -1,18 +1,19 @@
-package com.example.instagrammo
+package com.example.instagrammo.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.instagrammo.R
 
-class FavoriteFragment : Fragment(){
+class AddFragment : Fragment(){
 
 
     companion object {
 
-        fun newInstance(): FavoriteFragment {
-            val fragment = FavoriteFragment()
+        fun newInstance(): AddFragment {
+            val fragment = AddFragment()
 
             return fragment
         }
@@ -29,7 +30,7 @@ class FavoriteFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.favorite_fragment_layout, container, false)
+        return inflater.inflate(R.layout.add_fragment_layout, container, false)
     }
 
 

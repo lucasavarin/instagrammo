@@ -1,4 +1,4 @@
-package model
+package com.example.instagrammo.model
 
 data class Payload(
     val id : String,

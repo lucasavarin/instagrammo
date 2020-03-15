@@ -1,9 +1,10 @@
-package com.example.instagrammo
+package com.example.instagrammo.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.example.instagrammo.R
 
 class SplashScreenActivity : AppCompatActivity(){
 
@@ -16,7 +17,8 @@ class SplashScreenActivity : AppCompatActivity(){
             // This method will be executed once the timer is over
             // Start your app main activity
 
-            startActivity(Intent(this,LoginActivity::class.java))
+            startActivity(Intent(this,
+                LoginActivity::class.java))
 
             // close this activity
             finish()

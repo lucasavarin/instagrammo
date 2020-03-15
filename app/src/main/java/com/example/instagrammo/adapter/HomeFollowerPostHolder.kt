@@ -1,11 +1,11 @@
-package com.example.instagrammo
+package com.example.instagrammo.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.picassotransformation.CircleTrasformation
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.post_layout_home.view.*
-import model.Post
-import java.lang.reflect.Array.get
+import com.example.instagrammo.model.Post
 
 class HomeFollowerPostHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 

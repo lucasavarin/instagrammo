@@ -1,4 +1,4 @@
-package model
+package com.example.instagrammo.model
 
 object Session {
     var user : String = ""

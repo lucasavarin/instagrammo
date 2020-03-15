@@ -12,20 +12,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/favicon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:theme="@style/AppTheme"
         android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SplashScreenActivity"
+        <activity android:name=".ui.activity.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-       <activity android:name=".MainActivity"
+       <activity android:name=".ui.activity.MainActivity"
            android:screenOrientation="portrait"
-           tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".LoginActivity"
+           tools:ignore="LockedOrientationActivity"
+           android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <meta-data

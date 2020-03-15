@@ -1,4 +1,4 @@
-package com.example.instagrammo
+package com.example.instagrammo.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.*
+import com.example.instagrammo.adapter.Adapter
+import com.example.instagrammo.adapter.HomeFollowerPostAdapter
+import com.example.instagrammo.R
+import com.example.instagrammo.retrofit.RetrofitController
 import kotlinx.android.synthetic.main.home_fragment_layout.*
-import model.HomeWrapperPostBean
 import kotlinx.android.synthetic.main.home_fragment_layout.view.*
-import model.Payload
-import model.Session
-import model.StoriesResponse
+import com.example.instagrammo.model.Session
+import com.example.instagrammo.model.StoriesResponse
+import com.example.instagrammo.model.HomeWrapperPostBean
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -77,7 +80,8 @@ class HomeFragment : Fragment() {
 
                // val ad = Adapter( response!!.body()!!.payload)
                 Log.d("response",response!!.body()!!.payload.toString())
-                view.rView.adapter = Adapter( response!!.body()!!.payload)
+                view.rView.adapter =
+                    Adapter(response!!.body()!!.payload)
 
 
             }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="HeaderCustomView">
+        <attr name="button" format="reference" />
+        <attr name="titolo" format="string"/>
+    </declare-styleable>
+
+
+
+
+</resources>

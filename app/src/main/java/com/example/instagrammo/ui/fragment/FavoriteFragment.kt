@@ -1,18 +1,19 @@
-package com.example.instagrammo
+package com.example.instagrammo.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.instagrammo.R
 
-class SearchFragment : Fragment(){
+class FavoriteFragment : Fragment(){
 
 
     companion object {
 
-        fun newInstance(): SearchFragment {
-            val fragment = SearchFragment()
+        fun newInstance(): FavoriteFragment {
+            val fragment = FavoriteFragment()
 
             return fragment
         }
@@ -29,7 +30,7 @@ class SearchFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.search_fragment_layout, container, false)
+        return inflater.inflate(R.layout.favorite_fragment_layout, container, false)
     }
 
 

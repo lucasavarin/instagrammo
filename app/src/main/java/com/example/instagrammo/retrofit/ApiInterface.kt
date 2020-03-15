@@ -1,11 +1,8 @@
-package com.example.instagrammo
+package com.example.instagrammo.retrofit
 
 
-import model.AuthResponse
-import model.HomeWrapperPostBean
-import model.Session
-import model.StoriesResponse
-import model.User
+import com.example.instagrammo.model.*
+import com.example.instagrammo.model.HomeWrapperPostBean
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -22,4 +19,7 @@ interface ApiInterface{
 
     @GET(value = "posts.php")
     fun getFollowerPost() : Call<HomeWrapperPostBean>
+
+    @PUT("profiles.php")
+    fun saveUserData(@Body data : SaveDataBean) : Call<SaveUserDataResponseBean>
 }
