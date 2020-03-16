@@ -1,10 +1,7 @@
 package com.example.util.retrofit
 
-import com.example.bean.buissnes.HomeWrapperPostBean
-import com.example.bean.buissnes.HomeWrapperResponse
-import com.example.bean.buissnes.ProfileImgWrapper
+import com.example.bean.buissnes.*
 import com.example.bean.rest.response.AuthResponse
-import com.example.bean.buissnes.ProfileWrapperResponse
 import com.example.bean.rest.request.AuthRequest as AuthRequest1
 import retrofit2.Call
 import retrofit2.http.*
@@ -39,4 +36,13 @@ interface APiInterface {
         @Query("from")  from: String,
         @Query("elements")  elements: String
     ) : Call<ProfileImgWrapper>
+
+    @GET(value = "profiles.php/{profiloUtente}")
+    fun getProfileData(
+        @Path("profiloUtente")
+        profiloUtente : String = Session.profileId
+    ) : Call<ProfileWrapperDataBean>
+
+    @PUT("profiles.php")
+    fun updateProfileData(@Body updateBean : ProfileModifyBean) : Call<ProfileUpdateResponse>
 }

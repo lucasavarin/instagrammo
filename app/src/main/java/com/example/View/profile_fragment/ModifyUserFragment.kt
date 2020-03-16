@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.bean.buissnes.HomeWrapperResponse
 import com.example.bean.buissnes.ProfileModifyBean
 import com.example.bean.buissnes.ProfileUpdateResponse
 import com.example.bean.buissnes.ProfileWrapperDataBean
 import com.example.login.R
 import com.example.util.retrofit.ClientInterceptor
 import com.example.view.home_fragment.CircleTransform
-import com.example.view.home_fragment.HomeFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.modify_profile_layout.*
 import retrofit2.Call
@@ -21,7 +19,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ModifyUserFragment : Fragment() {
-
 
     lateinit var profileId : String
     lateinit var profilePicture : String
@@ -79,7 +76,6 @@ class ModifyUserFragment : Fragment() {
         }
     }
 
-
     private fun getDataProfile(response : Response<ProfileWrapperDataBean>) {
         modifyName.setText(response.body()!!.payload[0].name)
         description.setText(response.body()!!.payload[0].description)
@@ -87,10 +83,7 @@ class ModifyUserFragment : Fragment() {
     }
 
     private fun createBeanUpdate() : ProfileModifyBean{
-        val profileModifyBean = ProfileModifyBean(profileId,
-                                                  modifyName.text.toString(),
-                                                  description.text.toString(),
-                                                  profilePicture)
+        val profileModifyBean = ProfileModifyBean(profileId, modifyName.text.toString(), description.text.toString(), profilePicture)
 
         if(editImg.text.toString() != null && editImg.text.toString() != ""){
             profileModifyBean.picture = "https://i.picsum.photos/id/${editImg.text.toString()}/450/450.jpg"

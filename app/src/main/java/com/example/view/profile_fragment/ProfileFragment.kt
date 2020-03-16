@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bean.buissnes.HomeProfilePostBean
 import com.example.bean.buissnes.HomeWrapperResponse
 import com.example.bean.buissnes.ProfileImgWrapper
-import com.example.view.modifyUserFragment.ModifyUserFragment
 import com.example.login.R
 import com.example.util.retrofit.ClientInterceptor
 import com.example.util.retrofit.Session
@@ -78,8 +77,6 @@ class ProfileFragment : Fragment() {
 //
 //
 //        }
-
-
 
 
 
