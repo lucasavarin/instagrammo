@@ -67,6 +67,12 @@ class ModifyUserFragment : Fragment() {
                     response: Response<ProfileUpdateResponse>
                 ) {
                     Toast.makeText(context, "Aggiornamento andato a buon fine.", Toast.LENGTH_LONG).show()
+                    val fragment = ModifyUserFragment()
+                    val fragmentManager = activity!!.supportFragmentManager
+                    val fragmentTransaction = fragmentManager.beginTransaction()
+                    fragmentTransaction.remove(fragment)
+                    fragmentTransaction.commit()
+                    fragmentManager.popBackStack()
                 }
             })
 
@@ -74,19 +80,19 @@ class ModifyUserFragment : Fragment() {
     }
 
 
-    fun getDataProfile(response : Response<ProfileWrapperDataBean>) {
+    private fun getDataProfile(response : Response<ProfileWrapperDataBean>) {
         modifyName.setText(response.body()!!.payload[0].name)
         description.setText(response.body()!!.payload[0].description)
         Picasso.get().load(response.body()!!.payload[0].picture).transform(CircleTransform()).into(profileImg)
     }
 
-    fun createBeanUpdate() : ProfileModifyBean{
+    private fun createBeanUpdate() : ProfileModifyBean{
         val profileModifyBean = ProfileModifyBean(profileId,
                                                   modifyName.text.toString(),
                                                   description.text.toString(),
                                                   profilePicture)
 
-        if(editImg.text.toString() != null || editImg.text.toString() != ""){
+        if(editImg.text.toString() != null && editImg.text.toString() != ""){
             profileModifyBean.picture = "https://i.picsum.photos/id/${editImg.text.toString()}/450/450.jpg"
         }
 
