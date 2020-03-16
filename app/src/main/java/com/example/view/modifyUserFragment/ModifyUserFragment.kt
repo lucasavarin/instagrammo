@@ -1,4 +1,4 @@
-package com.example.View.modifyUserFragment
+package com.example.view.modifyUserFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

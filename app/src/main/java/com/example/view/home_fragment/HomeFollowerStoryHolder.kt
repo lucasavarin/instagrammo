@@ -13,7 +13,10 @@ class HomeFollowerStoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
     fun bindFollower(follower : HomeUserResponseBean){
         this.follower = follower
-        Picasso.get().load(follower.pictureUser).transform(CircleTransform()).into(view.userStory)
+        if(follower.pictureUser != ""){
+            Picasso.get().load(follower.pictureUser).transform(CircleTransform()).into(view.userStory)
+        }
+
     }
 
     override fun onClick(v: View?) {
