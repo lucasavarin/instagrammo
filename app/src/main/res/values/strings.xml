@@ -5,4 +5,8 @@
     <string name="checkbox_label">Ricordami</string>
     <string name="login_btn">Login</string>
     <string name="title">SplashPanamera</string>
+    <string name="btn_salva">Salva</string>
+    <string name="desc">Descrizione</string>
+    <string name="p_name">Nome Profilo</string>
+    <string name="idImg">Id Immagine</string>
 </resources>
