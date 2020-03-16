@@ -38,4 +38,19 @@
         <item name="android:textColor">@color/lightPurple</item>
         <item name="android:textAlignment">center</item>
     </style>
+
+    <style name="ConfirmBtnStyle">
+        <item name="android:layout_marginStart">50dp</item>
+        <item name="android:background">@drawable/confirm_btn_background</item>
+        <item name="android:drawableEnd">@drawable/baseline_check_white_18</item>
+        <item name="android:paddingEnd">17dp</item>
+        <item name="android:paddingStart">17dp</item>
+    </style>
+
+    <style name="SaveBtnStyle">
+        <item name="android:background">@drawable/save_btn_drawable</item>
+        <item name="android:textColor">@color/cardview_light_background</item>
+        <item name="android:text">@string/btn_salva</item>
+        <item name="android:layout_marginBottom">50dp</item>
+    </style>
 </resources>

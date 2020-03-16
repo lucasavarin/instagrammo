@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.instagrammo.R
 import com.example.instagrammo.beans.response.ProfileWrapperBean
@@ -34,6 +34,8 @@ class EditProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         Client.getClient.getProfile(Session.profileId.toString()).enqueue(object : Callback<ProfileWrapperBean>{
             override fun onFailure(call: Call<ProfileWrapperBean>, t: Throwable) {
@@ -73,7 +75,6 @@ class EditProfileFragment : Fragment() {
                     call: Call<SaveProfileBean>,
                     response: Response<SaveProfileBean>
                 ) {
-                    Toast.makeText(context, "Successo", Toast.LENGTH_SHORT).show()
                     val fragment = EditProfileFragment()
                     val fragmentManager = activity!!.supportFragmentManager
                     val fragmentTransaction = fragmentManager.beginTransaction()
@@ -86,19 +87,19 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    fun fillData(response: Response<ProfileWrapperBean>){
-        profile_name.setText(response.body()!!.payload[0].name)
-        profile_description.setText(response.body()!!.payload[0].description)
-        Picasso.get().load(response.body()!!.payload[0].picture).transform(CircleTrasformation()).into(img)
-        profileId = response.body()!!.payload[0].profileId
-        picture = response.body()!!.payload[0].picture
-    }
-
     fun saveProfileData() : EditProfileBean{
         val editProfile = EditProfileBean(profileId, profile_name.text.toString(), profile_description.text.toString(), picture)
         if (img_edit.text.toString()!= ""){
             editProfile.picture = "https://i.picsum.photos/id/${img_edit.text.toString()}/450/450.jpg"
         }
         return editProfile
+    }
+
+    fun fillData(response: Response<ProfileWrapperBean>){
+        profile_name.setText(response.body()!!.payload[0].name)
+        profile_description.setText(response.body()!!.payload[0].description)
+        Picasso.get().load(response.body()!!.payload[0].picture).transform(CircleTrasformation()).into(img)
+        profileId = response.body()!!.payload[0].profileId
+        picture = response.body()!!.payload[0].picture
     }
 }
