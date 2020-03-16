@@ -17,12 +17,12 @@
         android:layout_height="wrap_content"
         android:text="nomeProfilo"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/ModifyButton"
+        app:layout_constraintBottom_toTopOf="@+id/modifyButton"
 
         />
 
     <Button
-        android:id="@+id/ModifyButton"
+        android:id="@+id/modifyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Modifica Profilo" />

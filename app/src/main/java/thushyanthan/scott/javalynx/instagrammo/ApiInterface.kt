@@ -16,7 +16,7 @@ interface ApiInterface {
         fun requestFollowers(@Path("profiloUtente") profiloUtente:String ): Call<FollowerResponse>
 
         @PUT("profiles.php")
-        fun saveProfileEdits(@Body bodyProfilo: EditProfileBody): OnlyResultResponse
+        fun saveProfileEdits(@Body bodyProfilo: EditProfileBody): Call<OnlyResultResponse>
 
         @GET("profiles.php/{profiloUtente}")
         fun getSingleProfile(@Path("profiloUtente") profiloUtente: String): Call<ProfileResponse>

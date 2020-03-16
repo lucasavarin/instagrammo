@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_profile.*
 import retrofit2.Call
 import thushyanthan.scott.javalynx.instagrammo.ApiClient
 import thushyanthan.scott.javalynx.instagrammo.R
@@ -14,6 +15,7 @@ import thushyanthan.scott.javalynx.instagrammo.util.rest.ProfileResponse
 import thushyanthan.scott.javalynx.instagrammo.util.sharedPrefs.prefs
 import retrofit2.Callback
 import retrofit2.Response
+import thushyanthan.scott.javalynx.instagrammo.fragments.secondaryFragments.EditProfileFragment
 import thushyanthan.scott.javalynx.instagrammo.util.rest.PayloadProfile
 
 
@@ -29,6 +31,12 @@ class ProfileFragment: Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        getSingleProfile()
+        modifyButton.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment_container,
+                EditProfileFragment.makeInstance(profile[0].profileId, profile[0].name, profile[0].description,profile[0].picture))?.commit()
+        }
+
     }
 
     fun getSingleProfile() {
@@ -46,7 +54,6 @@ class ProfileFragment: Fragment() {
                     val resultBody = response.body()!!
                     if(resultBody.result){
                         profile = resultBody.payload
-                        activity?.supportFragmentManager?.beginTransaction().replace(R.id.fragment_container,EditProfileFragment).commit()
                     }
                 }else{
                     Toast.makeText(activity, "Error GetSingleProfile2",Toast.LENGTH_SHORT).show()

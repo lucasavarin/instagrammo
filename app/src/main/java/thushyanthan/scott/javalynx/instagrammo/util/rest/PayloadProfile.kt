@@ -11,6 +11,9 @@ class PayloadProfile (
     @SerializedName("name")
     val name: String,
     @Expose
+    @SerializedName("description")
+    val description: String,
+    @Expose
     @SerializedName("picture")
     val picture: String,
     @Expose
