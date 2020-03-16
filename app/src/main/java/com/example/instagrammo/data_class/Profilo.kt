@@ -1,4 +1,4 @@
-package com.example.instagrammo
+package com.example.instagrammo.data_class
 
 data class Profilo(
     val id : String,

@@ -1,4 +1,4 @@
-package com.example.instagrammo
+package com.example.instagrammo.recyclerview
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

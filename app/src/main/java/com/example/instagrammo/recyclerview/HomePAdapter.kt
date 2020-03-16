@@ -1,9 +1,10 @@
-package com.example.instagrammo
+package com.example.instagrammo.recyclerview
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.R
 import com.example.instagrammo.beans.response.HomePayloadPostBean
 
 class HomePAdapter(private val postList: List<HomePayloadPostBean>) : RecyclerView.Adapter<HomePHolder>() {

@@ -1,8 +1,10 @@
-package com.example.instagrammo
+package com.example.instagrammo.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.data_class.Profilo
+import com.example.instagrammo.R
 
 class StoriesAdapter(private val myDataset: Array<Profilo>) :
     RecyclerView.Adapter<ViewHolderStories>() {

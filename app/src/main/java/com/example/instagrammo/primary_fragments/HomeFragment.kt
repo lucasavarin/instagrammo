@@ -1,4 +1,4 @@
-package com.example.instagrammo.home_fragment
+package com.example.instagrammo.primary_fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.instagrammo.StoriesAdapter
-import com.example.instagrammo.HomePAdapter
+import com.example.instagrammo.recyclerview.HomePAdapter
 import com.example.instagrammo.R
-import com.example.instagrammo.ResponseStories
+import com.example.instagrammo.data_class.ResponseStories
+import com.example.instagrammo.recyclerview.StoriesAdapter
 import com.example.instagrammo.beans.response.HomeWrapperPostBean
 import com.example.instagrammo.retrofit.Client
 import com.example.instagrammo.retrofit.Session
@@ -64,7 +64,8 @@ class HomeFragment: Fragment() {
                 response: Response<ResponseStories>
             ) {
                Log.d("response", response.body()!!.payload.toString())
-                view.storiesV.adapter = StoriesAdapter(response.body()!!.payload)
+                view.storiesV.adapter =
+                    StoriesAdapter(response.body()!!.payload)
             }
         })
 
@@ -80,7 +81,8 @@ class HomeFragment: Fragment() {
         val linearLayoutManager = LinearLayoutManager(this.context)
         homePost.layoutManager = linearLayoutManager
         homePost.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        val adapterPosts = HomePAdapter(response.body()!!.payload)
+        val adapterPosts =
+            HomePAdapter(response.body()!!.payload)
         homePost.adapter = adapterPosts
         return homePost
     }

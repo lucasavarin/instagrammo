@@ -1,7 +1,9 @@
-package com.example.instagrammo
+package com.example.instagrammo.recyclerview
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.data_class.Profilo
+import com.example.instagrammo.R
 import com.example.instagrammo.util.CircleTrasformation
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_layout.view.recyclerViewFollowers
