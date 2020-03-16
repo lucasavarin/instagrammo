@@ -12,6 +12,8 @@ class FollowerHolder (view: View) : RecyclerView.ViewHolder(view){
 
     fun assembleFollower(follower: FollowerPayload){
         this.follower = follower
+
+        if (follower.picture != "")
         Picasso.get().load(follower.picture).into(v.followerImg)
     }
 }

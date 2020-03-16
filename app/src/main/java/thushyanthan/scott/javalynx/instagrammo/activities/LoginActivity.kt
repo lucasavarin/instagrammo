@@ -2,12 +2,13 @@ package thushyanthan.scott.javalynx.instagrammo.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
-import android.widget.CompoundButton
+import android.view.MotionEvent
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
@@ -34,7 +35,20 @@ class LoginActivity : Activity() {
             }
         })
 
+        loginButton.setOnTouchListener(object: View.OnTouchListener{
+            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+                when(p1?.action){
+                    MotionEvent.ACTION_DOWN -> {
+                        p0?.setBackgroundColor(Color.parseColor("#E2CFEA"))
+                    }
+                    MotionEvent.ACTION_UP -> p0?.setBackgroundColor(Color.parseColor("#A06CD5"))
+                }
+                return p0?.onTouchEvent(p1) ?: true
+            }
+        })
+
         loginButton.setOnClickListener { view ->
+
 
             val call = ApiClient.getClient.doAuth(
                 DataRequest(

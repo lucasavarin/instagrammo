@@ -3,12 +3,16 @@ package thushyanthan.scott.javalynx.instagrammo.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.loader.content.Loader
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import thushyanthan.scott.javalynx.instagrammo.R
 import thushyanthan.scott.javalynx.instagrammo.fragments.*
 
 class MainActivity: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
