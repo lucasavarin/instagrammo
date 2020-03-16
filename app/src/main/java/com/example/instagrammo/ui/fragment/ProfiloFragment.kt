@@ -27,6 +27,10 @@ class ProfiloFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
 
     private var profile: Profile? = null
+    private var description:String = ""
+    private var nome:String =""
+    private var imageUrl :String =""
+    private var profileId :String =""
     private lateinit var posts: List<Post>
 
     companion object {
@@ -54,6 +58,10 @@ class ProfiloFragment : Fragment() {
                 response: Response<ProfileWrapperRest>
             ) {
                 createProfilePost(response)
+                description = response.body()!!.payload[0].description
+                nome = response.body()!!.payload[0].name
+                imageUrl = response.body()!!.payload[0].picture
+                profileId = response.body()!!.payload[0].profileId
             }
         })
 
@@ -70,10 +78,10 @@ class ProfiloFragment : Fragment() {
         buttonProfilo.setOnClickListener { v ->
             val f =
                 ModificaProfiloFragment.getIstance(
-                    "1",
-                    "cristian",
-                    "ciao",
-                    ""
+                    profileId,
+                    nome,
+                    description,
+                    imageUrl
                 )
             fragmentManager!!.beginTransaction().add(R.id.frame, f, "TAG").commit()
         }
