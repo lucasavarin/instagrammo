@@ -23,6 +23,7 @@ import thushyanthan.scott.javalynx.instagrammo.R
 import thushyanthan.scott.javalynx.instagrammo.fragments.ProfileFragment
 import thushyanthan.scott.javalynx.instagrammo.util.rest.EditProfileBody
 import thushyanthan.scott.javalynx.instagrammo.util.rest.OnlyResultResponse
+import thushyanthan.scott.javalynx.instagrammo.util.transformation.CircleTransformation
 
 class EditProfileFragment private constructor(val profileId:String, val username:String, val description:String, val picture : String ): Fragment() {
     companion object{
@@ -44,7 +45,7 @@ class EditProfileFragment private constructor(val profileId:String, val username
         val descEditable = Editable.Factory.getInstance().newEditable(description)
         val usernameEditable = Editable.Factory.getInstance().newEditable(username)
         val profIdEditable = Editable.Factory.getInstance().newEditable(profileId)
-        Picasso.get().load(picture).into(profPic)
+        Picasso.get().load(picture).transform(CircleTransformation()).into(profPic)
         editDescription.text = descEditable
         editUsername.text = usernameEditable
         editPicId.text = profIdEditable
