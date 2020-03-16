@@ -4,7 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
+import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
@@ -21,15 +24,15 @@ class LoginActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        //val sp =SharedPrefs(context = applicationContext)
 
 
-
-            val user: EditText = username
-            user.setText(prefs.username)
-            val pw : EditText = password
-            pw.setText(prefs.password)
-
+        login_show_password.setOnCheckedChangeListener({_ ,isChecked->
+            if (isChecked == true){
+                password.setTransformationMethod(HideReturnsTransformationMethod.getInstance())
+            }else{
+                password.setTransformationMethod(PasswordTransformationMethod.getInstance())
+            }
+        })
 
         loginButton.setOnClickListener { view ->
 
@@ -60,6 +63,13 @@ class LoginActivity : Activity() {
                         prefs.password = password.text.toString()
                         prefs.token = response.body()?.authToken.toString()
                         prefs.profiloUtente = response.body()?.profileID.toString()
+
+                        if (login_switch.isActivated){
+                            val user: EditText = username
+                            user.setText(prefs.username)
+                            val pw : EditText = password
+                            pw.setText(prefs.password)
+                        }
                     }
 
                 }
@@ -70,10 +80,5 @@ class LoginActivity : Activity() {
         }
     }
 
-    fun userRepo(): SharedPreferences{
-        val  sharedPref: SharedPreferences = getSharedPreferences("com.prova.instagrammo", 0)
-        sharedPref.edit().putString("username", username.text.toString()).commit();
-        sharedPref.edit().putString("password", username.text.toString()).commit();
-        return sharedPref
-    }
+
 }
