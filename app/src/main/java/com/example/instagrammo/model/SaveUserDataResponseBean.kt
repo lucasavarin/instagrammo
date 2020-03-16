@@ -5,6 +5,4 @@ import com.google.gson.annotations.SerializedName
 
 data class SaveUserDataResponseBean(
     @Expose()
-    @SerializedName("result")
-    val result:Boolean) {
-}
+    @SerializedName("result") val result:Boolean)

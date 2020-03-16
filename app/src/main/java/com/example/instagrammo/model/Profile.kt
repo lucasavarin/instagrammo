@@ -11,10 +11,10 @@ data class Profile(
     @Expose
     @SerializedName("description") val description :String,
     @Expose
+    @SerializedName("picture") val picture : String,
+    @Expose
     @SerializedName("followersNumber") val followersNumber :String,
     @Expose
-    @SerializedName("postsNumber") val postsNumber :String,
-    @Expose
-    @SerializedName("picture") val picture : String
+    @SerializedName("postsNumber") val postsNumber :String
 
 )

@@ -2,6 +2,7 @@ package com.example.instagrammo.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.R
 import com.example.instagrammo.picassotransformation.CircleTrasformation
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.post_layout_home.view.*
@@ -17,8 +18,13 @@ class HomeFollowerPostHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         view.Profile_name.text = followerPost.profile.name
         view.Post_title.text = followerPost.title
         view.Post_hour.text = followerPost.uploadTime
-        Picasso.get().load(followerPost.picture).into(view.Post_user)
         Picasso.get().load(followerPost.profile.picture).transform(CircleTrasformation()).into(view.Post_user_profile)
+        if (followerPost.picture.isNotEmpty()) {
+            Picasso.get().load(followerPost.picture).into(view.Post_user)
+        }else{
+            itemView.Post_user.setImageResource(R.drawable.ic_account_circle_black_24dp)
+        }
+
     }
 
 

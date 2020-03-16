@@ -22,4 +22,7 @@ interface ApiInterface{
 
     @PUT("profiles.php")
     fun saveUserData(@Body data : SaveDataBean) : Call<SaveUserDataResponseBean>
+
+    @GET("profiles.php/{profiloUtente}")
+    fun getProfile(@Path("profiloUtente") profileId: Int = Session.profileId):Call<ProfileWrapperRest>
 }

@@ -28,13 +28,15 @@ class CircleTrasformation : Transformation{
         val canvas = Canvas(output)
         canvas.drawOval(RectF(0f, 0f, minEdge.toFloat(), minEdge.toFloat()), paint)
 
-        val r = minEdge / 2f
+        /*val r = minEdge / 2f
         val paintBorder = Paint()
         paintBorder.style = Paint.Style.STROKE
         paintBorder.color = Color.argb(84, 200, 0, 0)
         paintBorder.isAntiAlias = true
         paintBorder.setStrokeWidth(12F)
         canvas.drawCircle(r, r, r - 1, paintBorder)
+
+         */
 
         source.recycle()
 

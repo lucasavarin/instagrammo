@@ -8,5 +8,4 @@ data class SaveDataBean (
         @SerializedName("description") val desc : String,
         @SerializedName("picture") val pic : String
 
-) {
-}
+)

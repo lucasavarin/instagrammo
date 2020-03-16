@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         var fragment: Fragment? = null
 
+
+
         bottom.setOnNavigationItemSelectedListener {
 
 
@@ -57,4 +59,5 @@ class MainActivity : AppCompatActivity() {
             transaction.commit()
         }
     }
+
 }

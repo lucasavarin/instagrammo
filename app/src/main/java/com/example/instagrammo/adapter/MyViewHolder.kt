@@ -2,6 +2,7 @@ package com.example.instagrammo.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.R
 import com.example.instagrammo.picassotransformation.CircleTrasformation
 import com.squareup.picasso.Picasso
 import com.example.instagrammo.model.Payload
@@ -16,9 +17,12 @@ class MyViewHolder (val v: View) : RecyclerView.ViewHolder(v) , View.OnClickList
 
 
 fun fillData(s : Payload){
-
-        Picasso.get().load(s.picture).resize(175,175).centerInside()
-            .transform(CircleTrasformation()).into(v.recyclerViewFollowers)
+        if (s.picture.isNotEmpty()) {
+            Picasso.get().load(s.picture).resize(175, 175).centerInside()
+                .transform(CircleTrasformation()).into(v.recyclerViewFollowers)
+        }else{
+            v.recyclerViewFollowers.setImageResource(R.drawable.ic_account_circle_black_24dp)
+        }
 }
 
 
