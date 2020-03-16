@@ -25,6 +25,10 @@ class MainActivity: AppCompatActivity(){
 
     }
 
+    override fun onBackPressed() {
+        //super.onBackPressed()
+    }
+
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         var selectedFragment: Fragment? = null
 
