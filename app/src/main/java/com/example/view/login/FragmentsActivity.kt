@@ -15,6 +15,7 @@ class FragmentsActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.second_layout)
 
+
         val bottomNavigationMenu : BottomNavigationView = findViewById(R.id.nav_view)
 
         bottomNavigationMenu.setOnNavigationItemSelectedListener { item ->

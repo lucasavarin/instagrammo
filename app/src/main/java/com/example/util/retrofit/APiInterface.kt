@@ -1,7 +1,6 @@
 package com.example.util.retrofit
 
-import com.example.bean.buissnes.HomeWrapperPostBean
-import com.example.bean.buissnes.HomeWrapperResponse
+import com.example.bean.buissnes.*
 import com.example.bean.rest.response.AuthResponse
 import com.example.bean.rest.request.AuthRequest as AuthRequest1
 import retrofit2.Call
@@ -22,5 +21,14 @@ interface APiInterface {
 
     @GET(value = "posts.php")
     fun getFollowerPost() : Call<HomeWrapperPostBean>
+
+    @GET(value= "profiles.php/{profiloUtente}")
+    fun getProfileData (
+        @Path("profiloUtente")
+        profiloUtente : String = Session.profileId
+    ) : Call<ProfileWrapperDataBean>
+
+    @PUT(value= "profiles.php")
+    fun updateProfileData (@Body profileUpdateRequest : ProfileModifyBean) : Call<ProfileUpdateResponse>
 
 }
