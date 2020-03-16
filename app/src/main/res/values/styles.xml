@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/rosaChiaro</item>
+        <item name="colorPrimary">@color/violaScuro</item>
         <item name="colorPrimaryDark">@color/verdeScuro</item>
-        <item name="colorAccent">@color/violaChiaro</item>
+        <item name="colorAccent">@color/rosaChiaro</item>
     </style>
 
     <style name="FloatingLoginHint" parent="@android:style/TextAppearance">

@@ -6,12 +6,6 @@
         android:top="10dp"
         android:bottom="10dp" />
 
-    <!--<gradient android:startColor="@color/verdeScuro"
-        android:type="linear"
-        android:centerColor="@color/violaScuro"
-        android:endColor="@color/verdeScuro"
-        android:angle="0" />
-        -->
     <solid android:color="@color/violaScuro"/>
 
 </shape>
