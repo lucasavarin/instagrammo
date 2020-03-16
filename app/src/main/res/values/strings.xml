@@ -14,4 +14,11 @@
     <string name="add_bottomNavigationMenu">Add</string>
     <string name="follow_bottomNavigationMenu">Follow</string>
     <string name="profile_bottomNavigationMenu">Profile</string>
+    <string name="modifica_profilo_salva">Salva</string>
+    <string name="modifica_profilo_descrizione">Descrizione:</string>
+    <string name="modifica_profilo_aggiungi_descrizione">Aggiungi una descrizione</string>
+    <string name="nome_utente">Nome utente</string>
+    <string name="modifica_profilo_nome_profilo">Nome profilo:</string>
+    <string name="modifica_profilo_id_immagine">Id immagine</string>
+    <string name="modifica_profilo">Modifica profilo</string>
 </resources>
