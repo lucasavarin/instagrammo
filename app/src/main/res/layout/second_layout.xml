@@ -16,14 +16,15 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_navigation"
-        app:itemIconTint="@color/white"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconTint="@color/design_default_color_on_secondary"
         app:itemTextColor="@color/white"
-        app:labelVisibilityMode="unlabeled"
+        app:labelVisibilityMode="selected"
         android:background="@color/celeste"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
