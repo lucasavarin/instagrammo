@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
 import com.example.instagrammo.adapter.ProfileAdapter
 import com.example.instagrammo.model.*
+import com.example.instagrammo.picassotransformation.CircleTrasformation
 import com.example.instagrammo.retrofit.RetrofitController
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.profile_post_layout.*
 import kotlinx.android.synthetic.main.profilo_fragment_layout.*
 import retrofit2.Call
@@ -57,11 +59,12 @@ class ProfiloFragment : Fragment() {
                 call: Call<ProfileWrapperRest>,
                 response: Response<ProfileWrapperRest>
             ) {
-                createProfile(response)
+               // createProfile(response)
                 description = response.body()!!.payload[0].description
                 nome = response.body()!!.payload[0].name
                 imageUrl = response.body()!!.payload[0].picture
                 profileId = response.body()!!.payload[0].profileId
+                fillDataUser(description,imageUrl,response!!.body()!!.payload[0].followersNumber,response!!.body()!!.payload[0].postsNumber)
             }
         })
 
@@ -97,6 +100,13 @@ class ProfiloFragment : Fragment() {
         pageprofile.adapter = adapterFollowerPost
         return pageprofile
 
+    }
+
+    fun fillDataUser(desc:String,image:String,nAmici:String,nPosts:String){
+        Picasso.get().load(image).resize(175,175).transform(CircleTrasformation()).into(Profile_photo)
+        Post_number.text = nPosts
+        Friend_number.text = nAmici
+        Bio.text = desc
     }
 
 }
