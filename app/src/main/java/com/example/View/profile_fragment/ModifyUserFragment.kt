@@ -13,10 +13,13 @@ import com.example.login.R
 import com.example.util.retrofit.ClientInterceptor
 import com.example.view.home_fragment.CircleTransform
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.custom_view_layout.*
 import kotlinx.android.synthetic.main.modify_profile_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URI
+
 
 class ModifyUserFragment : Fragment() {
 
@@ -53,6 +56,26 @@ class ModifyUserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+         checkImg.setOnClickListener{
+
+            if(editImg.text.toString() != ""){
+
+                val pathImage = "https://i.picsum.photos/id/${editImg.text.toString()}/450/450.jpg"
+                Picasso.get().load(pathImage).transform(CircleTransform()).into(profileImg)
+                checkImg.setImageResource(R.drawable.ic_check_black)
+            }
+        }
+        
+        backButton.setOnClickListener {
+
+            val fragmentManager = activity!!.supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.remove(this)
+            fragmentTransaction.commit()
+            fragmentManager.popBackStack()
+
+        }
+
         saveButton.setOnClickListener{
             ClientInterceptor.getUser.updateProfileData(createBeanUpdate()).enqueue(object:  Callback<ProfileUpdateResponse>{
                 override fun onFailure(call: Call<ProfileUpdateResponse>, t: Throwable) {
@@ -80,12 +103,21 @@ class ModifyUserFragment : Fragment() {
         modifyName.setText(response.body()!!.payload[0].name)
         description.setText(response.body()!!.payload[0].description)
         Picasso.get().load(response.body()!!.payload[0].picture).transform(CircleTransform()).into(profileImg)
+        editImg.setText(getIdParam(response.body()!!.payload[0].picture))
+    }
+
+    private fun getIdParam(path : String) : String? {
+        val uri = URI(path)
+        val pathImage: String = uri.path
+        val pathFiltered = pathImage.substringAfter("id/")
+
+        return pathFiltered.substringBefore("/4")
     }
 
     private fun createBeanUpdate() : ProfileModifyBean{
         val profileModifyBean = ProfileModifyBean(profileId, modifyName.text.toString(), description.text.toString(), profilePicture)
 
-        if(editImg.text.toString() != null && editImg.text.toString() != ""){
+        if(editImg.text.toString() != ""){
             profileModifyBean.picture = "https://i.picsum.photos/id/${editImg.text.toString()}/450/450.jpg"
         }
 

@@ -21,4 +21,6 @@
     <string name="modifica_profilo_nome_profilo">Nome profilo:</string>
     <string name="modifica_profilo_id_immagine">Id immagine</string>
     <string name="modifica_profilo">Modifica profilo</string>
+    <string name="inserisci_l_id_dell_immagine">Inserisci l\'ID dell\'immagine</string>
+    <string name="check_image">Check Image</string>
 </resources>
