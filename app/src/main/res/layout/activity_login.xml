@@ -8,29 +8,30 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:src="@mipmap/logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:fontFamily=""
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:gravity="center"
-            android:text="@string/app_name"
-            android:textSize="50sp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHeight_percent="0.3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logo" />
+            app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/logo" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/appCompatTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textSize="50sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/username"
@@ -64,7 +65,7 @@
             android:hint="@string/password"
             android:inputType="textPassword"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/checkbox"
+            app:layout_constraintBottom_toTopOf="@+id/switchEditText"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toRightOf="@+id/imageView1"
             app:layout_constraintRight_toRightOf="parent" />
@@ -75,46 +76,53 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:src="@drawable/ic_lock_black_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/checkbox"
+            app:layout_constraintBottom_toTopOf="@+id/switchEditText"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/password" />
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/checkbox2"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/showHideEyes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/ic_show_password_24dp"
             app:layout_constraintBottom_toTopOf="@+id/password"
             app:layout_constraintEnd_toStartOf="@+id/password"
-            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintHorizontal_bias="0.15"
             app:layout_constraintStart_toEndOf="@+id/password"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            app:layout_constraintVertical_bias="0.490" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="150dp"
-            android:textColor="@color/white"
-            android:theme="@style/MyCheckBox"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/switchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintHeight_percent="0.20"
             app:layout_constraintBottom_toTopOf="@+id/bn_login"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/editText" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="155dp"
-            android:text="@string/ricordami"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/bn_login"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintLeft_toRightOf="@+id/checkbox"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:theme="@style/MyCheckBox"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ricordami"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:layout_marginTop="15dp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bn_login"

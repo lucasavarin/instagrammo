@@ -37,19 +37,22 @@ class LoginActivity:AppCompatActivity() {
         checkbox.setOnCheckedChangeListener { _, isChecked ->
             prefs.rememberMe = isChecked
         }
-
-        checkbox2.setOnCheckedChangeListener {_,isChecked ->
-            checkbox2.isChecked = isChecked
-            onChackedChange(isChecked)
+        var isShowPass = false
+        showHideEyes.setOnClickListener {
+            isShowPass =! isShowPass
+            showHidePassword(isShowPass)
         }
+        showHidePassword(isShowPass)
     }
 
-    private fun onChackedChange(isChecked: Boolean){
-        if(isChecked){
+    private fun showHidePassword(isShow: Boolean){
+        if(isShow){
             password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            showHideEyes.setImageResource(R.drawable.ic_show_password_24dp)
         }
         else{
             password.transformationMethod = PasswordTransformationMethod.getInstance()
+            showHideEyes.setImageResource(R.drawable.ic_hide_password_24dp)
         }
         password.setSelection(password.text.toString().length)
     }
