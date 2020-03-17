@@ -23,7 +23,7 @@ import retrofit2.Callback
 
 class ProfiloFragment : Fragment() {
 
-    private lateinit var gridLayoutManager: GridLayoutManager
+    //private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var linearLayoutManager: LinearLayoutManager
 
     private var profile: Profile? = null
@@ -57,13 +57,14 @@ class ProfiloFragment : Fragment() {
                 call: Call<ProfileWrapperRest>,
                 response: Response<ProfileWrapperRest>
             ) {
-                createProfilePost(response)
+                createProfile(response)
                 description = response.body()!!.payload[0].description
                 nome = response.body()!!.payload[0].name
                 imageUrl = response.body()!!.payload[0].picture
                 profileId = response.body()!!.payload[0].profileId
             }
         })
+
 
 
         super.onCreateView(inflater, container, savedInstanceState)
@@ -73,8 +74,8 @@ class ProfiloFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gridLayoutManager = GridLayoutManager(activity, 3)
-        linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+       // gridLayoutManager = GridLayoutManager(activity, 3)
+       linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         buttonProfilo.setOnClickListener { v ->
             val f =
                 ModificaProfiloFragment.getIstance(
@@ -87,17 +88,15 @@ class ProfiloFragment : Fragment() {
         }
 
     }
-    fun createProfilePost(response: Response<ProfileWrapperRest>) : RecyclerView{
+    fun createProfile(response: Response<ProfileWrapperRest>) : RecyclerView{
         val linearLayoutManager = LinearLayoutManager(this.context)
-        gridview.layoutManager = linearLayoutManager
-        gridview.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        pageprofile.layoutManager = linearLayoutManager
+        pageprofile.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         val adapterFollowerPost =
             ProfileAdapter(response.body()!!.payload)
-        gridview.adapter = adapterFollowerPost
-        return gridview
+        pageprofile.adapter = adapterFollowerPost
+        return pageprofile
 
     }
-
-
 
 }

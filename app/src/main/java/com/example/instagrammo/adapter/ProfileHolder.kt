@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
 import com.example.instagrammo.model.Post
 import com.example.instagrammo.model.ProfileRest
+import com.example.instagrammo.picassotransformation.CircleTrasformation
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.RequestCreator
 import kotlinx.android.synthetic.main.profile_post_layout.*
@@ -19,15 +20,18 @@ class ProfileHolder (v: View): RecyclerView.ViewHolder(v), View.OnClickListener 
 
     fun bindProfilePost(post: ProfileRest){
         this.posts = post
-
-        if (post.picture.isNotEmpty() || view.Post_number.text.isNotEmpty() || view.Friend_number.text.isNotEmpty()) {
-            Picasso.get().load(post.picture).into(view.Profile_photo)
+        if (post.picture.isNotEmpty() || view.Bio.text.isNotEmpty() ||view.Post_number.text.isNotEmpty() || view.Friend_number.text.isNotEmpty()) {
+            Picasso.get().load(post.picture).transform(CircleTrasformation()).into(view.Profile_photo)
             view.Post_number.text = post.postsNumber
             view.Friend_number.text = post.followersNumber
+            view.Bio.text = post.description
+            view.Profile_name.text = post.name
         }else{
             view.Profile_photo.setImageResource(R.drawable.ic_account_circle_black_24dp)
             view.Post_number.setText("0")
             view.Friend_number.setText("0")
+            view.Bio.setText("campo vuoto")
+            view.Profile_name.setText("senza nome")
         }
     }
 

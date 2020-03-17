@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">Instagrammo</string>
+    <string name="nome">Nome</string>
     <string name="nomeUtente">Username</string>
     <string name="pass">Password</string>
     <string name="login">Login</string>
-    <string name="Remember">Ricordami</string>
+    <string name="remember">Ricordami</string>
     <string name="modify">Modifica profilo</string>
+    <string name="friends">Amici</string>
+    <string name="posts">Post</string>
+    <string name="idfoto">Id Foto</string>
+    <string name="desc">Descrizione</string>
+    <string name="savedata">Salva dati</string>
 </resources>
