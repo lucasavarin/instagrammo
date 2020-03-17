@@ -1,7 +1,6 @@
-package com.example.instagrammo.beans.response
+package com.example.instagrammo.beans.business
 
-import com.example.instagrammo.beans.rest.AuthResponseREST
-import com.example.instagrammo.beans.rest.FollowersResponseREST
+import com.example.instagrammo.beans.response.FollowersResponseREST
 
 data class Followers(
     val id:String,
@@ -10,7 +9,7 @@ data class Followers(
     val picture:String
 ){
     companion object Followers{
-        fun createBusinessBean(rest: FollowersResponseREST): com.example.instagrammo.beans.response.Followers{
+        fun createBusinessBean(rest: FollowersResponseREST): com.example.instagrammo.beans.business.Followers {
             return Followers(
                 rest.id,
                 rest.name,

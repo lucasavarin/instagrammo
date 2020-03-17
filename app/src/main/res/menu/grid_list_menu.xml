@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/grid"
+        android:icon="@drawable/ic_view_module"
+        android:title=""/>
+    <item
+        android:id="@+id/list"
+        android:icon="@drawable/ic_view_stream_black_24dp"
+        android:title=""/>
+</menu>

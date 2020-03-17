@@ -9,4 +9,7 @@
     <string name="add">Add</string>
     <string name="follow">Follow</string>
     <string name="profile">Profile</string>
+    <string name="post">Post</string>
+    <string name="amici">Amici</string>
+    <string name="modifica_profilo">Modifica Profilo</string>
 </resources>

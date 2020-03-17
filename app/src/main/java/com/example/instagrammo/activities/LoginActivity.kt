@@ -10,8 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.instagrammo.R
 import com.example.instagrammo.applicationUtils.prefs
-import com.example.instagrammo.beans.request.AuthRequest
-import com.example.instagrammo.beans.response.AuthResponse
+import com.example.instagrammo.beans.request.AuthRequestREST
+import com.example.instagrammo.beans.business.AuthResponse
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.util.Session
 import kotlinx.android.synthetic.main.activity_login.*
@@ -59,7 +59,7 @@ class LoginActivity:AppCompatActivity() {
 
 
     private fun doLogin(){
-        val call = RetrofitController.getClient.doAuth(AuthRequest(username.text.toString(), password.text.toString()))
+        val call = RetrofitController.getClient.doAuth(AuthRequestREST(username.text.toString(), password.text.toString()))
 
         call.enqueue(object: Callback<AuthResponse>{
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
