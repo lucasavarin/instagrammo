@@ -3,10 +3,10 @@ package com.example.view.login
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.example.login.R
 import com.example.view.home_fragment.HomeFragment
 import com.example.view.profile_fragment.ProfileFragment
-import com.example.login.R
-
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class FragmentsActivity : AppCompatActivity(){
@@ -15,8 +15,10 @@ class FragmentsActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.second_layout)
 
-
         val bottomNavigationMenu : BottomNavigationView = findViewById(R.id.nav_view)
+
+        if (savedInstanceState == null)
+            loadFragment(HomeFragment())
 
         bottomNavigationMenu.setOnNavigationItemSelectedListener { item ->
             when(item.itemId){
@@ -31,7 +33,7 @@ class FragmentsActivity : AppCompatActivity(){
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                else -> return@setOnNavigationItemSelectedListener false
+                else  -> return@setOnNavigationItemSelectedListener false
             }
         }
     }
@@ -42,7 +44,4 @@ class FragmentsActivity : AppCompatActivity(){
             fragmentTransaction.commit()
         }
     }
-
-
-
 }

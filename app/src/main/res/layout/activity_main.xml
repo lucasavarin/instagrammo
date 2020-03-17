@@ -4,21 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="25dp"
     tools:context="com.example.view.login.LoginActivity"
-    android:background="@drawable/black_gradient">
+    android:background="@color/white">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/logo"
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
-        android:layout_height="126dp"
-        android:src="@drawable/gglogo"
-        android:layout_marginTop="56dp"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:id="@+id/logo"
+        android:text="@string/app_title"
+        android:textSize="56dp"
+        android:gravity="center"
+        android:fontFamily="@font/abeezee_italic"
+        android:layout_marginTop="25dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/user"
         android:layout_width="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:layout_height="48dp"
         android:hint="@string/username_login"
         android:background="@drawable/edit_text_back"
@@ -32,29 +37,35 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:hint="@string/password_login"
         android:background="@drawable/edit_text_back"
         android:layout_marginTop="32dp"
         android:drawableStart="@drawable/ic_lock_outline_black"
         android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@id/user"
-
-        />
+        app:layout_constraintTop_toBottomOf="@id/user" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/roundbutton"
-        android:text="@string/textLogin"
         android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/remember" />
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/roundbutton"
+        android:fontFamily="@font/abeezee_italic"
+        android:text="@string/textLogin"
+        android:textColor="@color/design_default_color_on_primary"
+        app:layout_constraintTop_toBottomOf="@id/remember"
+        tools:layout_editor_absoluteX="25dp" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/remember"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:layout_marginLeft="25dp"
         android:text=" Remember me"
         android:layoutDirection="rtl"
         app:layout_constraintTop_toBottomOf="@id/password"

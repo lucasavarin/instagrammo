@@ -7,4 +7,7 @@
     <color name="primaryColourEditText">#33018C89</color>
     <color name="colorFinal">#06635F</color>
     <color name="progressBarColor">#00bb2d</color>
+    <color name="celeste">#87CEEB</color>
+    <color name="white">#FFFFFF</color>
+    <color name="celesteOpaco">#8C87CEEB</color>
 </resources>
