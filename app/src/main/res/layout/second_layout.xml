@@ -25,6 +25,7 @@
         app:itemIconTint="@color/design_default_color_on_secondary"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="selected"
-        android:background="@color/celeste"/>
+        app:itemIconSize="30dp"
+        android:background="@drawable/bottom_navigation_menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/HomeFollowerPosts"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="21dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/HomeFollowerStory"
