@@ -57,14 +57,6 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        back_btn.setOnClickListener{
-            val fragment = EditProfileFragment()
-            val fragmentManager = activity!!.supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.remove(fragment)
-            fragmentTransaction.commit()
-            fragmentManager.popBackStack()}
-
         save_btn.setOnClickListener{
             Client.getClient.saveProfile(saveProfileData()).enqueue(object : Callback<SaveProfileBean>{
                 override fun onFailure(call: Call<SaveProfileBean>, t: Throwable) {
