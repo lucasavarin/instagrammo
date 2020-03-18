@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.instagrammo.R
 import com.example.instagrammo.adapters.PostGridRecyclerAdapter
 import com.example.instagrammo.adapters.PostsListRecyclerAdapter
@@ -42,6 +44,7 @@ class ProfileFragment: Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         super.onCreateView(inflater, container, savedInstanceState)
         posts = ArrayList<ProfilePost>()
         return inflater.inflate(R.layout.fragment_profile, container, false)
@@ -51,7 +54,20 @@ class ProfileFragment: Fragment(){
         super.onViewCreated(view, savedInstanceState)
         adapter = TabAdapter(childFragmentManager)
         performCall()
+        modifica.setOnClickListener{
+            val fragmentManager: FragmentManager = activity !!.supportFragmentManager
+            val transaction = fragmentManager.beginTransaction()
+            val fragment = ModifyProfileFragment()
+            transaction.replace(R.id.container, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
     }
+
+
+
+
+
 
     private fun performCall(){
         val callProfile = RetrofitController.getClient.getProfileSingle(Session.profileId)
@@ -87,6 +103,8 @@ class ProfileFragment: Fragment(){
             override fun onFailure(call: Call<ProfilePostResponseWrapperREST>, t: Throwable) {
                 Toast.makeText(activity, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
             }
+
+
 
             override fun onResponse(call: Call<ProfilePostResponseWrapperREST>, response: Response<ProfilePostResponseWrapperREST>) {
                 if(response.isSuccessful){

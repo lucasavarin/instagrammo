@@ -5,8 +5,10 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.instagrammo.R
 import com.example.instagrammo.fragments.*
+import com.example.instagrammo.fragments.ProfileFragment.Companion.makeInstance
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.instagrammo.util.*
+import kotlinx.android.synthetic.main.activity_login.*
 
 
 class MainActivity: AppCompatActivity() {
@@ -14,6 +16,7 @@ class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
 
 
