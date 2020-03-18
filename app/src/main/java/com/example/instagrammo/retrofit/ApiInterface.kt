@@ -2,6 +2,7 @@ package com.example.instagrammo.retrofit
 
 import com.example.instagrammo.beans.request.AuthRequestREST
 import com.example.instagrammo.beans.business.AuthResponse
+import com.example.instagrammo.beans.request.ProfilePutREST
 import com.example.instagrammo.beans.response.*
 import com.example.instagrammo.util.Session
 import retrofit2.Call
@@ -34,4 +35,9 @@ interface ApiInterface {
     fun getProfilePosts(
         @Path("profiloUtente") profileId: Int
     ):Call<ProfilePostResponseWrapperREST>
+
+    @PUT("profiles.php")
+    fun updateProfile(
+        @Body profilePut: ProfilePutREST
+    ):Call<ProfilePutResponseREST>
 }
