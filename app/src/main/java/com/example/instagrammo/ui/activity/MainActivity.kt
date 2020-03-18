@@ -14,6 +14,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         var fragment: Fragment? = null
+        if (savedInstanceState == null){
+            makeTransaction(HomeFragment.newInstance())
+        }
 
 
 

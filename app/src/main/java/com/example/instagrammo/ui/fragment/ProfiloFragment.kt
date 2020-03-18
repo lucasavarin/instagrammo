@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
+import com.example.instagrammo.adapter.DetailedPostAdapter
 import com.example.instagrammo.adapter.ProfileAdapter
+import com.example.instagrammo.adapter.TabAdapter
 import com.example.instagrammo.model.*
 import com.example.instagrammo.picassotransformation.CircleTrasformation
 import com.example.instagrammo.retrofit.RetrofitController
@@ -26,14 +28,16 @@ import retrofit2.Callback
 class ProfiloFragment : Fragment() {
 
     //private lateinit var gridLayoutManager: GridLayoutManager
-    private lateinit var linearLayoutManager: LinearLayoutManager
+    private var adapter: TabAdapter? = null
+    private var layoutManager: GridLayoutManager? = null
+
 
     private var profile: Profile? = null
     private var description:String = ""
     private var nome:String =""
     private var imageUrl :String =""
     private var profileId :String =""
-    private lateinit var posts: List<Post>
+    private lateinit var posts: MutableList<Post>
 
     companion object {
 
@@ -51,6 +55,7 @@ class ProfiloFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
         RetrofitController.getClient.getProfile().enqueue(object : Callback<ProfileWrapperRest>{
             override fun onFailure(call: Call<ProfileWrapperRest>, t: Throwable) {
 
@@ -58,8 +63,9 @@ class ProfiloFragment : Fragment() {
             override fun onResponse(
                 call: Call<ProfileWrapperRest>,
                 response: Response<ProfileWrapperRest>
+
             ) {
-               // createProfile(response)
+               // createPost(response)
                 description = response.body()!!.payload[0].description
                 nome = response.body()!!.payload[0].name
                 imageUrl = response.body()!!.payload[0].picture
@@ -78,7 +84,8 @@ class ProfiloFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
        // gridLayoutManager = GridLayoutManager(activity, 3)
-       linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        val linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        Posts.layoutManager = linearLayoutManager
         buttonProfilo.setOnClickListener { v ->
             val f =
                 ModificaProfiloFragment.getIstance(
@@ -91,16 +98,17 @@ class ProfiloFragment : Fragment() {
         }
 
     }
-    fun createProfile(response: Response<ProfileWrapperRest>) : RecyclerView{
+
+    private fun createPost(response : Response<HomeWrapperPostBean>) : RecyclerView {
         val linearLayoutManager = LinearLayoutManager(this.context)
         pageprofile.layoutManager = linearLayoutManager
         pageprofile.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        val adapterFollowerPost =
-            ProfileAdapter(response.body()!!.payload)
-        pageprofile.adapter = adapterFollowerPost
+        val adapterDetailedPost =
+            DetailedPostAdapter(response.body()!!.payload)
+        pageprofile.adapter = adapterDetailedPost
         return pageprofile
-
     }
+
 
     fun fillDataUser(desc:String,image:String,nAmici:String,nPosts:String){
         Picasso.get().load(image).resize(175,175).transform(CircleTrasformation()).into(Profile_photo)

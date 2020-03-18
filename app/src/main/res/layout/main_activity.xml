@@ -25,9 +25,9 @@
         app:menu="@menu/navigation_item_layout"
         android:background="?colorPrimary"
         app:itemIconTint="@color/blue"
-         app:itemTextColor="#000"
+        app:itemTextColor="#000"
         android:id="@+id/bottom"
-        app:labelVisibilityMode="labeled"
+        app:labelVisibilityMode="selected"
         />
 
 

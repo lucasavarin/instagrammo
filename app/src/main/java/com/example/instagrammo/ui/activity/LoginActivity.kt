@@ -45,10 +45,6 @@ class LoginActivity : AppCompatActivity() {
             editText.setText(prefs.username)
         }
 
-       /* save.setOnCheckedChangeListener { _, isChecked ->
-            prefs.rememberMe = isChecked
-        }
-        */
 
         Log.d("NOME", editText.text.toString() + " " +editTextpwd.text.toString())
        btn.setOnClickListener { v ->
