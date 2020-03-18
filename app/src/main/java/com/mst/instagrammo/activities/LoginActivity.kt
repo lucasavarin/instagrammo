@@ -8,7 +8,7 @@ import com.mst.instagrammo.R
 import com.mst.instagrammo.api.ApiClient
 import com.mst.instagrammo.model.AuthRequest
 import com.mst.instagrammo.model.AuthResponse
-import com.mst.instagrammo.storage.StoreSingl
+import com.mst.instagrammo.utilities.Session
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,21 +37,21 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful){
                     var body = response.body()!!
                     if(body.result){
-                        Toast.makeText(applicationContext, "its ok", Toast.LENGTH_LONG).show()
-                        StoreSingl.authToken = body.authToken.toString()
-                        StoreSingl.profileId = body.profileId.toString()
-                        //TODO open main activity
+//                        Toast.makeText(applicationContext, "its ok", Toast.LENGTH_LONG).show()
+                        Session.user = user
+                        Session.authToken = body.authToken.toString()
+                        Session.profileId = body.profileId!!.toInt()
+
                         intent = Intent(applicationContext, MainActivity::class.java)
-                        val bundle = Bundle()
-                        bundle.putString("username", user)
-                        startActivity(intent, bundle)
+                        startActivity(intent)
+                        this@LoginActivity.finish()
                     }
                     else{
-                        Toast.makeText(applicationContext, "user incorrect", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext, "User Incorrect", Toast.LENGTH_LONG).show()
                     }
                 }
                 else {
-                    Toast.makeText(applicationContext, "is not successful", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Not Successful", Toast.LENGTH_LONG).show()
                 }
             }
         })
