@@ -17,5 +17,4 @@ interface ApiInterface {
 
     @GET("followers.php/{profiloUtente}")
     fun getStoriesList(@Path("profiloUtente") id:Int = Session.profileId) : Call<StoriesResponse>
-
 }

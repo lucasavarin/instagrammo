@@ -36,12 +36,21 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getStories(stories)
+//        getStories(stories)
+        //mock stories
+        stories.add(Story("5", "dishdsh", "dhsudhs",  "https://i.picsum.photos/id/813/400/400.jpg"))
+        stories.add(Story("5", "dishdsh", "dhsudhs",  "https://i.picsum.photos/id/813/400/400.jpg"))
+        stories.add(Story("5", "dishdsh", "dhsudhs",  "https://i.picsum.photos/id/813/400/400.jpg"))
+        stories.add(Story("5", "dishdsh", "dhsudhs",  "https://i.picsum.photos/id/813/400/400.jpg"))
+        stories.add(Story("5", "dishdsh", "dhsudhs",  "https://i.picsum.photos/id/813/400/400.jpg"))
+        stories.add(Story("5", "dishdsh", "dhsudhs",  "https://i.picsum.photos/id/813/400/400.jpg"))
+
         val layoutManagerStories = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         homeStoriesLayout.layoutManager = layoutManagerStories
         val adapterS = StoriesRecyclerAdapter(stories)
         homeStoriesLayout.adapter = adapterS
 
+//        getPosts(posts)
 //        val layoutManagerPosts = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 //        homePostsLayout.layoutManager = layoutManagerPosts
 //        val adapterP = StoriesRecyclerAdapter(posts)
