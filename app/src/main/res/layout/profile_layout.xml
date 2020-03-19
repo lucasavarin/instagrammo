@@ -3,20 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/design_default_color_error">
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:orientation="horizontal"
-        android:id="@+id/profileLinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/profileRecycleView">
+    android:background="@color/white">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:id="@+id/profileImg"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -25,60 +16,81 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profileName"
+            app:layout_constraintTop_toBottomOf="@id/profileImg"
+            app:layout_constraintLeft_toLeftOf="parent"
             />
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profileDescr"
+            app:layout_constraintTop_toBottomOf="@id/profileName"
+            app:layout_constraintLeft_toLeftOf="parent"
             />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/friends"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="Amici"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amici: "
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/profileImg"
             />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/numFriends"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:hint="num friends"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/friends"
             />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/posts"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="Posts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Posts: "
+            app:layout_constraintTop_toBottomOf="@id/friends"
+            app:layout_constraintLeft_toRightOf="@id/profileImg"
             />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/numposts"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:hint="num posts"
+            app:layout_constraintTop_toBottomOf="@id/numFriends"
+            app:layout_constraintLeft_toRightOf="@id/posts"
             />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/profileRecycleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_centerHorizontal="true"
-        app:layout_constraintTop_toBottomOf="@id/profileLinearLayout"
-        />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/modifyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/roundbutton"
+        android:fontFamily="@font/abeezee_italic"
+        android:textColor="@color/design_default_color_on_primary"
         android:text="modifica"
-        app:layout_constraintTop_toBottomOf="@+id/profileRecycleView"
+        app:layout_constraintTop_toBottomOf="@+id/profileDescr"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="16dp"
         />
+    
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/modifyButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:id="@+id/pager"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout"
+
+        />
+
+
 
 
 

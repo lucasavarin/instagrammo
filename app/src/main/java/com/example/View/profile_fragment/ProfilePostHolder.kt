@@ -2,7 +2,9 @@ package com.example.view.profile_fragment
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bean.buissnes.HomeProfilePostBean
+import com.example.bean.buissnes.ProfileImgWrapper
+import com.example.bean.buissnes.ProfilePostBean
+import com.example.bean.buissnes.ProfilesWrapper
 
 
 import com.squareup.picasso.Picasso
@@ -13,7 +15,8 @@ class ProfilePostHolder(itemView: View)  : RecyclerView.ViewHolder(itemView), Vi
 
     private var view: View = itemView
 
-    fun bindImgProfile(profile: HomeProfilePostBean){
+
+    fun bindImgProfile(profile: ProfilePostBean){
         Picasso.get().load(profile.picture).into(view.imgProfile)
     }
 

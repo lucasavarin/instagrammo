@@ -4,11 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bean.buissnes.HomeProfilePostBean
+import com.example.bean.buissnes.ProfileImgWrapper
+import com.example.bean.buissnes.ProfilePostBean
+import com.example.bean.buissnes.ProfilesWrapper
 import com.example.login.R
 
 
-class ProfilePostAdapter(private val dataList : List<HomeProfilePostBean>): RecyclerView.Adapter<ProfilePostHolder>(){
+class ProfilePostAdapter(private val dataList : List<ProfilePostBean>): RecyclerView.Adapter<ProfilePostHolder>(){
 
     private lateinit var context : Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilePostHolder {

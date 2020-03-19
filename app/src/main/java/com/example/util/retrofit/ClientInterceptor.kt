@@ -12,8 +12,8 @@ object ClientInterceptor {
 
     val getUser : APiInterface
         get() {
-
-            val client =  OkHttpClient().newBuilder().addInterceptor { chain ->
+            val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            val client =  OkHttpClient().newBuilder().addInterceptor(logger).addInterceptor { chain ->
                 val original = chain.request()
                 val requestBuilder = original.newBuilder()
                 requestBuilder.addHeader("x-api-key", Session.token)

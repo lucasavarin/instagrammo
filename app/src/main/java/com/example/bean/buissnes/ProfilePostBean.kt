@@ -16,5 +16,5 @@ data class ProfilePostBean(
     @Expose()
     @SerializedName(value = "uploadTime") val uploadTime: String,
     @Expose()
-    @SerializedName(value = "profile") val profile: List<ProfilesWrapper>
+    @SerializedName(value = "profile") val profile: ProfilesWrapper
 )

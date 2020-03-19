@@ -1,21 +1,20 @@
 package com.example.view.profile_fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bean.buissnes.HomeProfilePostBean
-import com.example.bean.buissnes.HomeWrapperResponse
-import com.example.bean.buissnes.ProfileImgWrapper
+import com.example.bean.buissnes.*
 import com.example.login.R
 import com.example.util.retrofit.ClientInterceptor
 import com.example.util.retrofit.Session
 import com.example.view.home_fragment.CircleTransform
-import com.example.bean.buissnes.ProfileWrapperResponse
 import com.example.view.home_fragment.HomeFollowerStoryAdapter
+import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.home_layout.*
 import kotlinx.android.synthetic.main.profile_layout.*
@@ -42,6 +41,30 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val adapter = activity?.supportFragmentManager?.let { PostsViewAdapter(it) }
+        pager.adapter = adapter
+        pager.offscreenPageLimit = 1
+        tab_layout.setupWithViewPager(pager)
+
+
+        tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                pager.currentItem = tab!!.position
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+        })
+
+
+
         modifyButton.setOnClickListener{
 
             val fragment = ModifyUserFragment()
@@ -65,7 +88,7 @@ class ProfileFragment : Fragment() {
                 if (response.isSuccessful){
                     if(!response.body()?.payloadProfile?.isEmpty()!!) {
                         putUserInfo(response.body()!!.payloadProfile[0])
-                        putImg(response.body()!!.payloadProfile)
+
                     }
 
                 }
@@ -73,10 +96,9 @@ class ProfileFragment : Fragment() {
             }
         })
 
-//        ClientInterceptor.getUser.getPosts("5", "6").enqueue(object : Callback<ProfileImgWrapper>){
-//
-//
-//        }
+
+
+
 
 
 
@@ -92,15 +114,5 @@ class ProfileFragment : Fragment() {
 
     }
 
-    private fun putImg(response: List<HomeProfilePostBean>) : RecyclerView {
-        val linearLayoutManager = LinearLayoutManager(this.context,
-            LinearLayoutManager.HORIZONTAL,false)
-        profileRecycleView.layoutManager = linearLayoutManager
-        profileRecycleView.setHasFixedSize(true)
-        val adapterFollowers =
-            ProfilePostAdapter(response)
-        profileRecycleView.adapter = adapterFollowers
 
-        return profileRecycleView
-    }
 }
