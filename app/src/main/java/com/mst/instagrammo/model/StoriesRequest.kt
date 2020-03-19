@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 import com.mst.instagrammo.utilities.Session
 
 class StoriesRequest (
-    @SerializedName("profileId") val profileId: Int
+    @SerializedName("profileId") val profileId: Int = Session.profileId
 )

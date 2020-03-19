@@ -16,5 +16,9 @@ interface ApiInterface {
     fun doAuth(@Body authRequest : AuthRequest) : Call<AuthResponse>
 
     @GET("followers.php/{profiloUtente}")
-    fun getStoriesList(@Path("profiloUtente") id:Int = Session.profileId) : Call<StoriesResponse>
+    fun getStories(@Path("profiloUtente") id:Int) : Call<StoriesResponse>
+
+//    @GET(value = "posts.php")
+//    fun getPosts(): Call<PostsResponse>
+
 }

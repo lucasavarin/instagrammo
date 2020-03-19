@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
     }
 
     fun getStories(stories: MutableList<Story>) {
-        val call = ApiClient.getClient.getStoriesList()
+        val call = ApiClient.getClient.getStories(Session.profileId)
 
         call.enqueue(object : Callback<StoriesResponse> {
             override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
                         Toast.makeText(activity, "its ok", Toast.LENGTH_LONG).show()
                         for (story in body.payload) {
                             stories.add(
-                                Story(//"5", "dishdsh", "dhsudhs",  "https://i.picsum.photos/id/813/400/400.jpg"
+                                Story(
                                     story.id,
                                     story.name,
                                     story.description,
