@@ -42,8 +42,8 @@
         android:id="@+id/linear1">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:id="@+id/imageProf"/>
         <com.google.android.material.textfield.TextInputLayout
@@ -58,6 +58,7 @@
             android:layout_gravity="center"
             app:hintTextColor="@color/black"
             app:boxBackgroundMode="outline"
+            app:boxBackgroundColor="@color/white"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -85,7 +86,7 @@
     app:layout_constraintTop_toBottomOf="@id/linear1"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    android:layout_marginTop="64dp"
+    android:layout_marginTop="32dp"
     android:weightSum="6"
     android:orientation="vertical">
 
@@ -101,6 +102,9 @@
         app:boxStrokeWidth="5dp"
         app:boxBackgroundMode="outline"
         app:boxStrokeColor="@color/colorPrimary"
+        app:boxBackgroundColor="@color/white"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         >
 
     <com.google.android.material.textfield.TextInputEditText
@@ -127,7 +131,10 @@
         android:scrollbars="vertical"
         android:inputType="textMultiLine"
         app:boxStrokeWidth="5dp"
+        android:layout_marginStart="8dp"
         app:boxStrokeColor="@color/colorPrimary"
+        android:layout_marginEnd="8dp"
+        app:boxBackgroundColor="@color/white"
         >
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
@@ -145,7 +152,7 @@
         android:outlineSpotShadowColor="@color/blue"
         android:text="@string/savedata"
         android:layout_weight="2"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_gravity="center"
         android:textColorHint="@color/colorPrimary"
          />
