@@ -17,13 +17,13 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/user_profile_layout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="45dp"
         android:padding="2dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|start"
         android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
