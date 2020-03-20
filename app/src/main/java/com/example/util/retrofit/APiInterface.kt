@@ -45,4 +45,5 @@ interface APiInterface {
 
     @PUT("profiles.php")
     fun updateProfileData(@Body updateBean : ProfileModifyBean) : Call<ProfileUpdateResponse>
+
 }
