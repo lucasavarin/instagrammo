@@ -87,6 +87,11 @@ class EditProfileFragment : Fragment() {
 
             })
         }
+
+        confirm_btn.setOnClickListener{
+            refreshImg(img_edit.text.toString())
+        }
+
     }
 
     fun saveProfileData() : EditProfileBean{
@@ -97,12 +102,21 @@ class EditProfileFragment : Fragment() {
         return editProfile
     }
 
+    fun refreshImg(id : String){
+        if (id != ""){
+            Picasso.get().load("https://i.picsum.photos/id/$id/450/450.jpg").fit()
+                .transform(CircleTrasformation()).into(img)
+        }
+    }
+
     fun fillData(response: Response<ProfileWrapperBean>){
         profile_name.setText(response.body()!!.payload[0].name)
         profile_description.setText(response.body()!!.payload[0].description)
         Picasso.get().load(response.body()!!.payload[0].picture).transform(CircleTrasformation()).into(img)
         profileId = response.body()!!.payload[0].profileId
         picture = response.body()!!.payload[0].picture
-
+        val idAfter = response.body()!!.payload[0].picture.substringAfter("id/")
+        val idBefore = idAfter.substringBefore("/4")
+        img_edit.setText(idBefore)
     }
 }
