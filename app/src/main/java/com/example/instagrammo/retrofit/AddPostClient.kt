@@ -1,0 +1,37 @@
+package com.example.instagrammo.retrofit
+
+import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+object AddPostClient {
+
+    const val BASE_URL_ADD: String = "https://picsum.photos"
+
+    val getAddClient : ApiInterfaceAdd
+    get() {
+        val interceptor= HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val client = OkHttpClient.Builder().addInterceptor(interceptor)
+            .addInterceptor { chain ->
+                val firstRequest = chain.request()
+                val builder = firstRequest.newBuilder().header("x-api-key",
+                    Session.token)
+                val finalRequest = builder.build()
+                chain.proceed(finalRequest)
+            }.build()
+
+        val gson = GsonBuilder().create()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL_ADD)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+
+        return retrofit.create(ApiInterfaceAdd::class.java)
+    }
+}

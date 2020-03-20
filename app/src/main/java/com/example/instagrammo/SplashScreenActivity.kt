@@ -13,6 +13,8 @@ class SplashScreenActivity: AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        supportActionBar?.hide()
+
         Handler().postDelayed({
             intent = Intent(applicationContext, LoginActivity::class.java)
             startActivity(intent)

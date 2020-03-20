@@ -60,6 +60,11 @@ class LoginActivity: AppCompatActivity() {
         finishAffinity()
     }
 
+    override fun onResume() {
+        super.onResume()
+        supportActionBar?.hide()
+    }
+
 //    fun managePrefs(){
 //        val prefsUser = getSharedPreferences("com.example.instagrammo.shared_prefs.prefs", Context.MODE_PRIVATE)
 //        val editor = prefsUser.edit()

@@ -2,6 +2,7 @@ package com.example.instagrammo
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.instagrammo.primary_fragments.*
 import com.example.instagrammo.util.addFragment
@@ -16,6 +17,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.custom_toolbar)
 
         addFragment(HomeFragment.makeInstance(), R.id.container)
 

@@ -14,6 +14,7 @@ import com.example.instagrammo.retrofit.Client
 import com.example.instagrammo.retrofit.Session
 import com.example.instagrammo.util.CircleTrasformation
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.custom_header_view.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -57,6 +58,15 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        back_btn.setOnClickListener {
+            val fragment = EditProfileFragment()
+            val fragmentManager = activity!!.supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.remove(fragment)
+            fragmentTransaction.commit()
+            fragmentManager.popBackStack()
+        }
+
         save_btn.setOnClickListener{
             Client.getClient.saveProfile(saveProfileData()).enqueue(object : Callback<SaveProfileBean>{
                 override fun onFailure(call: Call<SaveProfileBean>, t: Throwable) {
@@ -93,5 +103,6 @@ class EditProfileFragment : Fragment() {
         Picasso.get().load(response.body()!!.payload[0].picture).transform(CircleTrasformation()).into(img)
         profileId = response.body()!!.payload[0].profileId
         picture = response.body()!!.payload[0].picture
+
     }
 }

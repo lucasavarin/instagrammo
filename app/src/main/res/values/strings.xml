@@ -10,4 +10,5 @@
     <string name="p_name">Nome Profilo</string>
     <string name="idImg">Id Immagine</string>
     <string name="edit_profile">Modifica Profilo</string>
+    <string name="toolbar_title">Panamera</string>
 </resources>
