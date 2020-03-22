@@ -2,4 +2,10 @@
     <string name="app_name">Instagrammo</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="save">Save</string>
+    <string name="remember_me">Remember me</string>
+    <string name="show_password">Show Password</string>
+    <string name="edit_profile">Edit Profile</string>
+
+
 </resources>
