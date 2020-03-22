@@ -67,10 +67,11 @@ class HomeFragment : Fragment() {
 
     private fun createFollowerPost(response : Response<HomeWrapperPostBean>) : RecyclerView {
         val linearLayoutManager = LinearLayoutManager(this.context)
+        linearLayoutManager.stackFromEnd = true
+        linearLayoutManager.reverseLayout = true
         HomeFollowerPosts.layoutManager = linearLayoutManager
         HomeFollowerPosts.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        val adapterFollowerPost =
-            HomeFollowerPostAdapter(response.body()!!.payload)
+        val adapterFollowerPost = HomeFollowerPostAdapter(response.body()!!.payload)
         HomeFollowerPosts.adapter = adapterFollowerPost
         return HomeFollowerPosts
     }
