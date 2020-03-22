@@ -15,6 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class AddFragment : Fragment() {
 
     lateinit var gidLayout: GridLayoutManager
@@ -49,11 +50,11 @@ class AddFragment : Fragment() {
             })
     }
 
-    private fun createAddPosts(response: List<AddPostResponseBean>): RecyclerView {
+    private fun createAddPosts(listFiltered: List<AddPostResponseBean>): RecyclerView {
 
         gidLayout = GridLayoutManager(this.context, 3, GridLayoutManager.VERTICAL, false)
         addPost.layoutManager = gidLayout
-        val adapterAddPost = AddPostStoryAdapter(response)
+        val adapterAddPost = AddPostStoryAdapter(listFiltered)
         addPost.adapter = adapterAddPost
 
         return addPost
@@ -61,15 +62,21 @@ class AddFragment : Fragment() {
 
     private fun resizeImage(response: Response<List<AddPostResponseBean>>): MutableList<AddPostResponseBean> {
 
+        if(SessionAddFragmentData.urlImage.size == 30){
+            SessionAddFragmentData.urlImage.clear()
+        }
+
         var lista: MutableList<AddPostResponseBean>? = ArrayList<AddPostResponseBean>()
 
         for (items in response.body()!!) {
 
+            SessionAddFragmentData.urlImage.add(items.download_url)
             items.download_url = "https://picsum.photos/id/${items.id}/400/400"
             lista!!.add(items)
         }
 
         return lista!!
     }
+
 
 }

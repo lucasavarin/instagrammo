@@ -11,6 +11,7 @@ import com.example.bean.buissnes.ProfileUpdateResponse
 import com.example.bean.buissnes.ProfileWrapperDataBean
 import com.example.login.R
 import com.example.util.retrofit.ClientInterceptor
+import com.example.util.utilities_project
 import com.example.view.home_fragment.CircleTransform
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.custom_view_layout.*
@@ -65,11 +66,7 @@ class ModifyUserFragment : Fragment() {
             }
         }
 
-        backButton.setOnClickListener {
-
-            backProfileFragment(this@ModifyUserFragment)
-
-        }
+        backButton.setOnClickListener { utilities_project.deleteFragment(ModifyUserFragment(),activity!!) }
 
         saveButton.setOnClickListener {
             ClientInterceptor.getUser.updateProfileData(createBeanUpdate())
@@ -87,7 +84,7 @@ class ModifyUserFragment : Fragment() {
                         response: Response<ProfileUpdateResponse>
                     ) {
                         Toast.makeText(context, "Aggiornamento andato a buon fine.", Toast.LENGTH_LONG).show()
-                        backProfileFragment(this@ModifyUserFragment)
+                        utilities_project.deleteFragment(ModifyUserFragment(), activity!!)
                     }
                 })
 
@@ -124,16 +121,6 @@ class ModifyUserFragment : Fragment() {
         }
 
         return profileModifyBean
-    }
-
-    private fun backProfileFragment(fragment : Fragment) {
-
-        val fragmentManager = activity!!.supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.remove(fragment)
-        fragmentTransaction.commit()
-        fragmentManager.popBackStack()
-
     }
 
 }

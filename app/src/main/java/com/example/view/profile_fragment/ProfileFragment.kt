@@ -12,6 +12,7 @@ import com.example.bean.buissnes.*
 import com.example.login.R
 import com.example.util.retrofit.ClientInterceptor
 import com.example.util.retrofit.Session
+import com.example.util.utilities_project
 import com.example.view.home_fragment.CircleTransform
 import com.example.view.home_fragment.HomeFollowerStoryAdapter
 import com.google.android.material.tabs.TabLayout
@@ -63,17 +64,7 @@ class ProfileFragment : Fragment() {
             }
         })
 
-
-
-        modifyButton.setOnClickListener{
-
-            val fragment = ModifyUserFragment()
-            val fragmentManager = activity!!.supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.fragment_container, fragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-        }
+        modifyButton.setOnClickListener{ utilities_project.addFragment(ModifyUserFragment(), activity!!) }
 
         ClientInterceptor.getUser.getProfile(Session.profileId).enqueue(object : Callback<ProfileWrapperResponse>{
 

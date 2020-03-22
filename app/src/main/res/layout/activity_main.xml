@@ -65,12 +65,15 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="25dp"
-        android:text=" Remember me"
-        android:layoutDirection="rtl"
+        android:layout_marginStart="28dp"
+        android:text="@string/remember_me"
         app:layout_constraintTop_toBottomOf="@id/password"
         app:layout_constraintLeft_toLeftOf="parent"
     />
+
+
+
+
 
 
 
