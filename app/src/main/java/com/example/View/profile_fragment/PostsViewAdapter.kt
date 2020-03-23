@@ -4,24 +4,25 @@ import android.R
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 
 
-class PostsViewAdapter(fragmentPagerAdapter: FragmentManager) : FragmentPagerAdapter(fragmentPagerAdapter) {
+class PostsViewAdapter(fragmentPagerAdapter: FragmentManager) : FragmentStatePagerAdapter(fragmentPagerAdapter) {
 
     val tabTitles = arrayOf("list", "grid")
     override fun getItem(position: Int): Fragment {
         when (position) {
             0 -> {
 
-                println("Griglia")
-                return ProfileGridFragment(false)
+                println("Lista")
+                return ProfileListFragment()
             }
 
             1 -> {
                 println("Griglia")
-                return ProfileGridFragment(true)
+                return ProfileGridFragment()
             }
-            else -> return ProfileGridFragment(true)
+            else -> return ProfileListFragment()
         }
 
 

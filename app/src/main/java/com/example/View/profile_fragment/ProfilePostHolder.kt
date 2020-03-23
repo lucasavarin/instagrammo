@@ -17,7 +17,7 @@ class ProfilePostHolder(itemView: View)  : RecyclerView.ViewHolder(itemView), Vi
 
 
     fun bindImgProfile(profile: ProfilePostBean){
-        Picasso.get().load(profile.picture).into(view.imgProfile)
+        Picasso.get().load(profile.picture).resize(1000,500).centerCrop().into(view.imgProfile)
     }
 
 

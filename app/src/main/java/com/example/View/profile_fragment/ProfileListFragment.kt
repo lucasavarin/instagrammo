@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileGridFragment() : Fragment() {
+class ProfileListFragment() : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +36,11 @@ class ProfileGridFragment() : Fragment() {
         ClientInterceptor.getUser.getPosts("5","6").enqueue(object : Callback<ProfileImgWrapper> {
 
             override fun onFailure(call: Call<ProfileImgWrapper>, t: Throwable) {
-
+                Toast.makeText(
+                    context,
+                    "Impossibile caricare le immagini.",
+                    Toast.LENGTH_LONG
+                ).show()
             }
 
             override fun onResponse(
@@ -57,7 +62,8 @@ class ProfileGridFragment() : Fragment() {
     }
     private fun putImg(response: List<ProfilePostBean>) : RecyclerView {
         var gridLayoutManager: LayoutManager? = null
-             gridLayoutManager = GridLayoutManager(this.context,3, GridLayoutManager.HORIZONTAL, false)
+            gridLayoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+            profileRecycleView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
 
 
         profileRecycleView.layoutManager = gridLayoutManager
