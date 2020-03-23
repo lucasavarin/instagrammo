@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,12 +34,12 @@ class AddFragment : Fragment() {
 
     }
 
-    private fun createPosts() : Unit {
+    private fun createPosts()  {
 
         ClientIterceptorAdd.getUserAdd.getAddPost()
             .enqueue(object : Callback<List<AddPostResponseBean>> {
                 override fun onFailure(call: Call<List<AddPostResponseBean>>, t: Throwable) {
-
+                    Toast.makeText(context, "C'è stato un errore nella Recezione delle immagini", Toast.LENGTH_LONG).show()
                 }
 
                 override fun onResponse(
@@ -62,16 +63,19 @@ class AddFragment : Fragment() {
 
     private fun resizeImage(response: Response<List<AddPostResponseBean>>): MutableList<AddPostResponseBean> {
 
-        if(SessionAddFragmentData.urlImage.size == 30){
-            SessionAddFragmentData.urlImage.clear()
-        }
+        SessionAddFragmentData.urlImage.clear()
+        SessionAddFragmentData.createPostUrl.clear()
 
-        var lista: MutableList<AddPostResponseBean>? = ArrayList<AddPostResponseBean>()
+        val lista: MutableList<AddPostResponseBean>? = ArrayList<AddPostResponseBean>()
 
         for (items in response.body()!!) {
 
             SessionAddFragmentData.urlImage.add(items.download_url)
+
             items.download_url = "https://picsum.photos/id/${items.id}/400/400"
+
+            SessionAddFragmentData.createPostUrl.add(items.download_url)
+
             lista!!.add(items)
         }
 

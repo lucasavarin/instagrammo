@@ -42,8 +42,6 @@ class AddThirdFragment : Fragment() {
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
         )
 
-
-
         return rootestView
     }
 
@@ -62,7 +60,7 @@ class AddThirdFragment : Fragment() {
             CreatePostBeanRequest(
                 Session.profileId,
                 editDesc.text.toString(),
-                SessionAddFragmentData.createPostUrl
+                SessionAddFragmentData.createPostUrl[SessionAddFragmentData.position]
             )
         ).enqueue(object : Callback<CreatePostBeanResponse>{
             override fun onFailure(call: Call<CreatePostBeanResponse>, t: Throwable) {

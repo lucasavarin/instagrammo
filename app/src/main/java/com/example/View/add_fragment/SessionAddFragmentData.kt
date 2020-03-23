@@ -6,6 +6,6 @@ object SessionAddFragmentData {
 
      var position : Int = 0
 
-     lateinit var createPostUrl : String
+      var createPostUrl : MutableList<String> =  ArrayList<String>()
 
 }

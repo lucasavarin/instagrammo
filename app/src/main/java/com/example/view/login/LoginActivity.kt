@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
@@ -21,6 +23,8 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
+    private var isShowPassword = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,6 +32,8 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, FragmentsActivity::class.java)
 
         setDataRememberMe()
+
+        showPass.setOnClickListener{showPassword()}
 
         login.setOnClickListener{
             val user = user.text.toString()
@@ -86,6 +92,18 @@ class LoginActivity : AppCompatActivity() {
             prefs.user = ""
             prefs.password = ""
             prefs.rememberMe = false
+        }
+    }
+
+    private fun showPassword(){
+        isShowPassword = !isShowPassword
+
+        if(isShowPassword){
+            password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            showPass.setImageResource(R.drawable.ic_visibility_off)
+        }else{
+            password.transformationMethod = PasswordTransformationMethod.getInstance()
+            showPass.setImageResource(R.drawable.ic_visibility)
         }
     }
 

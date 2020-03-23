@@ -22,8 +22,6 @@ class AddSecondFragment  : Fragment() {
 
         val rootestView : View = inflater.inflate(R.layout.add_layout_click_item,container ,false)
 
-        SessionAddFragmentData.createPostUrl = SessionAddFragmentData.urlImage[SessionAddFragmentData.position]
-
         Picasso.get().load(SessionAddFragmentData.urlImage[SessionAddFragmentData.position]).into(rootestView.imageClick)
 
         return rootestView
@@ -35,6 +33,7 @@ class AddSecondFragment  : Fragment() {
         backButton.setOnClickListener { utilities_project.deleteFragment(AddSecondFragment(), activity!!) }
 
         createPost.setOnClickListener { utilities_project.addFragment(AddThirdFragment(), activity!!)}
+
 
     }
 
