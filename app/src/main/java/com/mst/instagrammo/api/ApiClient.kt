@@ -1,5 +1,6 @@
 package com.mst.instagrammo.api
 
+import com.mst.instagrammo.utilities.Session
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,7 +14,14 @@ object ApiClient {
         get() {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
-            val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+
+            val client = OkHttpClient.Builder().addInterceptor(interceptor)
+                .addInterceptor { chain ->
+                    val firstRequest = chain.request()
+                    val builder = firstRequest.newBuilder().header("x-api-key", Session.authToken)
+                    val finalRequest = builder.build()
+                    chain.proceed(finalRequest)
+                }.build()
 
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)

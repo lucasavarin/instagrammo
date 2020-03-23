@@ -18,6 +18,6 @@ class StoriesHolder (v: View) : RecyclerView.ViewHolder(v), View.OnClickListener
 
     fun bind(story: Story){
         this.story = story
-        Picasso.get().load(story.picture).transform(CircleTransform()).into(view.storiesItems)
+        Picasso.get().load(story.picture).transform(CircleTransform()).into(view.stories_items)
     }
 }
