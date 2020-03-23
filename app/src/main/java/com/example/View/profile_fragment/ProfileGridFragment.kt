@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.bean.buissnes.ProfileImgWrapper
@@ -32,7 +30,7 @@ class ProfileGridFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ClientInterceptor.getUser.getPosts("5","6").enqueue(object : Callback<ProfileImgWrapper> {
+        ClientInterceptor.getUser.getPosts().enqueue(object : Callback<ProfileImgWrapper> {
 
             override fun onFailure(call: Call<ProfileImgWrapper>, t: Throwable) {
 
@@ -62,8 +60,9 @@ class ProfileGridFragment() : Fragment() {
 
         profileRecycleView.layoutManager = gridLayoutManager
         val adapterFollowers =
-            ProfilePostAdapter(response)
+            ProfilePostGridAdapter(response)
         profileRecycleView.adapter = adapterFollowers
+
 
         return profileRecycleView
     }

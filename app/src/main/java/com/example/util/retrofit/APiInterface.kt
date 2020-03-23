@@ -33,10 +33,12 @@ interface APiInterface {
     @GET(value = "posts.php")
     fun getFollowerPost() : Call<HomeWrapperPostBean>
 
-    @GET(value = "posts.php")
+    @GET(value = "posts.php/{profiloUtente}")
     fun getPosts (
-        @Query("from")  from: String,
-        @Query("elements")  elements: String
+        @Path("profiloUtente")
+        profiloUtente : String = Session.profileId
+//        @Query("from")  from: String,
+//        @Query("elements")  elements: String
     ) : Call<ProfileImgWrapper>
 
     @GET(value = "profiles.php/{profiloUtente}")
