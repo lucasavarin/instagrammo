@@ -20,6 +20,9 @@ interface ApiInterface{
     @GET(value = "posts.php")
     fun getFollowerPost() : Call<HomeWrapperPostBean>
 
+    @GET(value = "posts.php/{profiloUtente}")
+    fun getProfilePost(@Path("profiloUtente") profileId: Int = Session.profileId):Call<ProfilePostBean>
+
     @PUT("profiles.php")
     fun saveUserData(@Body data : SaveDataBean) : Call<SaveUserDataResponseBean>
 

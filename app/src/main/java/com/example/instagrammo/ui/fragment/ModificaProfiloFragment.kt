@@ -62,15 +62,11 @@ class ModificaProfiloFragment private constructor(
         (desc_input as TextView).text = this.desc
 
 
-
-
         headercustom.setOnBackClickListener {
             fragmentManager!!.beginTransaction().remove(this).commit()
         }
 
-
         val retrofit = RetrofitController.getClient
-
         savedata.setOnClickListener {
             if (noNewDataFound()) {
                 Toast.makeText(view.context, "Campi vuoti", Toast.LENGTH_SHORT).show()

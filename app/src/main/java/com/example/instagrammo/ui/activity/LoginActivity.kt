@@ -21,7 +21,7 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
-    private var isShowPsw= false
+    private var isShowPsw = false
     val ctx = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,9 +111,11 @@ class LoginActivity : AppCompatActivity() {
 
                         if(save.isChecked) {
                             prefs.username = editText.text.toString()
+                            prefs.rememberMe = true
 
                         } else{
                             prefs.username = ""
+                            prefs.rememberMe = false
                         }
                         val intent = Intent(applicationContext, MainActivity::class.java)
                         startActivity(intent)

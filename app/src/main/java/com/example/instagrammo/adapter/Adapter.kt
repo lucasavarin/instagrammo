@@ -11,7 +11,7 @@ class Adapter(private val myDataset: Array<Payload>) :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val lf = LayoutInflater.from(parent.context).inflate(R.layout.item_list_view_layout,parent,false)
+        val lf = LayoutInflater.from(parent.context).inflate(R.layout.item_follower_view_layout,parent,false)
         return MyViewHolder(lf)
     }
 

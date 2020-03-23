@@ -6,7 +6,7 @@ import com.example.instagrammo.R
 import com.example.instagrammo.picassotransformation.CircleTrasformation
 import com.squareup.picasso.Picasso
 import com.example.instagrammo.model.Payload
-import kotlinx.android.synthetic.main.item_list_view_layout.view.*
+import kotlinx.android.synthetic.main.item_follower_view_layout.view.*
 
 
 
