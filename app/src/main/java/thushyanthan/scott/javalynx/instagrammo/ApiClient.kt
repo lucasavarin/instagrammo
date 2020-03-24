@@ -16,6 +16,7 @@ import kotlin.coroutines.coroutineContext
 object ApiClient {
     val base_url: String = "http://www.nbarresi.it/"
     val getClient: ApiInterface
+
        get() {
             val httpClient = OkHttpClient.Builder()
             val logging = HttpLoggingInterceptor()
