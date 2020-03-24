@@ -20,6 +20,7 @@ import retrofit2.Response
 
 class AddFragment : Fragment(){
 
+    lateinit var gidLayout: GridLayoutManager
 
     companion object {
 
@@ -83,9 +84,5 @@ class AddFragment : Fragment(){
                 }
             }
         })
-
-
-
-
     }
 }

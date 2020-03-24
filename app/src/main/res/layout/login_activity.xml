@@ -9,11 +9,14 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.55"
+        app:layout_constraintHeight_percent="0.4"
         android:src="@mipmap/logo_trasparente2"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
 
@@ -22,12 +25,13 @@
         android:hint="@string/nomeUtente"
         android:textColorHint="@color/colorPrimary"
         android:backgroundTint="@color/colorPrimary"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.85"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="120dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img"
         android:drawableStart="@mipmap/account_icon"
         android:drawableTint="@color/colorPrimary"
@@ -39,47 +43,60 @@
         android:hint="@string/pass"
         android:textColorHint="@color/colorPrimary"
         android:backgroundTint="@color/colorPrimary"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.85"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
         android:inputType="textPassword"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@id/editText"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:drawableStart="@mipmap/password_icon"
         android:drawableTint="@color/colorPrimary"
         android:drawablePadding="5dp" />
-
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/show_pass_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_show_psw_24dp"
+        android:tint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@id/editTextpwd"
         app:layout_constraintRight_toRightOf="@id/editTextpwd"
         app:layout_constraintTop_toTopOf="@id/editTextpwd"/>
 
-    <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/save"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/remem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/switchActived"
+        app:layout_constraintTop_toBottomOf="@id/editTextpwd"
+        app:layout_constraintStart_toStartOf="@id/editTextpwd"
+      />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/remember"
-        android:buttonTint="@color/colorPrimary"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/editTextpwd"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        android:textColor="@color/black"
+        android:layout_marginStart="4dp"
+        app:layout_constraintLeft_toRightOf="@id/remem"
+        app:layout_constraintTop_toTopOf="@id/remem"
+        app:layout_constraintBottom_toBottomOf="@id/remem"/>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn"
-        android:layout_width="163dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.075"
+        app:layout_constraintWidth_percent="0.85"
         android:layout_marginBottom="64dp"
         android:text="@string/login"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/mybutton"
         android:textColor="@color/colorWhite"
+        android:fontFamily="@font/delius_unicase_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

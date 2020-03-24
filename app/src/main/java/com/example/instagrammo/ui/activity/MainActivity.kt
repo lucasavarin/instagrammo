@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
             makeTransaction(HomeFragment.newInstance())
         }
 
-
+        //supportActionBar
 
         bottom.setOnNavigationItemSelectedListener {
 

@@ -28,8 +28,6 @@ class HomeFragment : Fragment() {
 
             return fragment
         }
-
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,6 +89,8 @@ class HomeFragment : Fragment() {
 
     private fun createPost(response : Response<HomeWrapperPostBean>) : RecyclerView {
         val linearLayoutManager = LinearLayoutManager(this.context)
+        linearLayoutManager.stackFromEnd = true
+        linearLayoutManager.reverseLayout = true
         HomeFollowerPosts.layoutManager = linearLayoutManager
         HomeFollowerPosts.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         val adapterFollowerPost =

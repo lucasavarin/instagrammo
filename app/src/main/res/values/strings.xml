@@ -5,10 +5,12 @@
     <string name="pass">Password</string>
     <string name="login">Login</string>
     <string name="remember">Ricordami</string>
-    <string name="modify">Modifica profilo</string>
+    <string name="modify">Modifica Profilo</string>
     <string name="friends">Amici</string>
     <string name="posts">Post</string>
     <string name="idfoto">Id Foto</string>
     <string name="desc">Descrizione</string>
-    <string name="savedata">Salva dati</string>
+    <string name="savedata">Salva Dati</string>
+    <string name="confirm">Conferma</string>
+    <string name="confirmPost">Conferma Aggiunta Post</string>
 </resources>

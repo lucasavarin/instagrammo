@@ -5,13 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
-import com.example.instagrammo.model.Post
 import com.example.instagrammo.model.ProfilePost
 
 class DetailedPostAdapter(private val data : List<ProfilePost>): RecyclerView.Adapter<DetailedViewHolder>() {
-
     private lateinit var context : Context
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailedViewHolder {
         context = parent.context
         val inflatedView = LayoutInflater.from(context).inflate(R.layout.item_list_view_layout, parent,false)

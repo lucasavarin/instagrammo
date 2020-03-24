@@ -14,19 +14,15 @@ import java.lang.Exception
 
 class InsertPost(val item:AddResponseBeanApplicativo) : Fragment() {
 
-
-
     companion object{
         fun newInstance(item:AddResponseBeanApplicativo):InsertPost{
             return InsertPost(item)
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,8 +52,10 @@ class InsertPost(val item:AddResponseBeanApplicativo) : Fragment() {
 
             override fun onSuccess() {
                 progressBarAddPost.visibility = View.GONE
+
             }
         })
+
         customAdd.setOnBackClickListener { fragmentManager!!.beginTransaction().remove(this)
             .replace(R.id.frame,AddFragment.newInstance()).commit() }
     }

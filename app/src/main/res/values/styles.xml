@@ -3,12 +3,15 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">#102A98</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor" tools:ignore="NewApi">@color/colorPrimary</item>
     </style>
     <style name="TextLabel" parent="TextAppearance.AppCompat">
         <item name="android:textSize">16sp</item>
+    </style>
+    <style name="switchActived" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 </resources>

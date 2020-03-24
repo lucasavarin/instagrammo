@@ -30,24 +30,15 @@ class LoginActivity : AppCompatActivity() {
         val retrofit = RetrofitController.getClient
 
         //Show/Hide button
-        show_pass_btn.setOnClickListener{
+        show_pass_btn.setOnClickListener {
             isShowPsw = !isShowPsw
             showpsw(isShowPsw)
         }
-            showpsw(isShowPsw)
-
-        //SharedPref
-      //  btn.setOnClickListener { view -> doLogin() }
-
-        if (save.isChecked){
-
-            save.isChecked = prefs.rememberMe
-            editText.setText(prefs.username)
-        }
+        showpsw(isShowPsw)
 
 
         Log.d("NOME", editText.text.toString() + " " +editTextpwd.text.toString())
-       btn.setOnClickListener { v ->
+        btn.setOnClickListener { v ->
             val call: Call<AuthResponse> =
                 retrofit.auth(User(editText.text.toString(),editTextpwd.text.toString()))
             progressBar1.visibility = View.VISIBLE
@@ -78,11 +69,15 @@ class LoginActivity : AppCompatActivity() {
                         this@LoginActivity.finish()
                     }
                     else{
-                        Toast.makeText(applicationContext, "Credenziali Errate", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(applicationContext, "Credenziali Errate", Toast.LENGTH_SHORT).show()
                     }
                 }
             })
+        }
+
+        if (remem.isChecked) {
+            editText.setText(prefs.username)
+            remem.isChecked = prefs.rememberMe
         }
     }
     private fun showpsw(isShow: Boolean){
@@ -96,39 +91,4 @@ class LoginActivity : AppCompatActivity() {
         editTextpwd.setSelection(editTextpwd.text.toString().length)
     }
 
-    private fun doLogin(){
-        val call = RetrofitController.getClient.auth(User(editText.text.toString(), editTextpwd.text.toString()))
-
-        call.enqueue(object: Callback<AuthResponse>{
-            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                if(response.isSuccessful){
-                    val body = response.body()!!
-                    if(body.result!!){
-                        Toast.makeText(ctx, "Autenticazione riuscita", Toast.LENGTH_SHORT).show()
-                        Session.user = editText.text.toString()
-                        Session.token = body.authToken.orEmpty()
-                        Session.profileId = body.profileId.hashCode()
-
-                        if(save.isChecked) {
-                            prefs.username = editText.text.toString()
-                            prefs.rememberMe = true
-
-                        } else{
-                            prefs.username = ""
-                            prefs.rememberMe = false
-                        }
-                        val intent = Intent(applicationContext, MainActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(ctx, "Autenticazione fallita", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    Toast.makeText(ctx, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
-                }
-            }
-            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                Toast.makeText(ctx, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
 }

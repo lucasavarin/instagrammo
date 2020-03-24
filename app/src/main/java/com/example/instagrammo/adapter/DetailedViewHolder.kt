@@ -22,7 +22,6 @@ class DetailedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Vi
             itemView.list_item.setImageResource(R.drawable.ic_account_circle_black_24dp)
         }
     }
-        override fun onClick(v: View?) {
-        }
-
+    override fun onClick(v: View?) {
+    }
 }
