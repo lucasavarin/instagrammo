@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.AddPostData
 import com.example.instagrammo.R
 import com.example.instagrammo.beans.response.AddPostResponse
 import com.example.instagrammo.recyclerview.AddPAdapter
@@ -37,8 +38,7 @@ class AddFragment: Fragment() {
                 call: Call<List<AddPostResponse>>,
                 response: Response<List<AddPostResponse>>
             ) {
-                addPost(response)
-                resizePost(response)
+                addPost(resizePost(response))
             }
 
         })
@@ -52,12 +52,11 @@ class AddFragment: Fragment() {
         }
     }
 
-    private fun addPost(response: Response<List<AddPostResponse>>) : RecyclerView {
-        val gridLayoutManager = GridLayoutManager(this.context, 3)
+    private fun addPost(list: List<AddPostResponse>) : RecyclerView {
+        val gridLayoutManager = GridLayoutManager(this.context, 3, GridLayoutManager.VERTICAL, false)
         grid_recycle.layoutManager = gridLayoutManager
 
-        val adapterPosts =
-            AddPAdapter(response.body()!!)
+        val adapterPosts = AddPAdapter(list)
         grid_recycle.adapter = adapterPosts
 
         return grid_recycle
@@ -67,9 +66,13 @@ class AddFragment: Fragment() {
         val listaPost : MutableList<AddPostResponse>? = ArrayList<AddPostResponse>()
         val width = 400
         val height = 400
+        AddPostData.url.clear()
+        AddPostData.createUrl.clear()
 
         for (i : AddPostResponse in response.body()!!){
+            AddPostData.url.add(i.download_url)
             i.download_url = "https://picsum.photos/id/${i.id}/${width}/${height}"
+            AddPostData.createUrl.add(i.download_url)
             listaPost!!.add(i)
         }
         return listaPost!!

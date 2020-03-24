@@ -11,4 +11,7 @@
     <string name="idImg">Id Immagine</string>
     <string name="edit_profile">Modifica Profilo</string>
     <string name="toolbar_title">Panamera</string>
+    <string name="add_photo">Aggiungi Post</string>
+    <string name="confirm_add_photo">Conferma Aggiunta Post</string>
+    <string name="btn_conferma">Conferma</string>
 </resources>

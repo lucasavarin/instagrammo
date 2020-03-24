@@ -44,6 +44,14 @@
         <item name="android:paddingStart">17dp</item>
     </style>
 
+    <style name="NextBtnStyle">
+        <item name="android:layout_marginStart">50dp</item>
+        <item name="android:background">@drawable/confirm_btn_background</item>
+        <item name="android:drawableEnd">@drawable/baseline_arrow_forward_white_18</item>
+        <item name="android:paddingEnd">17dp</item>
+        <item name="android:paddingStart">17dp</item>
+    </style>
+
     <style name="SaveBtnStyle">
         <item name="android:background">@drawable/save_btn_drawable</item>
         <item name="android:textColor">@color/cardview_light_background</item>
