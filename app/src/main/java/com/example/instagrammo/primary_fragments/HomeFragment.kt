@@ -79,6 +79,8 @@ class HomeFragment: Fragment() {
 
     private fun addPost(response: Response<HomeWrapperPostBean>) : RecyclerView{
         val linearLayoutManager = LinearLayoutManager(this.context)
+        linearLayoutManager.stackFromEnd = true
+        linearLayoutManager.reverseLayout = true
         homePost.layoutManager = linearLayoutManager
         homePost.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         val adapterPosts =
