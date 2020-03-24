@@ -1,5 +1,6 @@
 package com.example.instagrammo.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -61,7 +62,14 @@ class ProfileFragment: Fragment(){
             transaction.replace(R.id.container, fragment)
             transaction.addToBackStack(null)
             transaction.commit()
+            val bundle  = Bundle()
+            bundle.putString("picture", profile!!.picture)
+            bundle.putString("description", profile?.description)
+            bundle.putString("nomeProfilo", profile?.name)
+            bundle.putString("idProfilo", profile?.profileId)
+            fragment.setArguments(bundle)
         }
+
     }
 
 

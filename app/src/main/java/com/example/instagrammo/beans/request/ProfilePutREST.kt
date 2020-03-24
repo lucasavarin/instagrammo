@@ -15,5 +15,5 @@ data class ProfilePutREST(
     val description:String,
     @Expose
     @SerializedName("picture")
-    val picture:String
+    var picture:String
 )
