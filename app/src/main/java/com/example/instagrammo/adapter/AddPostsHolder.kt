@@ -14,7 +14,7 @@ class AddPostsHolder(val v: View) : RecyclerView.ViewHolder(v), View.OnClickList
     }
 
 
-    fun bindView(item:AddResponseBeanApplicativo , func:((AddResponseBeanApplicativo)->Unit)){
+    fun bindView(item:AddResponseBeanApplicativo , func:((AddResponseBeanApplicativo)->Unit)?){
         v.progressBarAdd.visibility = View.VISIBLE
         Picasso.get().load(item.urlModificato).into(v.postAdd,object:Callback{
             override fun onError(e: Exception?) {
@@ -27,7 +27,7 @@ class AddPostsHolder(val v: View) : RecyclerView.ViewHolder(v), View.OnClickList
         })
 
         v.setOnClickListener{
-            func.invoke(item)
+            func?.invoke(item)
         }
     }
 

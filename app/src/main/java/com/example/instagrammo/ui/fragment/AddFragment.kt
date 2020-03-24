@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.add_fragment_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.random.Random
 
 class AddFragment : Fragment(){
 
@@ -52,7 +53,8 @@ class AddFragment : Fragment(){
 
         val retrofit = RetrofitController.getIstance()
         val list = arrayListOf<AddResponseBeanApplicativo>()
-        retrofit.getPosts("3").enqueue(object :Callback<List<AddPostResponseBean>>{
+        val random = Random(10)
+        retrofit.getPosts(random.nextInt().toString()).enqueue(object :Callback<List<AddPostResponseBean>>{
             override fun onFailure(call: Call<List<AddPostResponseBean>>, t: Throwable) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
@@ -78,7 +80,7 @@ class AddFragment : Fragment(){
                     }
                     rAdd.adapter = AddPostAdapter(list)
                     rAdd.addItemDecoration(GridItemDecoration(10,3))
-                    (rAdd.adapter as AddPostAdapter).func = {item ->fragmentManager!!
+                    (rAdd.adapter as AddPostAdapter).setCallBack {item ->fragmentManager!!
                         .beginTransaction().add(R.id.frame,InsertPost.newInstance(item)).remove(this@AddFragment).commit()}
                 }
             }
