@@ -7,12 +7,12 @@ import retrofit2.http.*
 import thushyanthan.scott.javalynx.instagrammo.util.rest.*
 
 interface ApiInterface {
-        @POST(value = "auth.php")
+        @POST("auth.php")
         fun doAuth(
             @Body auth: DataRequest
         ):Call<AuthResponse>
 
-        @POST(value = "followers.php")
+        @POST("followers.php")
         fun doResonseO(
         ):Call<HomeRecyclerViewOrizzontale>
 
@@ -27,5 +27,11 @@ interface ApiInterface {
 
         @GET("profiles.php/{profiloUtente}")
         fun getSingleProfile(@Path("profiloUtente") profiloUtente: String): Call<ProfileResponse>
+
+        @POST("posts.php")
+        fun addPostsToProfile(@Body bodyPicToBeAdded: AddPictureRequest?): Call<OnlyResultResponse>
+
+        @GET("posts_number.php")
+        fun getNewPublishenPostsNumber():Call<NewPublishedPostsNumberResponse>
 
 }

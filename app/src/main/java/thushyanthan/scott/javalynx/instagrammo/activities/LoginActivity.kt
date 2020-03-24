@@ -93,13 +93,4 @@ class LoginActivity : Activity() {
             })
         }
     }
-
-
-    /*fun userRepo(): SharedPreferences{
-        val  sharedPref: SharedPreferences = getSharedPreferences("com.prova.instagrammo", 0)
-        sharedPref.edit().putString("username", username.text.toString()).commit();
-        sharedPref.edit().putString("password", username.text.toString()).commit();
-        return sharedPref
-    }*/
-
 }
