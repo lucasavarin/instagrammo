@@ -1,9 +1,10 @@
-package com.example.instagrammo
+package com.example.instagrammo.activity
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.instagrammo.R
 import com.example.instagrammo.primary_fragments.*
 import com.example.instagrammo.util.addFragment
 import com.example.instagrammo.util.replaceFragment
@@ -26,19 +27,29 @@ class MainActivity : AppCompatActivity() {
         navView.setOnNavigationItemSelectedListener { menuItem : MenuItem ->
             when(menuItem.itemId){
                 R.id.home ->{
-                    replaceFragment(HomeFragment.makeInstance(), R.id.container)
+                    replaceFragment(HomeFragment.makeInstance(),
+                        R.id.container
+                    )
                 }
                 R.id.search ->{
-                    replaceFragment(SearchFragment.makeInstance(), R.id.container)
+                    replaceFragment(SearchFragment.makeInstance(),
+                        R.id.container
+                    )
                 }
                 R.id.user ->{
-                    replaceFragment(UserFragment.makeInstance(), R.id.container)
+                    replaceFragment(UserFragment.makeInstance(),
+                        R.id.container
+                    )
                 }
                 R.id.add ->{
-                    replaceFragment(AddFragment.makeInstance(), R.id.container)
+                    replaceFragment(AddFragment.makeInstance(),
+                        R.id.container
+                    )
                 }
                 R.id.favorite ->{
-                    replaceFragment(FavoriteFragment.makeInstance(), R.id.container)
+                    replaceFragment(FavoriteFragment.makeInstance(),
+                        R.id.container
+                    )
                 }
                 else -> false
             }

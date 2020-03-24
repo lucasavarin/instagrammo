@@ -3,10 +3,7 @@ package com.example.instagrammo.retrofit
 import com.example.instagrammo.data_class.ResponseStories
 import com.example.instagrammo.beans.request.AuthRequest
 import com.example.instagrammo.beans.request.CreatePostRequestBean
-import com.example.instagrammo.beans.response.AuthResponse
-import com.example.instagrammo.beans.response.CreatePostResponseBean
-import com.example.instagrammo.beans.response.HomeWrapperPostBean
-import com.example.instagrammo.beans.response.ProfileWrapperBean
+import com.example.instagrammo.beans.response.*
 import com.example.instagrammo.data_class.EditProfileBean
 import com.example.instagrammo.data_class.SaveProfileBean
 import retrofit2.Call
@@ -32,4 +29,7 @@ interface ApiInterface {
 
     @POST(value = "posts.php")
     fun addPost(@Body createPostRequestBean: CreatePostRequestBean) : Call<CreatePostResponseBean>
+
+    @GET(value = "posts_number.php")
+    fun getPostsNumber() : Call<PostsNumberResponseBean>
 }
