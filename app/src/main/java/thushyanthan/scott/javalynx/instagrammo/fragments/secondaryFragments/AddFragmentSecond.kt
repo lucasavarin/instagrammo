@@ -26,7 +26,8 @@ class AddFragmentSecond private constructor(val randomPic: RandomPictures): Frag
         super.onActivityCreated(savedInstanceState)
         Picasso.get().load(randomPic.downloadUrl).into(picFullScreen)
         nextButton.setOnClickListener{
-            
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_container, AddFragmentThird.makeInstance(randomPic))?.commit()
         }
     }
 
