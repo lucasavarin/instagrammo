@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.instagrammo.AddPostData
+import com.example.instagrammo.util.AddPostData
 import com.example.instagrammo.R
 import com.example.instagrammo.util.addFragment
 import com.example.instagrammo.util.deleteFragment

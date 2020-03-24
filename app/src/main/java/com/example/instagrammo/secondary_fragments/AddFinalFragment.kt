@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
-import com.example.instagrammo.AddPostData
+import com.example.instagrammo.util.AddPostData
 import com.example.instagrammo.R
 import com.example.instagrammo.beans.request.CreatePostRequestBean
 import com.example.instagrammo.beans.response.CreatePostResponseBean

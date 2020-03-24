@@ -1,9 +1,10 @@
-package com.example.instagrammo
+package com.example.instagrammo.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.example.instagrammo.R
 
 class SplashScreenActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,10 @@ class SplashScreenActivity: AppCompatActivity() {
         Handler().postDelayed({
             intent = Intent(applicationContext, LoginActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
+            overridePendingTransition(
+                R.anim.slide_up,
+                R.anim.slide_down
+            )
         }, 3000)
 
     }

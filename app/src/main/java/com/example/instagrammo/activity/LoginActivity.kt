@@ -1,9 +1,12 @@
-package com.example.instagrammo
+package com.example.instagrammo.activity
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.instagrammo.ForegroundService
+import com.example.instagrammo.R
 import com.example.instagrammo.beans.request.AuthRequest
 import com.example.instagrammo.beans.response.AuthResponse
 import com.example.instagrammo.retrofit.Client
@@ -45,6 +48,7 @@ class LoginActivity: AppCompatActivity() {
                             intent = Intent(applicationContext, MainActivity::class.java)
                             startActivity(intent)
                             finish()
+                            initService()
                         }
                     }
                 }else{
@@ -65,6 +69,14 @@ class LoginActivity: AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    fun initService(){
+        val postNumberService = Intent(applicationContext, ForegroundService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(postNumberService)
+        }else{
+            startService(postNumberService)
+        }
+    }
 //    fun managePrefs(){
 //        val prefsUser = getSharedPreferences("com.example.instagrammo.shared_prefs.prefs", Context.MODE_PRIVATE)
 //        val editor = prefsUser.edit()

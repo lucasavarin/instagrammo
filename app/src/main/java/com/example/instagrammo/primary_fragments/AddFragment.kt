@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.instagrammo.AddPostData
+import com.example.instagrammo.util.AddPostData
 import com.example.instagrammo.R
 import com.example.instagrammo.beans.response.AddPostResponse
 import com.example.instagrammo.recyclerview.AddPAdapter
