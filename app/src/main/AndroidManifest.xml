@@ -4,6 +4,7 @@
     package="com.example.instagrammo">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <application
         android:allowBackup="true"
         android:screenOrientation="portrait"
@@ -32,5 +33,8 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <service android:name=".PostNumberService"
+                android:enabled="true"
+                android:exported="true"/>
     </application>
 </manifest>

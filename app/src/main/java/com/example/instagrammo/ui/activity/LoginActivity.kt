@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
         val retrofit = RetrofitController.getClient
+        supportActionBar?.hide()
 
         //Show/Hide button
         show_pass_btn.setOnClickListener {
