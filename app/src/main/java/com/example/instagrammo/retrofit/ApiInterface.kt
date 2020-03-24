@@ -33,5 +33,5 @@ interface ApiInterface{
     fun getPosts(@Query("page") page:String) : Call<List<AddPostResponseBean>>
 
     @POST(value = "posts.php")
-    fun createPost(@Body createPostRequest : AddPostResult) : Call<AddPostResult>
+    fun createPost(@Body createPostRequest : AddPostInfo) : Call<AddPostResult>
 }

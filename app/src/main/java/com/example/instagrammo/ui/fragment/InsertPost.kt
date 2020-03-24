@@ -58,5 +58,11 @@ class InsertPost(val item:AddResponseBeanApplicativo) : Fragment() {
 
         customAdd.setOnBackClickListener { fragmentManager!!.beginTransaction().remove(this)
             .replace(R.id.frame,AddFragment.newInstance()).commit() }
+
+        fab.setOnClickListener{
+            fragmentManager!!.beginTransaction().remove(this).add(R.id.frame,CreatePost.newInstance(item)).commit()
+        }
     }
+
+
 }
