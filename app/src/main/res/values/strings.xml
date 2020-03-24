@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">Instagrammo</string>
 
+    <string name="login_button">Login</string>
+
     <string name="navbar_home">Home</string>
     <string name="navbar_search">Search</string>
     <string name="navbar_add">Add</string>
     <string name="navbar_follow">Follow</string>
     <string name="navbar_profile">Profile</string>
 
+    <string name="profilo_posts">Posts</string>
+    <string name="profilo_friends">Amici</string>
+    <string name="profilo_button_modifica">Modifica profilo</string>
 
 </resources>

@@ -18,11 +18,11 @@ class PostsHolder (v: View): RecyclerView.ViewHolder(v), View.OnClickListener {
 
     fun bind(post: Post){
         this.post = post
-        Picasso.get().load(post.picture).into(view.posts_img_items)
+        Picasso.get().load(post.picture).into(view.post_img_items)
 
-        Picasso.get().load(post.profile.picture).transform(CircleTransform()).into(view.profile_pic)
-        view.profile_name.text = post.profile.name
-        view.date_uploaded.text = post.uploadTime
-        view.title_img.text = post.title
+        Picasso.get().load(post.profile.picture).transform(CircleTransform()).into(view.post_propic)
+        view.post_name.text = post.profile.name
+        view.post_date.text = post.uploadTime
+        view.post_title.text = post.title
     }
 }
