@@ -11,12 +11,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="3dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/lineartop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorMainBgr"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,24 +50,26 @@
             android:id="@+id/linearbottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorMainBgr"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:gravity="center_vertical"
             android:orientation="horizontal">
-            <!--            android:gravity="center_vertical|center_horizontal"-->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="3dp"
                 android:gravity="start"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/date_uploaded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="3dp"
                 android:gravity="end"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
