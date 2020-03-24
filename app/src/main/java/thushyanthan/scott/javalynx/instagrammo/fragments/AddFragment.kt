@@ -41,11 +41,6 @@ class AddFragment : Fragment() {
         linearLayoutManagerRandomPics = GridLayoutManager(activity, 3)
         randomPictures.layoutManager = linearLayoutManagerRandomPics
 
-       /*picture?.setOnClickListener{
-            activity?.supportFragmentManager?.beginTransaction()
-            ?.replace(R.id.fragment_container, AddFragmentSecond())?.commit()
-        }*/
-
     }
 
     fun getRandomPictures() {

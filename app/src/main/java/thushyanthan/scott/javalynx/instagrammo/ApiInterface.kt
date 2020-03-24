@@ -31,4 +31,7 @@ interface ApiInterface {
         @POST("posts.php")
         fun addPostsToProfile(@Body bodyPicToBeAdded: AddPictureRequest?): Call<OnlyResultResponse>
 
+        @GET("posts_number.php")
+        fun getNewPublishenPostsNumber():Call<NewPublishedPostsNumberResponse>
+
 }
