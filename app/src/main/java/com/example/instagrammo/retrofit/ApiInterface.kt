@@ -28,4 +28,7 @@ interface ApiInterface{
 
     @GET("profiles.php/{profiloUtente}")
     fun getProfile(@Path("profiloUtente") profileId: Int = Session.profileId):Call<ProfileWrapperRest>
+
+    @GET(value="list")
+    fun getPosts(@Query("page") page:String) : Call<List<AddPostResponseBean>>
 }

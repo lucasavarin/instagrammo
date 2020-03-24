@@ -42,6 +42,33 @@ object RetrofitController{
 
             return retrofit.create(ApiInterface::class.java)
         }
+
+fun getIstance():ApiInterface{
+    val b_url  = "https://picsum.photos/v2/"
+    val interceptor : HttpLoggingInterceptor=  HttpLoggingInterceptor()
+    interceptor.level = HttpLoggingInterceptor.Level.BODY
+    val client =  OkHttpClient.Builder()
+        .connectTimeout(30L, TimeUnit.SECONDS)
+        .writeTimeout(30L,TimeUnit.SECONDS)
+        .readTimeout(30L,TimeUnit.SECONDS)
+        .addInterceptor(interceptor)
+        .addInterceptor({chain ->
+            val originalRequest = chain.request()
+            val builder = originalRequest.newBuilder().header("x-api-key",
+                Session.token)
+            val finalRequest = builder.build()
+            chain.proceed(finalRequest)
+        }).build()
+
+    val gson = GsonBuilder().create()
+
+    val retrofit = Retrofit.Builder()
+        .baseUrl(b_url)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
+
+    return retrofit.create(ApiInterface::class.java)}
 }
 
 
