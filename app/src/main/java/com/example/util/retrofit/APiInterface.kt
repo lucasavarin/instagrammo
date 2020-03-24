@@ -4,6 +4,7 @@ import com.example.bean.buissnes.*
 import com.example.bean.rest.request.CreatePostBeanRequest
 import com.example.bean.rest.response.AuthResponse
 import com.example.bean.rest.response.CreatePostBeanResponse
+import com.example.bean.rest.response.NotificationResponseBean
 import com.example.bean.rest.request.AuthRequest as AuthRequest1
 import retrofit2.Call
 import retrofit2.http.*
@@ -52,5 +53,8 @@ interface APiInterface {
 
     @POST(value = "posts.php")
     fun createPost(@Body createPostRequest : CreatePostBeanRequest) : Call<CreatePostBeanResponse>
+
+    @GET("posts_number.php")
+    fun getPostNumber() : Call<NotificationResponseBean>
 
 }

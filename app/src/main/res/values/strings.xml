@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Login</string>
+    <string name="app_name">Instagrammo</string>
     <string name="title_activity_bottom_view">BottomViewActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -29,4 +29,5 @@
     <string name="descrizione_post">Descrizione</string>
     <string name="conferma_post">Conferma</string>
     <string name="remember_me">Remember Me</string>
+    <string name="instagrammo_header">Instagrammo</string>
 </resources>
