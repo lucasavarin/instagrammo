@@ -19,6 +19,7 @@ import thushyanthan.scott.javalynx.instagrammo.ApiClientPicsumPhotos
 import thushyanthan.scott.javalynx.instagrammo.R
 import thushyanthan.scott.javalynx.instagrammo.adapter.AddAdapter
 import thushyanthan.scott.javalynx.instagrammo.fragments.secondaryFragments.AddFragmentSecond
+import thushyanthan.scott.javalynx.instagrammo.util.RecyclerViewItemDecorator
 import thushyanthan.scott.javalynx.instagrammo.util.rest.RandomPictures
 import thushyanthan.scott.javalynx.instagrammo.util.rest.RandomPicturesResponse
 import java.util.ArrayList
@@ -40,6 +41,7 @@ class AddFragment : Fragment() {
         getRandomPictures()
         linearLayoutManagerRandomPics = GridLayoutManager(activity, 3)
         randomPictures.layoutManager = linearLayoutManagerRandomPics
+        randomPictures.addItemDecoration(RecyclerViewItemDecorator(4))
 
     }
 

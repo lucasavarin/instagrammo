@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.add_random_pics_list_item.view.*
 import thushyanthan.scott.javalynx.instagrammo.util.rest.RandomPictures
-import thushyanthan.scott.javalynx.instagrammo.util.rest.RandomPicturesResponse
 
 class AddHolder (private val view: View) : RecyclerView.ViewHolder(view) {
     private var callback : ((randomPic : RandomPictures)->Unit)? = null
