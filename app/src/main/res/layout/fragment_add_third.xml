@@ -20,7 +20,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/picToBePosted"/>
+        app:layout_constraintTop_toBottomOf="@id/picToBePosted"
+        android:background="@drawable/shape_login_edit_texts"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/confirmButton"
@@ -29,9 +31,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="96dp"
         android:background="@drawable/selector_login_button"
         android:text="@string/confirm"
         android:textColor="@drawable/selector_login_button_text_color"
+        
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
