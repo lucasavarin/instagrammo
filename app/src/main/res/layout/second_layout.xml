@@ -35,4 +35,5 @@
         app:itemIconSize="30dp"
         android:background="@drawable/bottom_navigation_menu"/>
 
+
 </RelativeLayout>

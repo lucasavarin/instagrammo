@@ -14,6 +14,8 @@ class AddPostStoryAdapter(private val dataList : List<AddPostResponseBean>) : Re
 
     private lateinit var context : Context
 
+    private var callback : (() -> Unit)? = null
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): AddPostStoryHolder {
         context = p0.context
         val inflatedView = LayoutInflater.from(context).inflate(R.layout.item_recycle_view_add, p0,false)
@@ -36,8 +38,15 @@ class AddPostStoryAdapter(private val dataList : List<AddPostResponseBean>) : Re
 
         }
 
+        if(p1 >= itemCount - 5  ){
+          callback?.invoke()
+        }
+
     }
 
+    fun setOnAddPostScrollListener(callback : () -> Unit){
+        this.callback = callback
+    }
 
 }
 

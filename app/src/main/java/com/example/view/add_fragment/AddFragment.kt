@@ -1,6 +1,7 @@
 package com.example.view.add_fragment
 
 import android.os.Bundle
+import android.service.voice.AlwaysOnHotwordDetector
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.example.bean.buissnes.AddPostResponseBean
 import com.example.login.R
 import com.example.util.retrofit.ClientIterceptorAdd
 import kotlinx.android.synthetic.main.add_layout.*
+import kotlinx.android.synthetic.main.add_layout_click_item.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,7 +21,9 @@ import retrofit2.Response
 
 class AddFragment : Fragment() {
 
-    lateinit var gidLayout: GridLayoutManager
+    private lateinit var gidLayout: GridLayoutManager
+    private var postList : MutableList<AddPostResponseBean> =  ArrayList<AddPostResponseBean>()
+    private  lateinit var adapterAddPost : AddPostStoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,44 +31,49 @@ class AddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
-        createPosts()
-
-        return  inflater.inflate(R.layout.add_layout,container ,false)
+        createPosts(postList)
+        return inflater.inflate(R.layout.add_layout, container, false)
 
     }
 
-    private fun createPosts()  {
+    private fun createPosts(list : MutableList<AddPostResponseBean>) {
 
         ClientIterceptorAdd.getUserAdd.getAddPost()
             .enqueue(object : Callback<List<AddPostResponseBean>> {
                 override fun onFailure(call: Call<List<AddPostResponseBean>>, t: Throwable) {
-                    Toast.makeText(context, "C'è stato un errore nella Recezione delle immagini", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        "C'è stato un errore nella Recezione delle immagini",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
 
                 override fun onResponse(
                     call: Call<List<AddPostResponseBean>>,
                     response: Response<List<AddPostResponseBean>>
                 ) {
-                    createAddPosts(resizeImage(response))
+
+                    list.addAll(resizeImage(response))
+                    createAddPosts(list);
                 }
             })
     }
 
-    private fun createAddPosts(listFiltered: List<AddPostResponseBean>): RecyclerView {
+    private fun createAddPosts(listFiltered : List<AddPostResponseBean>): RecyclerView {
 
         gidLayout = GridLayoutManager(this.context, 3, GridLayoutManager.VERTICAL, false)
         addPost.layoutManager = gidLayout
-        val adapterAddPost = AddPostStoryAdapter(listFiltered)
+
+        adapterAddPost  = AddPostStoryAdapter(listFiltered)
+        adapterAddPost.setOnAddPostScrollListener { createPosts(postList) }
+
         addPost.adapter = adapterAddPost
+
 
         return addPost
     }
 
     private fun resizeImage(response: Response<List<AddPostResponseBean>>): MutableList<AddPostResponseBean> {
-
-        SessionAddFragmentData.urlImage.clear()
-        SessionAddFragmentData.createPostUrl.clear()
 
         val lista: MutableList<AddPostResponseBean>? = ArrayList<AddPostResponseBean>()
 
@@ -84,3 +93,4 @@ class AddFragment : Fragment() {
 
 
 }
+

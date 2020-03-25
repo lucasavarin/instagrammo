@@ -11,7 +11,7 @@ interface ApiInterfaceAddFragment {
 
     @GET(value="/v2/list")
     fun getAddPost(@Query("page") page: Int = generateRandomNumbers(1,30),
-                   @Query("limit") limit: Int = 30)
+                   @Query("limit") limit: Int = 5)
                    : Call<List<AddPostResponseBean>>
 
 }

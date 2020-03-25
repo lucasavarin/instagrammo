@@ -15,6 +15,7 @@ import com.example.bean.rest.response.AuthResponse
 import com.example.util.retrofit.ClientInterceptor
 import com.example.util.retrofit.Session
 import com.example.login.*
+import com.example.util.ForegroundService
 import com.example.util.shared_prefs.prefs
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -53,8 +54,8 @@ class LoginActivity : AppCompatActivity() {
                         if(response.body()?.result == true){
                             Session.token = response.body()!!.token
                             Session.profileId = response.body()!!.profileId
+                            startServices()
                             setSharedPreferenceData()
-
                             startActivity(intent)
                             finish()
                         } else{
@@ -106,6 +107,12 @@ class LoginActivity : AppCompatActivity() {
             showPass.setImageResource(R.drawable.ic_visibility)
         }
     }
+
+    fun startServices() {
+        val serviceIntent = Intent(this, ForegroundService::class.java)
+        startService(serviceIntent)
+    }
+
 
 }
 
