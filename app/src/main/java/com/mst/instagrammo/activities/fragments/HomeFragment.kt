@@ -8,13 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mst.instagrammo.R
-import com.mst.instagrammo.adapters.PostsRecyclerAdapter
+import com.mst.instagrammo.adapters.HomePostsRecyclerAdapter
 import com.mst.instagrammo.adapters.StoriesRecyclerAdapter
 import com.mst.instagrammo.api.ApiClient
-import com.mst.instagrammo.model.PostsResponse
+import com.mst.instagrammo.model.HomePostsResponse
 import com.mst.instagrammo.model.beans.Story
 import com.mst.instagrammo.model.StoriesResponse
-import com.mst.instagrammo.model.beans.Post
+import com.mst.instagrammo.model.beans.HomePost
 import com.mst.instagrammo.utilities.Session
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
@@ -23,7 +23,7 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
     var stories: MutableList<Story> = ArrayList()
-    var posts: MutableList<Post> = ArrayList()
+    var homeposts: MutableList<HomePost> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         getStories(stories)
-        getPosts(posts)
+        getPosts(homeposts)
 
         //mock stories
 //        stories.add(Story("5", "dishdsh", "dhsudhs",  "https://i.picsum.photos/id/813/400/400.jpg"))
@@ -78,9 +78,9 @@ class HomeFragment : Fragment() {
                                 )
                             )
                         }
-                        val adapterS = StoriesRecyclerAdapter(stories)
-                        homeStoriesLayout.adapter = adapterS
-                        adapterS.notifyDataSetChanged()
+                        val adapter = StoriesRecyclerAdapter(stories)
+                        homeStoriesLayout.adapter = adapter
+                        adapter.notifyDataSetChanged()
                     } else {
                         Toast.makeText(activity, "NO stories", Toast.LENGTH_LONG).show()
                     }
@@ -91,37 +91,37 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun getPosts(posts: MutableList<Post>) {
-        val call = ApiClient.getClient.getPosts()
+    private fun getPosts(homeposts: MutableList<HomePost>) {
+        val call = ApiClient.getClient.getHomePosts()
 
-        call.enqueue(object : Callback<PostsResponse> {
-            override fun onFailure(call: Call<PostsResponse>, t: Throwable) {
+        call.enqueue(object : Callback<HomePostsResponse> {
+            override fun onFailure(call: Call<HomePostsResponse>, t: Throwable) {
                 Toast.makeText(activity, "error", Toast.LENGTH_LONG).show()
             }
 
             override fun onResponse(
-                call: Call<PostsResponse>,
-                response: Response<PostsResponse>
+                call: Call<HomePostsResponse>,
+                responseHome: Response<HomePostsResponse>
             ) {
-                if (response.isSuccessful) {
-                    val body = response.body()!!
+                if (responseHome.isSuccessful) {
+                    val body = responseHome.body()!!
                     if (body.result) {
                         Toast.makeText(activity, "its ok", Toast.LENGTH_LONG).show()
-                        for (post in body.payload) {
-                            posts.add(
-                                Post(
-                                    post.profileId,
-                                    post.postId,
-                                    post.title,
-                                    post.picture,
-                                    post.uploadTime,
-                                    post.profile
+                        for (homepost in body.payload) {
+                            homeposts.add(
+                                HomePost(
+                                    homepost.profileId,
+                                    homepost.postId,
+                                    homepost.title,
+                                    homepost.picture,
+                                    homepost.uploadTime,
+                                    homepost.profile
                                 )
                             )
                         }
-                        val adapterP = PostsRecyclerAdapter(posts)
-                        homePostsLayout.adapter = adapterP
-                        adapterP.notifyDataSetChanged()
+                        val adapter = HomePostsRecyclerAdapter(homeposts)
+                        homePostsLayout.adapter = adapter
+                        adapter.notifyDataSetChanged()
                     } else {
                         Toast.makeText(activity, "NO posts", Toast.LENGTH_LONG).show()
                     }

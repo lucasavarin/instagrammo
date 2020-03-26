@@ -3,7 +3,7 @@ package com.mst.instagrammo.model.beans
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Post (
+data class HomePost (
     @Expose
     @SerializedName("profileId") val profileId : String?,
     @Expose

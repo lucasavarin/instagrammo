@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/grid"
+        android:id="@+id/grid_view"
         android:icon="@drawable/ic_view_module_black_24dp"
-        android:title=""/>
+        android:title="grid"/>
     <item
-        android:id="@+id/list"
+        android:id="@+id/list_view"
         android:icon="@drawable/ic_view_stream_black_24dp"
-        android:title=""/>
+        android:title="list"/>
 </menu>

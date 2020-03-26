@@ -11,12 +11,20 @@ interface ApiInterface {
     @POST ("auth.php")
     fun doAuth(@Body authRequest: AuthRequest) : Call<AuthResponse>
 
+    //home stories
     @GET("followers.php/{profiloUtente}")
-    fun getStories(@Path("profiloUtente") id: Int) : Call<StoriesResponse>
+    fun getStories(@Path("profiloUtente") profileId: Int) : Call<StoriesResponse>
 
+    //home posts
     @GET("posts.php")
-    fun getPosts() : Call<PostsResponse>
+    fun getHomePosts() : Call<HomePostsResponse>
 
+    //profile info profile
     @GET("profiles.php/{profiloUtente}")
-    fun getProfile(@Path("profiloUtente") id: Int) : Call<ProfileResponse>
+    fun getProfile(@Path("profiloUtente") profileId: Int) : Call<ProfileResponse>
+
+    //profile posts
+    @GET("posts.php/{profiloUtente}")
+    fun getProfilePosts(@Path("profiloUtente") profileId: Int) : Call<ProfilePostsResponse>
+
 }

@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.mst.instagrammo.R
+import com.mst.instagrammo.adapters.ProfilePagerAdapter
 import com.mst.instagrammo.api.ApiClient
 import com.mst.instagrammo.model.ProfileResponse
 import com.mst.instagrammo.model.beans.Profile
@@ -23,18 +25,23 @@ import retrofit2.Response
 class ProfileFragment : Fragment(){
     var profile: MutableList<Profile> = ArrayList()
 
+    private lateinit var profilePagerAdapter: ProfilePagerAdapter
+    private lateinit var viewPager: ViewPager
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         getProfile(profile)
+
+        profilePagerAdapter = ProfilePagerAdapter(childFragmentManager)
+        viewPager = view.viewPagerPictures
+        viewPager.adapter = profilePagerAdapter
     }
 
     private fun getProfile(profile: MutableList<Profile>) {
