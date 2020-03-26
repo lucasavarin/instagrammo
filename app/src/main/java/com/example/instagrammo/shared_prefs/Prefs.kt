@@ -6,9 +6,19 @@ import android.content.SharedPreferences
 class Prefs(context:Context) {
     private val PREFS_FILENAME = "com.example.instagrammo.shared_prefs.prefs"
     private val REMEMBER_USER = "remember_user"
+    private val POST_NUMBER = "POST_NUMBER"
+    private val IS_POST_NUMBER_CHANGED = "IS_POST_NUMBER_CHANGED"
     private val prefs:SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
 
     var remember_user:Boolean
         get() = prefs.getBoolean(REMEMBER_USER, false)
         set(value) = prefs.edit().putBoolean(REMEMBER_USER, value).apply()
+
+    var newPostNumber: Int
+        get() = prefs.getInt(POST_NUMBER, 0)
+        set(value) = prefs.edit().putInt(POST_NUMBER, value).apply()
+
+    var isPostNumberChanged : Boolean
+        get() = prefs.getBoolean(IS_POST_NUMBER_CHANGED, false)
+        set(value) = prefs.edit().putBoolean(IS_POST_NUMBER_CHANGED, value).apply()
 }

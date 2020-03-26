@@ -48,7 +48,6 @@ class LoginActivity: AppCompatActivity() {
                             intent = Intent(applicationContext, MainActivity::class.java)
                             startActivity(intent)
                             finish()
-                            initService()
                         }
                     }
                 }else{
@@ -69,14 +68,7 @@ class LoginActivity: AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    fun initService(){
-        val postNumberService = Intent(applicationContext, ForegroundService::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(postNumberService)
-        }else{
-            startService(postNumberService)
-        }
-    }
+
 //    fun managePrefs(){
 //        val prefsUser = getSharedPreferences("com.example.instagrammo.shared_prefs.prefs", Context.MODE_PRIVATE)
 //        val editor = prefsUser.edit()
