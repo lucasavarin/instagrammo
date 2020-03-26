@@ -74,12 +74,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
     fun startServices() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, PostNumberService::class.java)
         startService(intent)
     }
 
     fun stopServices() {
-        val intent = Intent(applicationContext, MainActivity::class.java)
+        val intent = Intent(applicationContext, PostNumberService::class.java)
         stopService(intent)
     }
 

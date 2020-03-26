@@ -30,6 +30,10 @@ class PostNumberService : Service() {
         super.onCreate()
     }
 
+    override fun onBind(intent: Intent?): IBinder? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         createNotification()
      /*   val intent = PendingIntent.getActivity(
@@ -40,16 +44,21 @@ class PostNumberService : Service() {
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
 
         getPostsNumber(pendingIntent)
+        notification  =
+            NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                .setContentTitle("Titolo")
+                .setContentText("Nuovi post: $post")
+                .setSmallIcon(R.mipmap.favicon)
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setShowWhen(false)
+                .setOnlyAlertOnce(true)
+                .build()
+        startForeground(1, notification)
         return START_NOT_STICKY
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 
-    override fun onBind(intent: Intent): IBinder? {
-        return null
-    }
 
     private fun createNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -66,18 +75,18 @@ class PostNumberService : Service() {
     }
 
     private fun getPostsNumber(pendingIntent: PendingIntent) {
-
         val handler = Handler()
+        handler.post(object : Runnable{
+            override fun run() {
+            }
+        })
         val delay : Long = 5000
-
         handler.postDelayed(object : Runnable {
             override fun run() {
-
                 getNumberPost(pendingIntent)
                 handler.postDelayed(this, delay)
             }
         }, delay)
-
     }
 
     private fun getNumberPost(pendingIntent: PendingIntent) : Unit {
