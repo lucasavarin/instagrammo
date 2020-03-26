@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.instagrammo.*
 import com.example.instagrammo.ui.fragment.*
+import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(applicationContext)
         setContentView(R.layout.main_activity)
         startServices()
         var fragment: Fragment? = null

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "809853452186",
+    "firebase_url": "https://golgol-1c218.firebaseio.com",
+    "project_id": "golgol-1c218",
+    "storage_bucket": "golgol-1c218.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809853452186:android:b0c0d0cd3c94a70675c423",
+        "android_client_info": {
+          "package_name": "com.golgol.instagrammo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809853452186-turittu43or5drtaq3u0edbiq63rmf5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNc2tHO8EkKo4VkOvyOHTg37iqKgvk0to"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809853452186-turittu43or5drtaq3u0edbiq63rmf5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 <resources>
+    <string name="channel_id">Channel_Id</string>
     <string name="app_name">Instagrammo</string>
     <string name="nome">Nome</string>
     <string name="nomeUtente">Username</string>
