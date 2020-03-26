@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "536892766271",
+    "firebase_url": "https://instagrammo-2560c.firebaseio.com",
+    "project_id": "instagrammo-2560c",
+    "storage_bucket": "instagrammo-2560c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536892766271:android:21fc1d20a6f1e62be4208a",
+        "android_client_info": {
+          "package_name": "com.lynxspa.instagrammo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "536892766271-roful4q8lvu6mcut6jeq24fe3hglp6al.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUbc6HA3WPMq20Ubb2eNiD9T2F2Kt-z54"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "536892766271-roful4q8lvu6mcut6jeq24fe3hglp6al.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
