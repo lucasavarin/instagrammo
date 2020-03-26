@@ -14,9 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="com.example.util.shared_prefs.SharedPreference"
+        android:name="com.instagrammo.util.shared_prefs.SharedPreference"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.example.view.login.LoginActivity"
+        <activity android:name="com.instagrammo.view.login.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,15 +24,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.view.login.FragmentsActivity"
+        <activity android:name="com.instagrammo.view.login.FragmentsActivity"
             android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <service android:name="com.example.util.ForegroundService"
+        <service android:name="com.instagrammo.util.ForegroundService"
             android:enabled="true"/>
-    </application>
+        
+        <service android:name="com.instagrammo.util.MyFirebaseMessaggingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
 
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_application_id"/>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:value="@drawable/ic_notifications_black_24dp"/>
+
+    </application>
 
 </manifest>

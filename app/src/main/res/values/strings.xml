@@ -30,4 +30,5 @@
     <string name="conferma_post">Conferma</string>
     <string name="remember_me">Remember Me</string>
     <string name="instagrammo_header">Instagrammo</string>
+    <string name="default_notification_application_id">com.ggwp.instagrammo</string>
 </resources>
