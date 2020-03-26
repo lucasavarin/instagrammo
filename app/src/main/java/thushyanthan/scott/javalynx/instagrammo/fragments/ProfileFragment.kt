@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,6 +58,41 @@ class ProfileFragment: Fragment() {
 
         profilePostListLayout.layoutManager = linearLayoutManagerPost
         profilePostGridLayout.layoutManager = gridLayoutManagerPost
+
+
+       /* gridTabItem.setOnClickListener {
+            profilePostGridLayout.visibility = View.GONE
+            profilePostListLayout.visibility = View.VISIBLE
+        }
+
+        listTabItem.setOnClickListener {
+            profilePostGridLayout.visibility = View.VISIBLE
+            profilePostListLayout.visibility = View.GONE
+        }*/
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if(profilePostGridLayout.visibility == 0){
+                    profilePostGridLayout.visibility = View.GONE
+                    profilePostListLayout.visibility = View.VISIBLE
+                }else{
+                    profilePostGridLayout.visibility = View.VISIBLE
+                    profilePostListLayout.visibility = View.GONE
+                }
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+      }
+        })
+
+
+
 
     }
 
