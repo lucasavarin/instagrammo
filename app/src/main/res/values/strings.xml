@@ -12,4 +12,7 @@
     <string name="post">Post</string>
     <string name="amici">Amici</string>
     <string name="modifica_profilo">Modifica Profilo</string>
+    <string name="conferma_immagine">Conferma Immagine</string>
+    <string name="conferma_aggiunta_post">Conferma Aggiunta Post</string>
+    <string name="conferma">Conferma</string>
 </resources>

@@ -1,8 +1,15 @@
 package com.example.instagrammo.util
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
+import java.lang.Exception
 
 
 class SquareImageView(context: Context, attrs: AttributeSet): AppCompatImageView(context, attrs) {

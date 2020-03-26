@@ -1,14 +1,24 @@
 package com.example.instagrammo.adapters
 
+import android.graphics.Bitmap
+import android.graphics.Point
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.instagrammo.beans.business.Post
 import com.example.instagrammo.util.CircleTransform
 import com.example.instagrammo.util.NO_IMAGE_AVAILABLE
 import com.example.instagrammo.util.NO_PROFILE_PIC
+import com.example.instagrammo.util.normalizeDownloadUrlToScreenWidth
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
+import jp.wasabeef.picasso.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.post_layout_item.view.*
+import java.lang.Exception
 
 class PostsListHolder(v:View):RecyclerView.ViewHolder(v), View.OnClickListener {
 
@@ -18,7 +28,10 @@ class PostsListHolder(v:View):RecyclerView.ViewHolder(v), View.OnClickListener {
     fun bindPost(post: Post){
         this.post = post
         if(post.picture.isNotEmpty()) {
-            Picasso.get().load(post.picture).into(view.img)
+            val size = Point()
+            (view.context as AppCompatActivity).windowManager.defaultDisplay.getSize(size)
+            Picasso.get().load(normalizeDownloadUrlToScreenWidth(post.picture, size.x)).into(view.img)
+            Picasso.get().load(normalizeDownloadUrlToScreenWidth(post.picture, size.x)).transform(BlurTransformation(view.context)).into(view.image_holder)
         }else {
             Picasso.get().load(NO_IMAGE_AVAILABLE).into(view.img)
         }

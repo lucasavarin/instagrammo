@@ -87,8 +87,8 @@ class HomeFragment: Fragment() {
                 if(response.isSuccessful){
                     val body = response.body()!!
                     if(body.result){
-                        for(post in body.payload) {
-                            posts.add(Post.createBusinessBean(post))
+                        for(index in body.payload.size-1 downTo 0) {
+                            posts.add(Post.createBusinessBean(body.payload[index]))
                         }
                         homePostListLayout.adapter = PostsListRecyclerAdapter(posts)
                         homePostListLayout.adapter?.notifyDataSetChanged()
