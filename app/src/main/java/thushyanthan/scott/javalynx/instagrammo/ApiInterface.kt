@@ -15,6 +15,9 @@ interface ApiInterface {
         @GET("posts.php")
         fun requestPosts(): Call<PostsResponse>
 
+        @GET("posts.php/{profiloUtente}")
+        fun getSingleProfilePosts(@Path("profiloUtente") profiloUtente: String): Call<PostsResponse>
+
         @GET("followers.php/{profiloUtente}")
         fun requestFollowers(@Path("profiloUtente") profiloUtente:String ): Call<FollowerResponse>
 

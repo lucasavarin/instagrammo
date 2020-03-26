@@ -125,7 +125,7 @@ class ProfileFragment: Fragment() {
     }
 
     fun getProfilePost() {
-        val postProfile = ApiClient.getClient.requestPosts()
+        val postProfile = ApiClient.getClient.getSingleProfilePosts(prefs.profiloUtente)
 
         postProfile.enqueue(object : Callback<PostsResponse>{
             override fun onFailure(call: Call<PostsResponse>, t: Throwable) {
