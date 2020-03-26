@@ -1,5 +1,6 @@
 package thushyanthan.scott.javalynx.instagrammo.activities
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,7 +8,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.loader.content.Loader
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,6 +25,7 @@ import thushyanthan.scott.javalynx.instagrammo.util.rest.NewPublishedPostsNumber
 class MainActivity: AppCompatActivity(){
     lateinit var mainHandler: Handler
 
+
     private val something = object : Runnable {
         override fun run() {
             getNewPosts()
@@ -31,6 +37,7 @@ class MainActivity: AppCompatActivity(){
         setContentView(R.layout.activity_main)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnNavigationItemSelectedListener(navListener)
+
         //I added this if statement to keep the selected fragment when rotating the device
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(
@@ -38,8 +45,6 @@ class MainActivity: AppCompatActivity(){
                 HomeFragment()).commit()
         }
         mainHandler = Handler(Looper.getMainLooper())
-
-
     }
 
     override fun onPause() {
@@ -90,7 +95,18 @@ class MainActivity: AppCompatActivity(){
                 if (response.isSuccessful){
                     val resultBody = response.body()!!
                     if (resultBody.result){
-                        NewPostsForegroundService.startService(applicationContext,resultBody.payload.toString())
+                        var count = 0
+                        if (homePostsListLayout.adapter != null){
+                            count = homePostsListLayout!!.adapter!!.itemCount
+                            NewPostsForegroundService.startService(applicationContext,(resultBody.payload.toInt() - count).toString())
+                            val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+                            if (resultBody.payload.toInt() - count > 0)
+                            bottomNav.getOrCreateBadge(R.id.navigation_home).number = resultBody.payload.toInt() - count
+
+
+                        }
+
                     }
                 }else{
                     Toast.makeText(applicationContext, "Error getNewPosts2", Toast.LENGTH_SHORT).show()
