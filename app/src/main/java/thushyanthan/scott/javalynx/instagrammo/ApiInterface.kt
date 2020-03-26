@@ -12,10 +12,6 @@ interface ApiInterface {
             @Body auth: DataRequest
         ):Call<AuthResponse>
 
-        @POST("followers.php")
-        fun doResonseO(
-        ):Call<HomeRecyclerViewOrizzontale>
-
         @GET("posts.php")
         fun requestPosts(): Call<PostsResponse>
 
@@ -32,6 +28,6 @@ interface ApiInterface {
         fun addPostsToProfile(@Body bodyPicToBeAdded: AddPictureRequest?): Call<OnlyResultResponse>
 
         @GET("posts_number.php")
-        fun getNewPublishenPostsNumber():Call<NewPublishedPostsNumberResponse>
+        fun getNewPublishedPostsNumber():Call<NewPublishedPostsNumberResponse>
 
 }

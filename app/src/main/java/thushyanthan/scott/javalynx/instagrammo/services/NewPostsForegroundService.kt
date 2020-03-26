@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
@@ -40,7 +41,7 @@ class NewPostsForegroundService : Service() {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("New Posts")
             .setContentText("You have $input new posts")
-            //.setSmallIcon()
+            .setSmallIcon(R.drawable.instagrammo_logo)
             .setContentIntent(pendingIntent)
             .build()
 

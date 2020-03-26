@@ -77,7 +77,7 @@ class MainActivity: AppCompatActivity(){
     }
 
     fun getNewPosts(){
-       val call = ApiClient.getClient.getNewPublishenPostsNumber()
+       val call = ApiClient.getClient.getNewPublishedPostsNumber()
         call.enqueue(object : Callback<NewPublishedPostsNumberResponse>{
             override fun onFailure(call: Call<NewPublishedPostsNumberResponse>, t: Throwable) {
                 Toast.makeText(applicationContext, "Error getNewPosts1", Toast.LENGTH_SHORT).show()
