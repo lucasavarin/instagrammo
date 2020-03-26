@@ -25,7 +25,14 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar?.setCustomView(R.layout.header)
 
-
+        val profileId = intent.extras?.get("profileId")
+        if(profileId!= null){
+            val b = Bundle()
+            b.putString("profileId",profileId.toString())
+            val f = ProfiloFragment.newInstance()
+            f.arguments = b
+            makeTransaction(f)
+        }
         bottom.setOnNavigationItemSelectedListener {
 
 

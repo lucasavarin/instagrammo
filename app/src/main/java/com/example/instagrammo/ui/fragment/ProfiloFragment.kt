@@ -55,7 +55,10 @@ class ProfiloFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        RetrofitController.getClient.getProfile().enqueue(object : Callback<ProfileWrapperRest>{
+        val daIntent = arguments?.getString("profileId")
+
+
+        RetrofitController.getClient.getProfile(daIntent?.toInt() ?: Session.profileId).enqueue(object : Callback<ProfileWrapperRest>{
             override fun onFailure(call: Call<ProfileWrapperRest>, t: Throwable) {
 
             }

@@ -1,12 +1,13 @@
 package com.example.instagrammo
 
 import android.app.*
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import com.example.instagrammo.model.HomeWrapperPostBean
 import com.example.instagrammo.model.PostsNumberResponse
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.ui.activity.MainActivity
@@ -20,6 +21,7 @@ class PostNumberService : Service() {
     lateinit var notification : Notification
     private var post: Int = 0
     private var nPost: String = ""
+    private val GROUP_KEY =  "group_key"
 
 
     companion object {
@@ -90,6 +92,7 @@ class PostNumberService : Service() {
     }
 
     private fun getNumberPost(pendingIntent: PendingIntent) : Unit {
+        var oldCallPostNumber:Int=0
 
         RetrofitController.getClient.getNPosts().enqueue(object :
             Callback<PostsNumberResponse> {
@@ -103,9 +106,14 @@ class PostNumberService : Service() {
 
                 if(nPost != ""){
                     post =  response.body()!!.payload.toInt()  - nPost.toInt()
+
                 }
 
                 nPost = response.body()!!.payload
+                if(oldCallPostNumber <post){
+                    prepareNotifications()
+                }
+                oldCallPostNumber = post
 
                 notification  =
                     NotificationCompat.Builder(applicationContext, CHANNEL_ID)
@@ -121,4 +129,55 @@ class PostNumberService : Service() {
             }
         })
     }
+
+   private fun  prepareNotifications(){
+       val notifications  = arrayListOf<Notification>()
+       val retrofit = RetrofitController.getClient
+       retrofit.getFollowerPost().enqueue(object : Callback<HomeWrapperPostBean>{
+           override fun onFailure(call: Call<HomeWrapperPostBean>, t: Throwable) {
+
+           }
+
+           override fun onResponse(
+               call: Call<HomeWrapperPostBean>,
+               response: Response<HomeWrapperPostBean>
+           ) {
+               if(response.isSuccessful){
+
+
+                   val ultimiPosts =   response.body()!!.payload.reversed().take(post)
+                    ultimiPosts.forEach{it->
+                        val notificationIntent = Intent(applicationContext, MainActivity::class.java)
+
+                        val pi = PendingIntent.getActivity(applicationContext, 0, notificationIntent, 0)
+                        notificationIntent.putExtra("profileId",it.profileId)
+                       val newMessageNotification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                           .setContentTitle(it.profileId)
+                           .setSmallIcon(R.drawable.ic_arrow_forward_black_24dp)
+                           .setContentText(it.profile.name)
+                           .setGroup(GROUP_KEY)
+                           .addAction(R.drawable.ic_launcher_background,"Profilo",pi)
+                           .build()
+                       notifications.add(newMessageNotification)
+
+
+                   }
+                   val summaryNotification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                       .setContentText("${notifications.size} new posts")
+                       .setSmallIcon(R.drawable.ic_arrow_forward_black_24dp)
+                       .setStyle(NotificationCompat.InboxStyle())
+                       .setGroup(GROUP_KEY)
+                       .setGroupSummary(true)
+                       .build()
+                   NotificationManagerCompat.from(applicationContext).apply {
+                      notifications.forEachIndexed{ i,e->
+                          notify(i,e)
+                      }
+                     //  notify(0, summaryNotification)
+                   }
+               }
+           }
+       })
+   }
+
 }
