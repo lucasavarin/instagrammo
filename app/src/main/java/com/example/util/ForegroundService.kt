@@ -27,28 +27,18 @@ import retrofit2.Response
 class ForegroundService : Service() {
 
     lateinit var notification : Notification
-    private var  postNumber: String = ""
+    private var  postNumber: Int = 0
     private var  countPost: Int = 0
-
-    override fun onCreate() {
-        super.onCreate()
-    }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
         createNotificationChannel()
-        val notificationIntent = Intent(this, LoginActivity::class.java)
+        val notificationIntent = Intent(this, FragmentsActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
 
         getPostsNumber(pendingIntent)
 
         return START_NOT_STICKY
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-
     }
 
     @Nullable
@@ -79,7 +69,7 @@ class ForegroundService : Service() {
         val handler = Handler()
         val delay : Long = 5000
 
-        handler.postDelayed(object : Runnable {
+        handler.post(object : Runnable {
             override fun run() {
 
                 getNumberPost(pendingIntent)
@@ -87,7 +77,7 @@ class ForegroundService : Service() {
                 handler.postDelayed(this, delay)
 
             }
-        }, delay)
+        })
 
     }
 
@@ -104,8 +94,8 @@ class ForegroundService : Service() {
                 response: Response<NotificationResponseBean>
             ) {
 
-                if(postNumber != "" ){
-                    countPost =  response.body()!!.payload.toInt()  - postNumber.toInt()
+                if(postNumber != 0 ){
+                    countPost =  response.body()!!.payload  - postNumber
                 }
                     postNumber = response.body()!!.payload
 

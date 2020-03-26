@@ -3,18 +3,17 @@ package com.example.view.add_fragment
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bean.buissnes.AddPostResponseBean
 import com.example.login.R
 
 
-class AddPostStoryAdapter(private val dataList : List<AddPostResponseBean>) : RecyclerView.Adapter<AddPostStoryHolder>(){
+class AddPostStoryAdapter(var dataList : List<AddPostResponseBean>) : RecyclerView.Adapter<AddPostStoryHolder>(){
 
     private lateinit var context : Context
 
     private var callback : (() -> Unit)? = null
+    private var callBackOnHolderClickListener : ((AddPostResponseBean) -> Unit)? = null
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): AddPostStoryHolder {
         context = p0.context
@@ -25,20 +24,17 @@ class AddPostStoryAdapter(private val dataList : List<AddPostResponseBean>) : Re
 
     override fun getItemCount(): Int = dataList.size
 
-    override fun onBindViewHolder(p0: AddPostStoryHolder, p1: Int) {
-        p0.bindPosts(dataList.get(p1))
+    override fun onBindViewHolder(holder: AddPostStoryHolder, position: Int) {
 
-        p0.itemView.setOnClickListener { view ->
+        holder.bindPosts(dataList.get(position))
 
-            val activity = view.context as AppCompatActivity
-            val myFragment: Fragment = AddSecondFragment()
-            SessionAddFragmentData.position = p1
-            activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit()
+        holder.itemView.setOnClickListener {
 
+            callBackOnHolderClickListener?.invoke(dataList[position])
 
         }
 
-        if(p1 >= itemCount - 5  ){
+        if(position >= itemCount - 5){
           callback?.invoke()
         }
 
@@ -46,6 +42,10 @@ class AddPostStoryAdapter(private val dataList : List<AddPostResponseBean>) : Re
 
     fun setOnAddPostScrollListener(callback : () -> Unit){
         this.callback = callback
+    }
+
+    fun callBackOnHolderClickListener(callbackOnHolder : (AddPostResponseBean) -> Unit){
+        this.callBackOnHolderClickListener = callbackOnHolder
     }
 
 }

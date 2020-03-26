@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.bean.buissnes.AddPostResponseBean
 import com.example.login.R
 import com.example.util.utilities_project
 import com.squareup.picasso.Picasso
@@ -12,7 +13,13 @@ import kotlinx.android.synthetic.main.add_layout_click_item.*
 import kotlinx.android.synthetic.main.add_layout_click_item.view.*
 import kotlinx.android.synthetic.main.custom_view_layout.*
 
-class AddSecondFragment  : Fragment() {
+class AddSecondFragment(private val addBeanSessionFragment: AddPostResponseBean)  : Fragment() {
+
+    companion object {
+        fun makeInstance(it: AddPostResponseBean): Fragment {
+            return AddSecondFragment(it)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,7 +29,7 @@ class AddSecondFragment  : Fragment() {
 
         val rootestView : View = inflater.inflate(R.layout.add_layout_click_item,container ,false)
 
-        Picasso.get().load(SessionAddFragmentData.urlImage[SessionAddFragmentData.position]).into(rootestView.imageClick)
+        Picasso.get().load(addBeanSessionFragment.url).into(rootestView.imageClick)
 
         return rootestView
     }
@@ -30,9 +37,9 @@ class AddSecondFragment  : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        backButton.setOnClickListener { utilities_project.deleteFragment(AddSecondFragment(), activity!!) }
+        backButton.setOnClickListener { utilities_project.deleteFragment(AddSecondFragment(addBeanSessionFragment), activity!!) }
 
-        createPost.setOnClickListener { utilities_project.addFragment(AddThirdFragment(), activity!!)}
+        createPost.setOnClickListener { utilities_project.addFragment(AddThirdFragment(addBeanSessionFragment), activity!!)}
 
 
     }

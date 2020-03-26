@@ -8,6 +8,6 @@ data class NotificationResponseBean (
     @Expose()
     @SerializedName(value = "result") val result: Boolean,
     @Expose()
-    @SerializedName(value = "payload") val payload: String
+    @SerializedName(value = "payload") val payload: Int
 
 )

@@ -54,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
                         if(response.body()?.result == true){
                             Session.token = response.body()!!.token
                             Session.profileId = response.body()!!.profileId
-                            startServices()
                             setSharedPreferenceData()
                             startActivity(intent)
                             finish()
@@ -107,13 +106,6 @@ class LoginActivity : AppCompatActivity() {
             showPass.setImageResource(R.drawable.ic_visibility)
         }
     }
-
-    fun startServices() {
-        val serviceIntent = Intent(this, ForegroundService::class.java)
-        startService(serviceIntent)
-    }
-
-
 }
 
 
