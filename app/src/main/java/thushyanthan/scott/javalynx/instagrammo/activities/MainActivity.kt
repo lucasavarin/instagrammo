@@ -1,16 +1,23 @@
 package thushyanthan.scott.javalynx.instagrammo.activities
 
+import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.loader.content.Loader
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.FirebaseApp
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
@@ -33,18 +40,47 @@ class MainActivity: AppCompatActivity(){
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNav.setOnNavigationItemSelectedListener(navListener)
+        isGooglePlayServicesAvailable( this)
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
+            val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+            bottomNav.setOnNavigationItemSelectedListener(navListener)
 
-        //I added this if statement to keep the selected fragment when rotating the device
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container,
-                HomeFragment()).commit()
+            //I added this if statement to keep the selected fragment when rotating the device
+            if (savedInstanceState == null) {
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.fragment_container,
+                    HomeFragment()).commit()
+            }
+            mainHandler = Handler(Looper.getMainLooper())
+
+            FirebaseApp.initializeApp(applicationContext)
+
+            //GET FIREBASE TOKEN WHENEVER YOU WANT
+            /*FirebaseInstanceId.getInstance().instanceId
+                .addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        return@OnCompleteListener
+                    }
+                    val token = task.result?.token
+                    val msg = getString(R.string.msg_token_fmt, token)
+                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                })*/
+
+
+    }
+
+    fun isGooglePlayServicesAvailable(activity : Activity): Boolean{
+        val googleApiAvailability : GoogleApiAvailability = GoogleApiAvailability.getInstance()
+        val status = googleApiAvailability.isGooglePlayServicesAvailable(activity)
+        if (status != ConnectionResult.SUCCESS){
+            if (googleApiAvailability.isUserResolvableError(status)){
+                googleApiAvailability.getErrorDialog(activity,status,2404).show()
+            }
+            googleApiAvailability.makeGooglePlayServicesAvailable(activity)
+            return false
         }
-        mainHandler = Handler(Looper.getMainLooper())
+        return true
     }
 
     override fun onPause() {

@@ -14,8 +14,13 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:name=".util.sharedPrefs.ApplicationContext"
         >
-
         <service android:name=".services.NewPostsForegroundService" android:enabled="true" android:exported="true"/>
+
+        <service android:name="thushyanthan.scott.javalynx.instagrammo.services.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
 
 
         <activity android:name=".activities.MainActivity"
