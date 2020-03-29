@@ -64,8 +64,7 @@ class ProfileFragment : Fragment() {
 
         modifyButton.setOnClickListener{ utilities_project.addFragment(ModifyUserFragment(), activity!!) }
 
-        ClientInterceptor.getUser.getProfile(
-            Session.profileId).enqueue(object : Callback<ProfileWrapperResponse>{
+        ClientInterceptor.getUser.getProfile(Session.profileId).enqueue(object : Callback<ProfileWrapperResponse>{
 
             override fun onFailure(call: Call<ProfileWrapperResponse>, t: Throwable) {
 
@@ -85,13 +84,6 @@ class ProfileFragment : Fragment() {
 
             }
         })
-
-
-
-
-
-
-
     }
 
     private fun putUserInfo(response: HomeProfilePostBean) {
@@ -102,6 +94,14 @@ class ProfileFragment : Fragment() {
         profileName.text = response.name
         profileDescr.text = response.description
 
+    }
+
+    companion object {
+
+        fun newInstance(): ProfileFragment {
+            val profileFragment = ProfileFragment()
+            return profileFragment
+        }
     }
 
 

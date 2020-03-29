@@ -1,20 +1,33 @@
 package com.instagrammo.util
-
 import android.app.*
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
+import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.core.app.NotificationCompat
-import com.instagrammo.bean.rest.response.NotificationResponseBean
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.graphics.drawable.toIcon
 import com.example.login.R
+import com.instagrammo.bean.buissnes.HomeWrapperPostBean
+import com.instagrammo.bean.rest.response.NotificationResponseBean
 import com.instagrammo.util.retrofit.ClientInterceptor
 import com.instagrammo.util.shared_prefs.prefs
+import com.instagrammo.view.add_fragment.AddFragment
+import com.instagrammo.view.home_fragment.CircleTransform
 import com.instagrammo.view.login.FragmentsActivity
+import com.instagrammo.view.login.LoginActivity
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 
 class ForegroundService : Service() {
@@ -22,6 +35,7 @@ class ForegroundService : Service() {
     lateinit var notification : Notification
     private var  postNumber: Int = 0
     private var  countPost: Int = 0
+    val GROUP_KEY = "group.key"
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
@@ -41,6 +55,7 @@ class ForegroundService : Service() {
 
     companion object serviceForeground{
         const val CHANNEL_ID = "ForegroundServiceChannel"
+
     }
 
     private fun createNotificationChannel() {
@@ -98,25 +113,94 @@ class ForegroundService : Service() {
                     prefs.isNewPostNumber = true
                 }
 
+                if(prefs.newPostNumber.toInt() != 0){
+                    createCustomNotification()
+                }
+
+               // createCustomNotification()
+
                 if(prefs.isNewPostNumber == false){
                    prefs.newPostNumber = "0"
                 }
 
-                notification  =
-                    NotificationCompat.Builder(applicationContext,
-                            CHANNEL_ID
-                        )
+
+                notification  = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
                         .setContentTitle("Recupero Post")
                         .setContentText("Nuovi post pubblicati: ${prefs.newPostNumber}")
                         .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                         .setContentIntent(pendingIntent)
                         .setShowWhen(false)
                         .setOnlyAlertOnce(true)
-                        .setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL)
+                        .setGroup(GROUP_KEY)
                         .build()
-                startForeground(1, notification)
+                startForeground(1000, notification)
             }
 
         })
+    }
+
+    private fun  createCustomNotification(){
+        val singlePostNotification = arrayListOf<Notification>()
+
+        ClientInterceptor.getUser.getFollowerPost().enqueue(object : Callback<HomeWrapperPostBean>{
+
+            override fun onFailure(call: Call<HomeWrapperPostBean>, t: Throwable) {
+                Toast.makeText(applicationContext, "C'è stato un errore nel recupero dei posts", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(
+                call: Call<HomeWrapperPostBean>,
+                response: Response<HomeWrapperPostBean>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.result) {
+                        val lastPosts = response.body()!!.payload.reversed().take(prefs.newPostNumber.toInt())
+
+                        lastPosts.forEach { it ->
+                            val notificationIntent = Intent(applicationContext, FragmentsActivity::class.java).apply {
+                                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            }
+
+                            val pendingMainIntent = PendingIntent.getActivity(applicationContext, 0, notificationIntent,0)
+
+                            val newNotification =
+                                NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                                    .setContentTitle(it.HomeProfilePostBean.name)
+                                    .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                                    .setContentText(it.title)
+                                    .setContentIntent(pendingMainIntent)
+                                    .setAutoCancel(true)
+                                    .setGroup(GROUP_KEY)
+                                    .addAction(R.drawable.ic_launcher_background, "REPLY", pendingMainIntent)
+                                     getProfileImage(it.HomeProfilePostBean.picture, newNotification)
+                                singlePostNotification.add(newNotification.build())
+                          }
+
+                        NotificationManagerCompat.from(applicationContext).apply {
+                            singlePostNotification.forEachIndexed { i, e ->
+                                notify(i, e)
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    private fun getProfileImage(url: String, notification: NotificationCompat.Builder) : Unit {
+
+        Picasso.get().load(url).transform(CircleTransform()).into(object : Target{
+            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+            }
+
+            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+            }
+
+            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+              notification.setLargeIcon(bitmap)
+            }
+
+        })
+
     }
 }
