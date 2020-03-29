@@ -24,6 +24,7 @@ import thushyanthan.scott.javalynx.instagrammo.adapter.HomeAdapter
 import thushyanthan.scott.javalynx.instagrammo.adapter.ProfileGridAdapter
 import thushyanthan.scott.javalynx.instagrammo.fragments.secondaryFragments.EditProfileFragment
 import thushyanthan.scott.javalynx.instagrammo.util.rest.*
+import thushyanthan.scott.javalynx.instagrammo.util.transformation.CircleTransformation
 
 
 class ProfileFragment: Fragment() {
@@ -92,8 +93,6 @@ class ProfileFragment: Fragment() {
         })
 
 
-
-
     }
 
 
@@ -113,6 +112,18 @@ class ProfileFragment: Fragment() {
                     val resultBody = response.body()!!
                     if(resultBody.result){
                         profile = resultBody.payload
+                        description.text = profile[0].description
+                        Picasso.get().load(profile[0].picture).transform(CircleTransformation()).into(imageProfile)
+                        nameProfile.text = profile[0].name
+                        if (profile[0].followersNumber.isNullOrBlank()){
+                            profile[0].followersNumber = "0"
+                        }
+                        if (profile[0].postNumber.isNullOrBlank()){
+                            profile[0].postNumber = "0"
+                        }
+                        postsNumber.text = "Posts: " +profile[0].postNumber
+                        friendsNumber.text = "Followers: " +profile[0].followersNumber
+
                     }
                 }else{
                     Toast.makeText(activity, "Error GetSingleProfile2",Toast.LENGTH_SHORT).show()

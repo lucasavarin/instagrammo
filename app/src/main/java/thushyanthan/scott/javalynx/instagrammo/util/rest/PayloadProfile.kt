@@ -18,8 +18,8 @@ class PayloadProfile (
     val picture: String,
     @Expose
     @SerializedName("followersNumber")
-    val followersNumber: String,
+    var followersNumber: String,
     @Expose
     @SerializedName("postNumber")
-    val postNumber: String
+    var postNumber: String
 )

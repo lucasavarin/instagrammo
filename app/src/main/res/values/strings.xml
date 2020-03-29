@@ -7,6 +7,10 @@
     <string name="show_password">Show Password</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="confirm">Confirm</string>
+    <string name="post">Posts</string>
+    <string name="followers">Followers</string>
+
+
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
 

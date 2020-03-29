@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.add_random_pics_list_item.*
 import kotlinx.android.synthetic.main.fragment_add.*
 import retrofit2.Call
@@ -42,6 +44,7 @@ class AddFragment : Fragment() {
         linearLayoutManagerRandomPics = GridLayoutManager(activity, 3)
         randomPictures.layoutManager = linearLayoutManagerRandomPics
         randomPictures.addItemDecoration(RecyclerViewItemDecorator(4))
+
 
     }
 
@@ -84,6 +87,8 @@ class AddFragment : Fragment() {
 
             }
         })
+
+
 
 
     }

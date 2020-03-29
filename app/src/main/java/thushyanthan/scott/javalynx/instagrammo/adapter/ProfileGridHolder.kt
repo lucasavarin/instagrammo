@@ -17,7 +17,7 @@ class ProfileGridHolder (view: View) :  RecyclerView.ViewHolder(view){
     fun assemblePosts(post: PostPayload){
         this.post = post
         if(post.picture != ""){
-            Picasso.get().load(post.picture).into(v.imagePostProfile)
+            Picasso.get().load(post.picture).fit().into(v.imagePostProfile)
         }
     }
 }
