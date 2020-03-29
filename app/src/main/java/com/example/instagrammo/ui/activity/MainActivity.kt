@@ -11,7 +11,14 @@ import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val profileId = intent?.extras?.get("profileId")
+        if(profileId!= null){
+            makeTransaction( ProfiloFragment.newInstance(profileId.toString()))
+        }
 
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,14 +34,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar?.setCustomView(R.layout.header)
 
-        val profileId = intent.extras?.get("profileId")
-        if(profileId!= null){
-            val b = Bundle()
-            b.putString("profileId",profileId.toString())
-            val f = ProfiloFragment.newInstance()
-            f.arguments = b
-            makeTransaction(f)
-        }
+
         bottom.setOnNavigationItemSelectedListener {
 
 

@@ -28,7 +28,7 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback
 
-class ProfiloFragment() : Fragment() {
+class ProfiloFragment(private val profileId:String) : Fragment() {
 
     private var adapter: TabAdapter? = null
     val gridLayoutManager = GridLayoutManager(this.context,3, LinearLayoutManager.VERTICAL, false)
@@ -38,12 +38,11 @@ class ProfiloFragment() : Fragment() {
     private var description:String = ""
     private var nome:String =""
     private var imageUrl :String =""
-    private var profileId :String =""
 
     companion object {
 
-        fun newInstance(): ProfiloFragment {
-            val fragment = ProfiloFragment()
+        fun newInstance(profileI:String=Session.profileId.toString()): ProfiloFragment {
+            val fragment = ProfiloFragment(profileI)
 
             return fragment
         }
@@ -58,7 +57,7 @@ class ProfiloFragment() : Fragment() {
         val daIntent = arguments?.getString("profileId")
 
 
-        RetrofitController.getClient.getProfile(daIntent?.toInt() ?: Session.profileId).enqueue(object : Callback<ProfileWrapperRest>{
+        RetrofitController.getClient.getProfile(this.profileId.toInt()).enqueue(object : Callback<ProfileWrapperRest>{
             override fun onFailure(call: Call<ProfileWrapperRest>, t: Throwable) {
 
             }
@@ -70,7 +69,6 @@ class ProfiloFragment() : Fragment() {
                 description = response.body()!!.payload[0].description
                 nome = response.body()!!.payload[0].name
                 imageUrl = response.body()!!.payload[0].picture
-                profileId = response.body()!!.payload[0].profileId
                 fillDataUser(description,imageUrl,response!!.body()!!.payload[0].followersNumber,response!!.body()!!.payload[0].postsNumber)
             }
         })
@@ -82,6 +80,7 @@ class ProfiloFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        buttonProfilo.visibility = if(this.profileId.toInt() == Session.profileId) View.VISIBLE else View.INVISIBLE
         adapter = TabAdapter(childFragmentManager)
         Posts.layoutManager = linearLayoutManager
         buttonProfilo.setOnClickListener { v ->

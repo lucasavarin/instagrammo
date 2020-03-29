@@ -104,8 +104,8 @@ class PostNumberService : Service() {
                 response: Response<PostsNumberResponse>
             ) {
 
-                if(nPost != ""){
-                    post =  response.body()!!.payload.toInt()  - nPost.toInt()
+                if(nPost != "" && response.isSuccessful && response.body()!= null){
+                    post =  response!!.body()!!.payload.toInt()  - nPost.toInt()
 
                 }
 
@@ -148,13 +148,14 @@ class PostNumberService : Service() {
                    val ultimiPosts =   response.body()!!.payload.reversed().take(post)
                     ultimiPosts.forEach{it->
                         val notificationIntent = Intent(applicationContext, MainActivity::class.java)
-
-                        val pi = PendingIntent.getActivity(applicationContext, 0, notificationIntent, 0)
                         notificationIntent.putExtra("profileId",it.profileId)
+                        val pi = PendingIntent.getActivity(applicationContext, 0, notificationIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT)
+
                        val newMessageNotification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-                           .setContentTitle(it.profileId)
-                           .setSmallIcon(R.drawable.ic_arrow_forward_black_24dp)
-                           .setContentText(it.profile.name)
+                           .setContentTitle("Nuovo post di ${it.profile.name}")
+                           .setSmallIcon(R.mipmap.logo)
+                           .setContentText(it.title)
                            .setGroup(GROUP_KEY)
                            .addAction(R.drawable.ic_launcher_background,"Profilo",pi)
                            .build()
