@@ -92,5 +92,11 @@ class LoginActivity : Activity() {
 
             })
         }
+        username.setOnFocusChangeListener { view, b ->
+            if (b)
+                username.hint = ""
+            else
+                username.hint = "Username"
+        }
     }
 }
