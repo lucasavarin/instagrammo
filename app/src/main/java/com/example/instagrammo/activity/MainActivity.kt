@@ -1,7 +1,6 @@
 package com.example.instagrammo.activity
 
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Build
@@ -11,19 +10,14 @@ import android.os.IBinder
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import com.example.instagrammo.ForegroundService
+import com.example.instagrammo.notification.ForegroundService
 import com.example.instagrammo.R
-import com.example.instagrammo.beans.response.PostsNumberResponseBean
 import com.example.instagrammo.primary_fragments.*
-import com.example.instagrammo.retrofit.Client
 import com.example.instagrammo.shared_prefs.prefs
 import com.example.instagrammo.util.addFragment
 import com.example.instagrammo.util.replaceFragment
 import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,6 +52,7 @@ class MainActivity : AppCompatActivity() {
             when(menuItem.itemId){
                 R.id.home ->{
                     prefs.isPostNumberChanged = false
+                    prefs.newPostNumber = 0
                     replaceFragment(HomeFragment.makeInstance(),
                         R.id.container
                     )

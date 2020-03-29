@@ -13,7 +13,7 @@ class AddPostResponse(
     @Expose
     @SerializedName(value = "height") val height : String,
     @Expose
-    @SerializedName(value = "url") val url : String,
+    @SerializedName(value = "url") var url : String,
     @Expose
     @SerializedName(value = "download_url") var download_url : String
 )

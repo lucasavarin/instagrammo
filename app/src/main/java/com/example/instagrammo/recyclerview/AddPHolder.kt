@@ -6,14 +6,10 @@ import com.example.instagrammo.beans.response.AddPostResponse
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.add_post_item_layout.view.*
 
-class AddPHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+class AddPHolder(private val view: View) : RecyclerView.ViewHolder(view){
 
-    private var view : View = itemView
     private var posts : AddPostResponse? = null
 
-    override fun onClick(v: View?) {
-
-    }
 
     fun fillGrid(posts : AddPostResponse){
         this.posts = posts

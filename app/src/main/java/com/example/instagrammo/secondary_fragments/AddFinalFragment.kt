@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.instagrammo.util.AddPostData
 import com.example.instagrammo.R
 import com.example.instagrammo.beans.request.CreatePostRequestBean
+import com.example.instagrammo.beans.response.AddPostResponse
 import com.example.instagrammo.beans.response.CreatePostResponseBean
 import com.example.instagrammo.retrofit.Client
 import com.example.instagrammo.retrofit.Session
@@ -22,7 +23,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddFinalFragment: Fragment() {
+class AddFinalFragment(private val addBean : AddPostResponse): Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -33,7 +34,7 @@ class AddFinalFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view : View = inflater.inflate(R.layout.fragment_add_post_final_fragment, container, false)
-        Picasso.get().load(AddPostData.url[AddPostData.postPosition]).transform(CircleTrasformation()).into(view.round_add_photo)
+        Picasso.get().load(addBean.url).transform(CircleTrasformation()).into(view.round_add_photo)
         activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         return view
     }
@@ -42,7 +43,7 @@ class AddFinalFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         back_btn.setOnClickListener {
-            deleteFragment(AddFinalFragment(), activity!!)
+            deleteFragment(AddFinalFragment(addBean), activity!!)
         }
 
         post_button.setOnClickListener{createPost()}
@@ -51,7 +52,7 @@ class AddFinalFragment: Fragment() {
     private fun createPost(){
         Client.getClient.addPost(
             CreatePostRequestBean(
-                Session.profileId, desc_edit.text.toString(), AddPostData.createUrl[AddPostData.postPosition]
+                Session.profileId, desc_edit.text.toString(), addBean.download_url
             )
         ).enqueue(object : Callback<CreatePostResponseBean>{
             override fun onFailure(call: Call<CreatePostResponseBean>, t: Throwable) {
@@ -64,9 +65,8 @@ class AddFinalFragment: Fragment() {
             ) {
                 if (response.isSuccessful){
                     if (response.body()!!.result){
-                        deleteFragment(AddFinalFragment(), activity!!)
-
-                        deleteFragment(AddPostDetailFragment(), activity!!)
+                        deleteFragment(AddFinalFragment(addBean), activity!!)
+                        deleteFragment(AddPostDetailFragment(addBean), activity!!)
                     }
                 }
             }

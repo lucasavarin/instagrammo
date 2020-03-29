@@ -1,11 +1,9 @@
 package com.example.instagrammo.activity
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.instagrammo.ForegroundService
 import com.example.instagrammo.R
 import com.example.instagrammo.beans.request.AuthRequest
 import com.example.instagrammo.beans.response.AuthResponse

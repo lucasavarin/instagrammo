@@ -11,10 +11,13 @@ import com.example.instagrammo.R
 import com.example.instagrammo.beans.response.AddPostResponse
 import com.example.instagrammo.secondary_fragments.AddPostDetailFragment
 
-class AddPAdapter(private val postData : List<AddPostResponse>) :
+class AddPAdapter(var postData : List<AddPostResponse>) :
     RecyclerView.Adapter<AddPHolder>() {
 
     private lateinit var context : Context
+    private var callBackOnItemClickListener : ((AddPostResponse) -> Unit)? = null
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddPHolder {
         context = parent.context
@@ -27,18 +30,12 @@ class AddPAdapter(private val postData : List<AddPostResponse>) :
     override fun onBindViewHolder(holder: AddPHolder, position: Int) {
         holder.fillGrid(postData[position])
 
-        holder.itemView.setOnClickListener{view->
-            val activity = view.context as AppCompatActivity
-            val fragment : Fragment = AddPostDetailFragment()
-            AddPostData.postPosition = position
-            activity.supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .commit()
+        holder.itemView.setOnClickListener{
+            callBackOnItemClickListener?.invoke(postData[position])
         }
-        val item = postData[position]
-        holder.fillGrid(item)
     }
 
+    fun callBackOnItemClickListener(callBackOnClick : (AddPostResponse) -> Unit){
+        this.callBackOnItemClickListener = callBackOnClick
+    }
 }
