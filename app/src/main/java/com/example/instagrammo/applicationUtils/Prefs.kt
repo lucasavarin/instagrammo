@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class Prefs (context: Context) {
+
+    val POST_NUMBER = "postNumber"
+    val IS_NEW_POST_NUMBER = "isNewPostNumber"
     val PREFS_FILENAME = "com.example.instagrammo.prefs"
     val REMEMBER = "rememberMe"
     val USERNAME = "user"
@@ -22,4 +25,12 @@ class Prefs (context: Context) {
     var password: String
         get() = prefs.getString(PASSWORD, "") ?: ""
         set(value) = prefs.edit().putString(PASSWORD, value).apply()
+
+    var newPostNumber: String
+        get() = prefs.getString(POST_NUMBER, "") ?: ""
+        set(value) = prefs.edit().putString(POST_NUMBER, value).apply()
+
+    var isNewPostNumber: Boolean
+        get() = prefs.getBoolean(IS_NEW_POST_NUMBER, false)
+        set(value) = prefs.edit().putBoolean(IS_NEW_POST_NUMBER, value).apply()
 }

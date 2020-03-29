@@ -5,5 +5,6 @@
     <color name="colorAccent">#615D5D</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
     <color name="signupColor">#066e8a</color>
 </resources>

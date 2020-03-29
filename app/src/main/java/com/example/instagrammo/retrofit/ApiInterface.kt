@@ -46,4 +46,7 @@ interface ApiInterface {
     fun updatePost(
         @Body post: UpdatePostREST
     ):Call<PostPutResponseREST>
+
+    @GET("posts_number.php")
+    fun getPostNumber() : Call<NotificationResponseREST>
 }

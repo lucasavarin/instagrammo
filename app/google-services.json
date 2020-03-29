@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "907600044121",
+    "firebase_url": "https://instagrammo-232a5.firebaseio.com",
+    "project_id": "instagrammo-232a5",
+    "storage_bucket": "instagrammo-232a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907600044121:android:8eb96ee40883b75e095148",
+        "android_client_info": {
+          "package_name": "com.teamy.instagrammo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907600044121-p7mh9i505hjrgt5cl1avp9bg0nue0t24.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrTtwxjSYnu9Q6dKx4pOcDsh8Cd5f6acg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907600044121-p7mh9i505hjrgt5cl1avp9bg0nue0t24.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
