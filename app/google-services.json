@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "536892766271",
-    "firebase_url": "https://instagrammo-2560c.firebaseio.com",
-    "project_id": "instagrammo-2560c",
-    "storage_bucket": "instagrammo-2560c.appspot.com"
+    "project_number": "441587399196",
+    "firebase_url": "https://instagrammolallot.firebaseio.com",
+    "project_id": "instagrammolallot",
+    "storage_bucket": "instagrammolallot.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:536892766271:android:21fc1d20a6f1e62be4208a",
+        "mobilesdk_app_id": "1:441587399196:android:719b5c7a9da9854d2dfdd9",
         "android_client_info": {
           "package_name": "com.lynxspa.instagrammo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "536892766271-roful4q8lvu6mcut6jeq24fe3hglp6al.apps.googleusercontent.com",
+          "client_id": "441587399196-4gopb5h7s58k2r1n86ddh4bqlabskef5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDUbc6HA3WPMq20Ubb2eNiD9T2F2Kt-z54"
+          "current_key": "AIzaSyAPYyIEk-9tUmbHXMPECcEmun0fnVhe1f4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "536892766271-roful4q8lvu6mcut6jeq24fe3hglp6al.apps.googleusercontent.com",
+              "client_id": "441587399196-4gopb5h7s58k2r1n86ddh4bqlabskef5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
