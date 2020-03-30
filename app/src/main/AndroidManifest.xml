@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.instagrammo.view.login.FragmentsActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
 
         <meta-data

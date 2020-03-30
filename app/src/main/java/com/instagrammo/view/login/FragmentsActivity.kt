@@ -9,6 +9,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.login.R
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.FirebaseApp
 import com.instagrammo.util.ForegroundService
 import com.instagrammo.util.shared_prefs.prefs
 import com.instagrammo.view.add_fragment.AddFragment
@@ -16,13 +20,24 @@ import com.instagrammo.view.favourite_fragment.FavouriteFragment
 import com.instagrammo.view.home_fragment.HomeFragment
 import com.instagrammo.view.profile_fragment.ProfileFragment
 import com.instagrammo.view.search_fragment.SearchFragment
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.FirebaseApp
 
 
 class FragmentsActivity : AppCompatActivity(){
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val action = intent!!.action
+
+        if(action.equals("add")){
+            loadFragment(AddFragment())
+        }
+        else{
+            val profileId = intent.extras?.get("profileId")
+            if(profileId != null){
+                loadFragment(ProfileFragment.newInstance(profileId.toString()))
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +56,6 @@ class FragmentsActivity : AppCompatActivity(){
         val badgeTextView = badge.findViewById<TextView>(R.id.notification_badge)
 
         items.addView(badge)
-
         reloadBadgeContent(badgeTextView)
 
         if(savedInstanceState == null)
@@ -57,7 +71,7 @@ class FragmentsActivity : AppCompatActivity(){
                 }
 
                 R.id.Profile -> {
-                    loadFragment(ProfileFragment())
+                    loadFragment(ProfileFragment.newInstance())
                     return@setOnNavigationItemSelectedListener true
                 }
 
@@ -127,4 +141,5 @@ class FragmentsActivity : AppCompatActivity(){
         val serviceIntent = Intent(this, ForegroundService::class.java)
         startService(serviceIntent)
     }
+
 }

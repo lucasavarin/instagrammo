@@ -5,15 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.instagrammo.bean.buissnes.*
 import com.example.login.R
 import com.instagrammo.util.retrofit.ClientInterceptor
 import com.instagrammo.util.retrofit.Session
 import com.instagrammo.util.utilities_project
 import com.instagrammo.view.home_fragment.CircleTransform
-import com.instagrammo.view.home_fragment.HomeFollowerStoryAdapter
 import com.google.android.material.tabs.TabLayout
-import com.instagrammo.bean.buissnes.HomeProfilePostBean
 import com.instagrammo.bean.buissnes.ProfileWrapperResponse
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.profile_layout.*
@@ -24,7 +21,15 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment(private val profileId:String) : Fragment() {
+
+    companion object {
+
+        fun newInstance(profileId : String = Session.profileId): ProfileFragment {
+            val profileFragment = ProfileFragment(profileId)
+            return profileFragment
+        }
+    }
 
     override fun onCreateView(
 
@@ -32,6 +37,26 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        ClientInterceptor.getUser.getProfile(this.profileId).enqueue(object : Callback<ProfileWrapperResponse>{
+
+            override fun onFailure(call: Call<ProfileWrapperResponse>, t: Throwable) {
+
+            }
+
+            override fun onResponse(
+                call: Call<ProfileWrapperResponse>,
+                response: Response<ProfileWrapperResponse>
+            ) {
+                if (response.isSuccessful){
+                    if(!response.body()?.payloadProfile?.isEmpty()!!) {
+                        putUserInfo(response)
+                    }
+
+                }
+
+            }
+        })
 
 
         return inflater.inflate(R.layout.profile_layout,container ,false)
@@ -62,47 +87,21 @@ class ProfileFragment : Fragment() {
             }
         })
 
+        if (this.profileId.equals(Session.profileId))
+            modifyButton.visibility = View.VISIBLE
+        else modifyButton.visibility = View.INVISIBLE
+
         modifyButton.setOnClickListener{ utilities_project.addFragment(ModifyUserFragment(), activity!!) }
-
-        ClientInterceptor.getUser.getProfile(Session.profileId).enqueue(object : Callback<ProfileWrapperResponse>{
-
-            override fun onFailure(call: Call<ProfileWrapperResponse>, t: Throwable) {
-
-            }
-
-            override fun onResponse(
-                call: Call<ProfileWrapperResponse>,
-                response: Response<ProfileWrapperResponse>
-            ) {
-                if (response.isSuccessful){
-                    if(!response.body()?.payloadProfile?.isEmpty()!!) {
-                        putUserInfo(response.body()!!.payloadProfile[0])
-
-                    }
-
-                }
-
-            }
-        })
     }
 
-    private fun putUserInfo(response: HomeProfilePostBean) {
+    private fun putUserInfo(response: Response<ProfileWrapperResponse>) {
 
-        numFriends.text = response.followersNumber
-        numposts.text = response.postsNumber
-        Picasso.get().load(response.picture).transform(CircleTransform()).into(profileImg.profileImg)
-        profileName.text = response.name
-        profileDescr.text = response.description
+        numFriends.text = response.body()!!.payloadProfile[0].followersNumber
+        numposts.text = response.body()!!.payloadProfile[0].postsNumber
+        Picasso.get().load(response.body()!!.payloadProfile[0].picture).transform(CircleTransform()).into(profileImg.profileImg)
+        profileName.text = response.body()!!.payloadProfile[0].name
+        profileDescr.text = response.body()!!.payloadProfile[0].description
 
     }
-
-    companion object {
-
-        fun newInstance(): ProfileFragment {
-            val profileFragment = ProfileFragment()
-            return profileFragment
-        }
-    }
-
 
 }
