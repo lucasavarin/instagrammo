@@ -15,7 +15,7 @@ data class PostPayload (
     val title: String,
     @Expose
     @SerializedName("picture")
-    val picture: String,
+    var picture: String,
     @Expose
     @SerializedName("uploadTime")
     val uploadTime: String,
