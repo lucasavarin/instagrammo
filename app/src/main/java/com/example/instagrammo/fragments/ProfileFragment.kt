@@ -21,6 +21,7 @@ import com.example.instagrammo.beans.response.ProfilePostResponseWrapperREST
 import com.example.instagrammo.beans.response.ProfileWrapperResponseREST
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.util.CircleTransform
+import com.example.instagrammo.util.PROFILE_ID
 import com.example.instagrammo.util.Session
 import com.example.instagrammo.util.replaceFragment
 import com.squareup.picasso.Picasso
@@ -35,6 +36,12 @@ class ProfileFragment: Fragment(){
 
     private var profile: Profile? = null
     private lateinit var posts: MutableList<ProfilePost>
+    val postsToAdapter: MutableList<Post> = ArrayList()
+
+    var profileFlag:Boolean = false
+    var postsFlag:Boolean = false
+    var profileId:Int = Session.profileId
+
 
     companion object{
         fun makeInstance():ProfileFragment {
@@ -49,6 +56,9 @@ class ProfileFragment: Fragment(){
     ): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
+        if(arguments != null) {
+            profileId = arguments!!.getInt(PROFILE_ID, Session.profileId)
+        }
         posts = ArrayList<ProfilePost>()
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
@@ -56,20 +66,15 @@ class ProfileFragment: Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = TabAdapter(childFragmentManager)
-        performCall()
+        performCall(profileId)
         modifica.setOnClickListener{
             (activity as MainActivity).replaceFragment(ModifyProfileFragment.makeInstance(profile!!.picture,profile!!.description,profile!!.name,profile!!.profileId), R.id.container, "")
         }
 
     }
 
-
-
-
-
-
-    private fun performCall(){
-        val callProfile = RetrofitController.getClient.getProfileSingle(Session.profileId)
+    private fun performCall(profileId: Int = Session.profileId){
+        val callProfile = RetrofitController.getClient.getProfileSingle(profileId)
 
         callProfile.enqueue(object: Callback<ProfileWrapperResponseREST> {
             override fun onFailure(call: Call<ProfileWrapperResponseREST>, t: Throwable) {
@@ -77,6 +82,7 @@ class ProfileFragment: Fragment(){
             }
 
             override fun onResponse(call: Call<ProfileWrapperResponseREST>, response: Response<ProfileWrapperResponseREST>) {
+                profileFlag = true
                 if(response.isSuccessful) {
                     val body = response.body()!!
                     if (body.result) {
@@ -86,6 +92,30 @@ class ProfileFragment: Fragment(){
                         post_number.text = profile?.postsNumber
                         name.text = profile?.name
                         description.text = profile?.description
+
+                        if(postsFlag && profileFlag){
+                            val gridFragment = GridProfileFragment.makeInstance()
+                            val listFragment = ListProfileFragment.makeInstance()
+
+                            listFragment.posts = postsToAdapter
+                            gridFragment.posts = posts
+
+                            listFragment.adapter = PostsListRecyclerAdapter(postsToAdapter)
+                            gridFragment.adapter = PostGridRecyclerAdapter(posts)
+
+                            listFragment.adapter.notifyDataSetChanged()
+                            gridFragment.adapter.notifyDataSetChanged()
+
+                            adapter.addFragment(gridFragment)
+                            adapter.addFragment(listFragment)
+
+                            viewPager.adapter = adapter
+                            navigation.setupWithViewPager(viewPager)
+
+                            navigation.getTabAt(0)?.setIcon(R.drawable.ic_view_module)
+                            navigation.getTabAt(1)?.setIcon(R.drawable.ic_view_stream_black_24dp)
+
+                        }
                     } else {
                         Toast.makeText(activity, "Profilo non trovato", Toast.LENGTH_SHORT).show()
                     }
@@ -106,17 +136,14 @@ class ProfileFragment: Fragment(){
 
 
             override fun onResponse(call: Call<ProfilePostResponseWrapperREST>, response: Response<ProfilePostResponseWrapperREST>) {
+                postsFlag = true
                 if(response.isSuccessful){
                     val body = response.body()!!
                     if(body.result){
                         for(post in body.payload){
                             posts.add(ProfilePost.createBusinessBean(post))
                         }
-                        val gridFragment = GridProfileFragment.makeInstance()
 
-                        val listFragment = ListProfileFragment.makeInstance()
-
-                        val postsToAdapter: MutableList<Post> = ArrayList()
                         for(post in posts){
                             postsToAdapter.add(Post(
                                 profile?.profileId,
@@ -128,23 +155,29 @@ class ProfileFragment: Fragment(){
                             ))
                         }
 
-                        listFragment.posts = postsToAdapter
-                        gridFragment.posts = posts
+                        if(profileFlag && postsFlag){
 
-                        listFragment.adapter = PostsListRecyclerAdapter(postsToAdapter)
-                        gridFragment.adapter = PostGridRecyclerAdapter(posts)
+                            val gridFragment = GridProfileFragment.makeInstance()
+                            val listFragment = ListProfileFragment.makeInstance()
 
-                        listFragment.adapter.notifyDataSetChanged()
-                        gridFragment.adapter.notifyDataSetChanged()
+                            listFragment.posts = postsToAdapter
+                            gridFragment.posts = posts
 
-                        adapter.addFragment(gridFragment)
-                        adapter.addFragment(listFragment)
+                            listFragment.adapter = PostsListRecyclerAdapter(postsToAdapter)
+                            gridFragment.adapter = PostGridRecyclerAdapter(posts)
 
-                        viewPager.adapter = adapter
-                        navigation.setupWithViewPager(viewPager)
+                            listFragment.adapter.notifyDataSetChanged()
+                            gridFragment.adapter.notifyDataSetChanged()
 
-                        navigation.getTabAt(0)?.setIcon(R.drawable.ic_view_module)
-                        navigation.getTabAt(1)?.setIcon(R.drawable.ic_view_stream_black_24dp)
+                            adapter.addFragment(gridFragment)
+                            adapter.addFragment(listFragment)
+
+                            viewPager.adapter = adapter
+                            navigation.setupWithViewPager(viewPager)
+
+                            navigation.getTabAt(0)?.setIcon(R.drawable.ic_view_module)
+                            navigation.getTabAt(1)?.setIcon(R.drawable.ic_view_stream_black_24dp)
+                        }
                     }
                 } else{
                     Toast.makeText(activity, "Profilo non trovato", Toast.LENGTH_SHORT).show()

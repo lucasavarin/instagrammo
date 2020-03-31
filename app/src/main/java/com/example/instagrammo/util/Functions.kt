@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import java.lang.NumberFormatException
 
 fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit){
     val fragmentTransaction = beginTransaction()
@@ -29,6 +30,24 @@ fun AppCompatActivity.getFragmentByTag(tag: String):Fragment? {
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
+}
+
+fun normalizeDownloadUrlToScreenWidth(downloadUrl:String, screenWidth:Int):String{
+    val split = downloadUrl.split("/")
+    var final = ""
+    for(index in 0..split.size-3){
+        final += split[index] + "/"
+    }
+
+    val height: Float
+    try {
+        val ratio:Float = screenWidth/split[split.size-2].toFloat()
+        height = split[split.size-1].toFloat()*ratio
+        final += "${screenWidth}/${height.toInt()}"
+    } catch (e: NumberFormatException) {
+        final = downloadUrl
+    }
+    return final
 }
 
 val NO_IMAGE_AVAILABLE = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
