@@ -66,6 +66,7 @@ class HomeFragment: Fragment() {
                                 context!!
                             )
                         homePostsListLayout.adapter?.notifyDataSetChanged()
+                        
                     }
                 }else
                     Toast.makeText(activity, "Error2Posts", Toast.LENGTH_SHORT).show()
