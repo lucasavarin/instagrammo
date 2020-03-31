@@ -3,7 +3,7 @@ package com.example.instagrammo.adapters
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.instagrammo.beans.business.Followers
+import com.example.instagrammo.beans.business.Follower
 import com.example.instagrammo.util.CircleTransform
 import com.example.instagrammo.util.NO_PROFILE_PIC
 import com.squareup.picasso.Picasso
@@ -12,9 +12,9 @@ import kotlinx.android.synthetic.main.followers_layout_item.view.*
 class FollowersListHolder(v:View):RecyclerView.ViewHolder(v), View.OnClickListener {
 
     private var view: View = v
-    private var follower: Followers? = null
+    private var follower: Follower? = null
 
-    fun bindFollower(follower: Followers){
+    fun bindFollower(follower: Follower){
         this.follower = follower
         if(follower.picture.isNotEmpty()) {
             Picasso.get().load(follower.picture).transform(CircleTransform()).into(view.followerImage)

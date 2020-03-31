@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
 import com.example.instagrammo.adapters.FollowerListRecyclerAdapter
 import com.example.instagrammo.adapters.PostsListRecyclerAdapter
-import com.example.instagrammo.beans.business.Followers
+import com.example.instagrammo.beans.business.Follower
 import com.example.instagrammo.beans.business.Post
 import com.example.instagrammo.beans.response.FollowersWrapperREST
 import com.example.instagrammo.beans.response.PostsWrapperResponseREST
@@ -23,7 +23,7 @@ import retrofit2.Response
 
 class HomeFragment: Fragment() {
 
-    var followers: MutableList<Followers> = ArrayList()
+    var followers: MutableList<Follower> = ArrayList()
     var posts: MutableList<Post> = ArrayList()
 
     private lateinit var linearLayoutManagerFollowers: LinearLayoutManager
@@ -63,7 +63,7 @@ class HomeFragment: Fragment() {
                     val body = response.body()!!
                     if(body.result){
                         for(follower in body.payload) {
-                            followers.add(Followers.createBusinessBean(follower))
+                            followers.add(Follower.createBusinessBean(follower))
                         }
                         homeFollowerListLayout.adapter = FollowerListRecyclerAdapter(followers)
                         homeFollowerListLayout.adapter?.notifyDataSetChanged()

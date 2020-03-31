@@ -3,10 +3,10 @@ package com.example.instagrammo.adapters
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
-import com.example.instagrammo.beans.business.Followers
+import com.example.instagrammo.beans.business.Follower
 import com.example.instagrammo.util.inflate
 
-class FollowerListRecyclerAdapter(private val followers: List<Followers>): RecyclerView.Adapter<FollowersListHolder>() {
+class FollowerListRecyclerAdapter(private val followers: List<Follower>): RecyclerView.Adapter<FollowersListHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowersListHolder {
         val inflatedView = parent.inflate(R.layout.followers_layout_item, false)

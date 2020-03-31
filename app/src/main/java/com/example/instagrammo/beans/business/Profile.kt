@@ -6,9 +6,10 @@ data class Profile(
     val profileId:String,
     val name:String,
     val description:String,
-    val followersNumber:String,
+    val picture:String,
     val postsNumber:String,
-    val picture: String
+    val followersNumber:String
+
 ){
 
     companion object Profile{

@@ -1,4 +1,4 @@
-package com.example.instagrammo.util
+package com.example.instagrammo.database
 
 import android.provider.BaseColumns
 
@@ -12,11 +12,13 @@ object DatabaseContract {
         const val UPLOAD_TIME = "upload_time"
     }
 
-    object FollowersEntry: BaseColumns {
+    object FollowersProfileEntry: BaseColumns {
         const val TABLE_NAME = "followers"
         const val ID = "id"
         const val NAME = "name"
         const val DESCRIPTION = "description"
         const val PICTURE = "picture"
+        const val POST_NUMBER = "post_number"
+        const val FOLLOWERS_NUMBER = "followers_number"
     }
 }
