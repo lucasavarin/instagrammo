@@ -15,6 +15,7 @@ import com.instagrammo.util.database.DataBaseHelper
 import com.instagrammo.util.shared_prefs.prefsDataBase
 import com.instagrammo.view.profile_fragment.ProfileFragment
 import kotlinx.android.synthetic.main.home_layout.*
+import kotlinx.android.synthetic.main.item_home_follower_story.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -89,6 +90,11 @@ class HomeFragment : Fragment() {
         HomeFollowerPosts.layoutManager = linearLayoutManager
         HomeFollowerPosts.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         val adapterFollowerPost = HomeFollowerPostAdapter(response.body()!!.payload)
+        adapterFollowerPost.callBackProfile {
+            val profileFragment : Fragment = ProfileFragment.newInstance(it.profileId)
+            (context as AppCompatActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container,profileFragment).addToBackStack(null).commit()
+         }
         HomeFollowerPosts.adapter = adapterFollowerPost
         return HomeFollowerPosts
     }
