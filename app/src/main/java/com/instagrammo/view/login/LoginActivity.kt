@@ -1,0 +1,108 @@
+package com.instagrammo.view.login
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.widget.Toast
+import com.instagrammo.bean.rest.request.AuthRequest
+import com.instagrammo.bean.rest.response.AuthResponse
+import com.instagrammo.util.retrofit.ClientInterceptor
+import com.instagrammo.util.retrofit.Session
+import com.example.login.*
+import com.google.firebase.FirebaseApp
+import com.instagrammo.util.shared_prefs.prefs
+import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+class LoginActivity : AppCompatActivity() {
+
+    private var isShowPassword = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val intent = Intent(this, FragmentsActivity::class.java)
+
+        setDataRememberMe()
+
+        showPass.setOnClickListener{showPassword()}
+
+        login.setOnClickListener{
+            val user = user.text.toString()
+            val pass = password.text.toString()
+
+            ClientInterceptor.getLogin.getUser(
+                AuthRequest(user, pass)
+            ).enqueue(object : Callback<AuthResponse>{
+                override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+                    Toast.makeText(this@LoginActivity, "hai sbagliato credenziali", Toast.LENGTH_LONG).show()
+                }
+
+                override fun onResponse(
+                    call: Call<AuthResponse>,
+                    response: Response<AuthResponse>) {
+                    if(response.isSuccessful){
+                        if(response.body()?.result == true){
+                            Session.token = response.body()!!.token
+                            Session.profileId = response.body()!!.profileId
+                            setSharedPreferenceData()
+                            startActivity(intent)
+                            finish()
+                        } else{
+                            Toast.makeText(this@LoginActivity, "hai sbagliato credenziali", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    else {
+                        Toast.makeText(this@LoginActivity, "Il servizio non è disponibile", Toast.LENGTH_LONG).show()
+                    }
+
+                }
+            })
+        }
+        
+    }
+
+    private fun setDataRememberMe(){
+
+        remember.isChecked = prefs.rememberMe
+
+        if (remember.isChecked) {
+            user.setText(prefs.user)
+            password.setText(prefs.password)
+        }
+    }
+
+    private fun setSharedPreferenceData(){
+
+        if(remember.isChecked) {
+            prefs.user = user.text.toString()
+            prefs.password = password.text.toString()
+            prefs.rememberMe = true
+
+        } else{
+            prefs.user = ""
+            prefs.password = ""
+            prefs.rememberMe = false
+        }
+    }
+
+    private fun showPassword(){
+        isShowPassword = !isShowPassword
+
+        if(isShowPassword){
+            password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            showPass.setImageResource(R.drawable.ic_visibility_off)
+        }else{
+            password.transformationMethod = PasswordTransformationMethod.getInstance()
+            showPass.setImageResource(R.drawable.ic_visibility)
+        }
+    }
+}
+
+
+

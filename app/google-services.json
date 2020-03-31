@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "869703238675",
+    "firebase_url": "https://gigivupiez.firebaseio.com",
+    "project_id": "gigivupiez",
+    "storage_bucket": "gigivupiez.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869703238675:android:0c62ea3566406dd064ebe6",
+        "android_client_info": {
+          "package_name": "com.ggwp.instagrammo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869703238675-t5akjfk1meeke9gk8js1a6hkipcbn3oh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7vQnwFWiMYoMbYekr-BVoB1am7CwWaJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869703238675-t5akjfk1meeke9gk8js1a6hkipcbn3oh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
