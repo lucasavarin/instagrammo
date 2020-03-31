@@ -8,13 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.instagrammo.R
+import com.example.instagrammo.activities.MainActivity
 import com.example.instagrammo.beans.request.UpdatePostREST
 import com.example.instagrammo.beans.response.PostPutResponseREST
 import com.example.instagrammo.retrofit.RetrofitController
-import com.example.instagrammo.util.CircleTransform
-import com.example.instagrammo.util.DOWNLOAD_URL
-import com.example.instagrammo.util.DOWNLOAD_URL_REFORMED
-import com.example.instagrammo.util.Session
+import com.example.instagrammo.util.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_description.*
 import kotlinx.android.synthetic.main.fragment_image_full_screen.*
@@ -24,14 +22,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DescriptionFragment:Fragment() {
-
-    lateinit var downloadUrl:String
-    lateinit var downloadUrlReformed:String
+class DescriptionFragment private constructor(private val downloadUrl:String, private val downloadUrlReformed:String):Fragment() {
 
     companion object{
-        fun makeInstance():DescriptionFragment{
-            return DescriptionFragment()
+        fun makeInstance(downloadUrl:String, downloadUrlReformed: String):DescriptionFragment{
+            return DescriptionFragment(downloadUrl, downloadUrlReformed)
         }
     }
 
@@ -46,25 +41,12 @@ class DescriptionFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if(arguments != null){
-            downloadUrl = arguments!!.getString(DOWNLOAD_URL, "")
-            downloadUrlReformed = arguments!!.getString(DOWNLOAD_URL_REFORMED, "")
-        }
-
         backDescription.setOnClickListener {
-            val fragmentManager: FragmentManager = activity !!.supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-            val fragment = AddFragment()
-            transaction.replace(R.id.container, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            (activity as MainActivity).replaceFragment(AddFragment.makeInstance(), R.id.container, "add")
         }
 
         confirm.setOnClickListener {
-
             val call = RetrofitController.getClient.updatePost(UpdatePostREST(Session.profileId.toString(), description.text.toString(), downloadUrl))
-
             call.enqueue(object:Callback<PostPutResponseREST>{
                 override fun onFailure(call: Call<PostPutResponseREST>, t: Throwable) {
                     Toast.makeText(context, "Errore di comunicazione", Toast.LENGTH_SHORT).show()
@@ -84,15 +66,8 @@ class DescriptionFragment:Fragment() {
                 }
 
             })
-
-            val fragmentManager: FragmentManager = activity !!.supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-            val fragment = AddFragment()
-            transaction.replace(R.id.container, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            (activity as MainActivity).replaceFragment(AddFragment.makeInstance(), R.id.container, "add")
         }
-
         Picasso.get().load(downloadUrl).transform(CircleTransform()).into(image_description)
     }
 }

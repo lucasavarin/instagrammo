@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.instagrammo.R
+import com.example.instagrammo.activities.MainActivity
 import com.example.instagrammo.util.DOWNLOAD_URL
 import com.example.instagrammo.util.DOWNLOAD_URL_REFORMED
+import com.example.instagrammo.util.replaceFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_image_full_screen.*
 import kotlinx.android.synthetic.main.fragment_modifyprofile.backButton
 
-class FullScreenImageFragment:Fragment() {
-
-    lateinit var downloadUrl:String
-    lateinit var downloadUrlReformed:String
+class FullScreenImageFragment private constructor(private val downloadUrl:String, private val downloadUrlReformed:String):Fragment() {
 
     companion object{
-        fun makeInstance():FullScreenImageFragment{
-            return FullScreenImageFragment()
+        fun makeInstance(downloadUrl:String,
+                         downloadUrlReformed:String):FullScreenImageFragment{
+            return FullScreenImageFragment(downloadUrl,downloadUrlReformed)
         }
     }
 
@@ -35,27 +35,12 @@ class FullScreenImageFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(arguments != null){
-            downloadUrl = arguments!!.getString(DOWNLOAD_URL, "")
-            downloadUrlReformed = arguments!!.getString(DOWNLOAD_URL_REFORMED, "")
-        }
         backFullScreen.setOnClickListener {
-            val fragmentManager: FragmentManager = activity !!.supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-            val fragment = AddFragment()
-            transaction.replace(R.id.container, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            (activity as MainActivity).replaceFragment(AddFragment.makeInstance(), R.id.container, "")
         }
 
         nextFullScreen.setOnClickListener {
-            val fragmentManager: FragmentManager = activity !!.supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-            val fragment = DescriptionFragment()
-            fragment.arguments = this.arguments
-            transaction.replace(R.id.container, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            (activity as MainActivity).replaceFragment(DescriptionFragment.makeInstance(downloadUrl, downloadUrlReformed), R.id.container, "")
         }
 
         Picasso.get().load(downloadUrl).into(imageFullScreen)

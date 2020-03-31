@@ -35,7 +35,7 @@ class ProfileFragment: Fragment(){
     private lateinit var adapter:TabAdapter
 
     private var profile: Profile? = null
-    private lateinit var posts: MutableList<ProfilePost>
+    private var posts: MutableList<ProfilePost> = ArrayList()
     val postsToAdapter: MutableList<Post> = ArrayList()
 
     var profileFlag:Boolean = false
@@ -59,18 +59,23 @@ class ProfileFragment: Fragment(){
         if(arguments != null) {
             profileId = arguments!!.getInt(PROFILE_ID, Session.profileId)
         }
-        posts = ArrayList<ProfilePost>()
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = TabAdapter(childFragmentManager)
-        performCall(profileId)
+        if(profileId != Session.profileId){
+            modifica.visibility = View.INVISIBLE
+        }
+        if(posts.isEmpty()) {
+            performCall(profileId)
+        } else {
+            populate()
+        }
         modifica.setOnClickListener{
             (activity as MainActivity).replaceFragment(ModifyProfileFragment.makeInstance(profile!!.picture,profile!!.description,profile!!.name,profile!!.profileId), R.id.container, "")
         }
-
     }
 
     private fun performCall(profileId: Int = Session.profileId){
@@ -87,34 +92,9 @@ class ProfileFragment: Fragment(){
                     val body = response.body()!!
                     if (body.result) {
                         profile = Profile.createBusinessBean(body.payload[0])
-                        Picasso.get().load(profile?.picture).transform(CircleTransform()).into(profile_pic)
-                        amici_number.text = profile?.followersNumber
-                        post_number.text = profile?.postsNumber
-                        name.text = profile?.name
-                        description.text = profile?.description
 
                         if(postsFlag && profileFlag){
-                            val gridFragment = GridProfileFragment.makeInstance()
-                            val listFragment = ListProfileFragment.makeInstance()
-
-                            listFragment.posts = postsToAdapter
-                            gridFragment.posts = posts
-
-                            listFragment.adapter = PostsListRecyclerAdapter(postsToAdapter)
-                            gridFragment.adapter = PostGridRecyclerAdapter(posts)
-
-                            listFragment.adapter.notifyDataSetChanged()
-                            gridFragment.adapter.notifyDataSetChanged()
-
-                            adapter.addFragment(gridFragment)
-                            adapter.addFragment(listFragment)
-
-                            viewPager.adapter = adapter
-                            navigation.setupWithViewPager(viewPager)
-
-                            navigation.getTabAt(0)?.setIcon(R.drawable.ic_view_module)
-                            navigation.getTabAt(1)?.setIcon(R.drawable.ic_view_stream_black_24dp)
-
+                            populate()
                         }
                     } else {
                         Toast.makeText(activity, "Profilo non trovato", Toast.LENGTH_SHORT).show()
@@ -156,27 +136,7 @@ class ProfileFragment: Fragment(){
                         }
 
                         if(profileFlag && postsFlag){
-
-                            val gridFragment = GridProfileFragment.makeInstance()
-                            val listFragment = ListProfileFragment.makeInstance()
-
-                            listFragment.posts = postsToAdapter
-                            gridFragment.posts = posts
-
-                            listFragment.adapter = PostsListRecyclerAdapter(postsToAdapter)
-                            gridFragment.adapter = PostGridRecyclerAdapter(posts)
-
-                            listFragment.adapter.notifyDataSetChanged()
-                            gridFragment.adapter.notifyDataSetChanged()
-
-                            adapter.addFragment(gridFragment)
-                            adapter.addFragment(listFragment)
-
-                            viewPager.adapter = adapter
-                            navigation.setupWithViewPager(viewPager)
-
-                            navigation.getTabAt(0)?.setIcon(R.drawable.ic_view_module)
-                            navigation.getTabAt(1)?.setIcon(R.drawable.ic_view_stream_black_24dp)
+                            populate()
                         }
                     }
                 } else{
@@ -184,6 +144,37 @@ class ProfileFragment: Fragment(){
                 }
             }
         })
+
+    }
+
+    private fun populate() {
+
+        Picasso.get().load(profile?.picture).transform(CircleTransform()).into(profile_pic)
+        amici_number.text = profile?.followersNumber
+        post_number.text = profile?.postsNumber
+        name.text = profile?.name
+        description.text = profile?.description
+
+        val gridFragment = GridProfileFragment.makeInstance()
+        val listFragment = ListProfileFragment.makeInstance()
+
+        listFragment.posts = postsToAdapter
+        gridFragment.posts = posts
+
+        listFragment.adapter = PostsListRecyclerAdapter(postsToAdapter)
+        gridFragment.adapter = PostGridRecyclerAdapter(posts)
+
+        listFragment.adapter.notifyDataSetChanged()
+        gridFragment.adapter.notifyDataSetChanged()
+
+        adapter.addFragment(gridFragment)
+        adapter.addFragment(listFragment)
+
+        viewPager.adapter = adapter
+        navigation.setupWithViewPager(viewPager)
+
+        navigation.getTabAt(0)?.setIcon(R.drawable.ic_view_module)
+        navigation.getTabAt(1)?.setIcon(R.drawable.ic_view_stream_black_24dp)
 
     }
 }

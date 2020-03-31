@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.grid_layout_item.view.*
 
 
-class AddGridHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickListener {
+class AddGridHolder(v: View): RecyclerView.ViewHolder(v) {
 
     private var view: View = v
     private var post: AddPost? = null
@@ -30,13 +30,4 @@ class AddGridHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickListener {
         Picasso.get().load(post.downloadUrlReformed).into(view.image)
     }
 
-    override fun onClick(p0: View?) {
-        val activity = p0?.context as MainActivity
-        val fragment = FullScreenImageFragment.makeInstance()
-        val bundle: Bundle = Bundle()
-        bundle.putString(DOWNLOAD_URL, post?.downloadUrl)
-        bundle.putString(DOWNLOAD_URL_REFORMED, post?.downloadUrlReformed)
-        fragment.arguments = bundle
-        activity.replaceFragment(fragment, R.id.container, "")
-    }
 }

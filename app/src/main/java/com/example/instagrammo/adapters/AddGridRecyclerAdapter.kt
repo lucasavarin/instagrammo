@@ -29,13 +29,13 @@ class AddGridRecyclerAdapter(private var posts: List<AddPost>): RecyclerView.Ada
     override fun onBindViewHolder(holder: AddGridHolder, position: Int) {
         holder.bindPost(posts[position])
         holder.itemView.setOnClickListener {
-            val activity = holder.itemView.context as MainActivity
-            val fragment = FullScreenImageFragment.makeInstance()
-            val bundle: Bundle = Bundle()
-            bundle.putString(DOWNLOAD_URL, posts[position].downloadUrl)
-            bundle.putString(DOWNLOAD_URL_REFORMED, posts[position].downloadUrlReformed)
-            fragment.arguments = bundle
-            activity.replaceFragment(fragment, R.id.container, "")
+            callback?.invoke(posts[position])
         }
+    }
+
+    private var callback:((AddPost) -> Unit)? = null
+
+    fun setOnImageClickedListener(callback: (AddPost) -> Unit){
+        this.callback = callback
     }
 }

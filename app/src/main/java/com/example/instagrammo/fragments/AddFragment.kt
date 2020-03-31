@@ -9,10 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
+import com.example.instagrammo.activities.MainActivity
 import com.example.instagrammo.adapters.AddGridRecyclerAdapter
 import com.example.instagrammo.beans.business.AddPost
 import com.example.instagrammo.beans.response.AddPostResponseBeanREST
 import com.example.instagrammo.retrofit.RetrofitControllerPicsum
+import com.example.instagrammo.util.DOWNLOAD_URL
+import com.example.instagrammo.util.DOWNLOAD_URL_REFORMED
+import com.example.instagrammo.util.replaceFragment
 import kotlinx.android.synthetic.main.fragment_add.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,6 +26,8 @@ import retrofit2.Response
 class AddFragment: Fragment() {
 
     val imagesMutable:MutableList<AddPost> = ArrayList()
+
+    var adapter = AddGridRecyclerAdapter(imagesMutable)
 
     var pageCount = 1
 
@@ -43,11 +49,17 @@ class AddFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        add_grid.adapter = AddGridRecyclerAdapter(imagesMutable)
+        adapter.setOnImageClickedListener { addPost ->
+            val activity = activity as MainActivity
+            val fragment = FullScreenImageFragment.makeInstance(addPost.downloadUrl, addPost.downloadUrlReformed)
+            activity.replaceFragment(fragment, R.id.container, "")
+        }
+        add_grid.adapter = adapter
         add_grid.layoutManager = lm
 
         performCall(pageCount)
+
+
 
         add_grid.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

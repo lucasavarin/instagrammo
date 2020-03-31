@@ -93,15 +93,15 @@ class MainActivity: AppCompatActivity() {
     }
     override fun onBackPressed() {
         super.onBackPressed()
-        if(getFragmentByTag("home") != null){
-            finishAffinity()
-        } else {
-            replaceFragment(
-                HomeFragment.makeInstance(),
-                R.id.container,
-                "home"
-            )
-        }
+//        if(getFragmentByTag("home") != null){
+//            finishAffinity()
+//        } else {
+//            replaceFragment(
+//                HomeFragment.makeInstance(),
+//                R.id.container,
+//                "home"
+//            )
+//        }
     }
 
     override fun onDestroy() {
