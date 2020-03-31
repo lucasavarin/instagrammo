@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,6 +59,7 @@ class ModifyProfileFragment: Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        populateFields()
         saveButtonChangeStatus()
         Picasso.get().load(picture).transform(CircleTransform())
             .into(profile_pic)
@@ -68,12 +70,7 @@ class ModifyProfileFragment: Fragment(){
             }
         }
         backButton.setOnClickListener {
-            val fragmentManager: FragmentManager = activity !!.supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-            val fragment = ProfileFragment()
-            transaction.replace(R.id.container, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            back()
         }
 
         saveButton.setOnClickListener {
@@ -103,6 +100,21 @@ class ModifyProfileFragment: Fragment(){
                 })
         }
 
+    }
+
+    private fun populateFields() {
+        editTextDescrizione.setText(description)
+        editTextNomeProfilo.setText(nomeProfilo)
+    }
+
+    private fun back():Boolean {
+        val fragmentManager: FragmentManager = activity !!.supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        val fragment = ProfileFragment()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+        return true
     }
     /*private fun getDataProfile() {
         editTextNomeProfilo.setText(nomeProfilo)
@@ -152,6 +164,3 @@ class ModifyProfileFragment: Fragment(){
         }
     }
 }
-
-
-

@@ -20,6 +20,7 @@ import com.example.instagrammo.beans.response.ProfilePostResponseWrapperREST
 import com.example.instagrammo.beans.response.ProfileWrapperResponseREST
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.util.CircleTransform
+import com.example.instagrammo.util.PROFILE_ID
 import com.example.instagrammo.util.Session
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -37,6 +38,7 @@ class ProfileFragment: Fragment(){
 
     var profileFlag:Boolean = false
     var postsFlag:Boolean = false
+    var profileId:Int = Session.profileId
 
 
     companion object{
@@ -52,6 +54,9 @@ class ProfileFragment: Fragment(){
     ): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
+        if(arguments != null) {
+            profileId = arguments!!.getInt(PROFILE_ID, Session.profileId)
+        }
         posts = ArrayList<ProfilePost>()
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
@@ -59,7 +64,7 @@ class ProfileFragment: Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = TabAdapter(childFragmentManager)
-        performCall()
+        performCall(profileId)
         modifica.setOnClickListener{
             val fragmentManager: FragmentManager = activity !!.supportFragmentManager
             val transaction = fragmentManager.beginTransaction()
@@ -72,18 +77,13 @@ class ProfileFragment: Fragment(){
             bundle.putString("description", profile?.description)
             bundle.putString("nomeProfilo", profile?.name)
             bundle.putString("idProfilo", profile?.profileId)
-            fragment.setArguments(bundle)
+            fragment.arguments = bundle
         }
 
     }
 
-
-
-
-
-
-    private fun performCall(){
-        val callProfile = RetrofitController.getClient.getProfileSingle(Session.profileId)
+    private fun performCall(profileId: Int = Session.profileId){
+        val callProfile = RetrofitController.getClient.getProfileSingle(profileId)
 
         callProfile.enqueue(object: Callback<ProfileWrapperResponseREST> {
             override fun onFailure(call: Call<ProfileWrapperResponseREST>, t: Throwable) {
@@ -102,7 +102,7 @@ class ProfileFragment: Fragment(){
                         name.text = profile?.name
                         description.text = profile?.description
 
-                        if(postsFlag){
+                        if(postsFlag && profileFlag){
                             val gridFragment = GridProfileFragment.makeInstance()
                             val listFragment = ListProfileFragment.makeInstance()
 
@@ -164,7 +164,7 @@ class ProfileFragment: Fragment(){
                             ))
                         }
 
-                        if(profileFlag){
+                        if(profileFlag && postsFlag){
 
                             val gridFragment = GridProfileFragment.makeInstance()
                             val listFragment = ListProfileFragment.makeInstance()
