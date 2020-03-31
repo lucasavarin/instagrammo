@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.*
 import com.instagrammo.bean.buissnes.HomeWrapperPostBean
 import com.instagrammo.bean.buissnes.HomeWrapperResponse
 import com.instagrammo.util.retrofit.ClientInterceptor
 import com.example.login.R
+import com.instagrammo.view.profile_fragment.ProfileFragment
 import kotlinx.android.synthetic.main.home_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -58,9 +60,16 @@ class HomeFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
         HomeFollowerStory.layoutManager = linearLayoutManager
         HomeFollowerStory.setHasFixedSize(true)
-        val adapterFollowers =
-            HomeFollowerStoryAdapter(response.body()!!.payload)
+        val adapterFollowers = HomeFollowerStoryAdapter(response.body()!!.payload)
+
+        adapterFollowers.callBackProfile {
+            val profileFragment : Fragment = ProfileFragment.newInstance(it.id)
+            (context as AppCompatActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container,profileFragment).addToBackStack(null).commit()
+        }
+
         HomeFollowerStory.adapter = adapterFollowers
+
 
         return HomeFollowerStory
     }

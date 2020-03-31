@@ -13,24 +13,33 @@ import com.instagrammo.bean.buissnes.ProfileImgWrapper
 import com.instagrammo.bean.buissnes.ProfilePostBean
 import com.example.login.R
 import com.instagrammo.util.retrofit.ClientInterceptor
+import com.instagrammo.util.retrofit.Session
 import kotlinx.android.synthetic.main.profile_list_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileGridFragment() : Fragment() {
+class ProfileGridFragment(val profileId : String) : Fragment() {
+
+    companion object {
+
+        fun newInstance(profileId : String = Session.profileId): ProfileGridFragment {
+            val profileGridFragment = ProfileGridFragment(profileId)
+            return profileGridFragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater!!.inflate(R.layout.profile_list_layout, container, false);
+        return inflater.inflate(R.layout.profile_list_layout, container, false);
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ClientInterceptor.getUser.getPosts().enqueue(object : Callback<ProfileImgWrapper> {
+        ClientInterceptor.getUser.getPosts(this.profileId).enqueue(object : Callback<ProfileImgWrapper> {
 
             override fun onFailure(call: Call<ProfileImgWrapper>, t: Throwable) {
 

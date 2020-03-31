@@ -38,7 +38,7 @@ interface APiInterface {
     @GET(value = "posts.php/{profiloUtente}")
     fun getPosts (
         @Path("profiloUtente")
-        profiloUtente : String = Session.profileId
+        profiloUtente : String
 //        @Query("from")  from: String,
 //        @Query("elements")  elements: String
     ) : Call<ProfileImgWrapper>
