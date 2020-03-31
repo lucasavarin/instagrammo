@@ -12,7 +12,7 @@ class ProfilePostGridHolder(itemView: View)  : RecyclerView.ViewHolder(itemView)
 
 
     fun bindImgProfile(profile: ProfilePostBean){
-        Picasso.get().load(profile.picture).resize(550,550).centerCrop().into(view.imgProfile)
+        Picasso.get().load(profile.picture).resize(550,550).centerCrop().into(view.imagProfileGrid)
     }
 
 

@@ -64,8 +64,7 @@ class ProfileGridFragment(val profileId : String) : Fragment() {
     }
     private fun putImg(response: List<ProfilePostBean>) : RecyclerView {
         var gridLayoutManager: LayoutManager? = null
-             gridLayoutManager = GridLayoutManager(this.context,3, GridLayoutManager.HORIZONTAL, false)
-
+             gridLayoutManager = GridLayoutManager(this.context,3, GridLayoutManager.VERTICAL, false)
 
         profileRecycleView.layoutManager = gridLayoutManager
         val adapterFollowers =
