@@ -11,5 +11,6 @@ object DataBaseContract {
         const val COLUMN_TITLE_POSTTIME = "uploadTime"
         const val COLUMN_TITLE_DESC = "description"
         const val COLUMN_PROFILE_ID = "profileId"
-    }
+
+  }
 }

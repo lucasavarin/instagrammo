@@ -17,18 +17,17 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     fun insertPostData(response: List<HomePayloadPostBean>){
         val db = this.writableDatabase
 
+        response.forEach {
 
-        val values = ContentValues().apply {
-            response.forEach {
-                put(DataBaseContract.Post.COLUMN_PROFILE_ID,it.HomeProfilePostBean.profileId)
-                put(DataBaseContract.Post.COLUMN_TITLE_POSTTIME, it.uploadTime)
-                put(DataBaseContract.Post.COLUMN_TITLE_USER, it.title)
-                put(DataBaseContract.Post.COLUMN_TITLE_DESC, it.HomeProfilePostBean.description)
+            val values = ContentValues().apply {
+                    put(DataBaseContract.Post.COLUMN_PROFILE_ID, it.HomeProfilePostBean.profileId)
+                    put(DataBaseContract.Post.COLUMN_TITLE_POSTTIME, it.uploadTime)
+                    put(DataBaseContract.Post.COLUMN_TITLE_USER, it.title)
+                    put(DataBaseContract.Post.COLUMN_TITLE_DESC, it.HomeProfilePostBean.description)
+                }
+                  db?.insert(DataBaseContract.Post.TABLE_NAME, null, values)
             }
-
         }
-          db?.insert(DataBaseContract.Post.TABLE_NAME, null, values)
-    }
 
     //read
     fun readPostData() : List<HomePayloadPostBean>{

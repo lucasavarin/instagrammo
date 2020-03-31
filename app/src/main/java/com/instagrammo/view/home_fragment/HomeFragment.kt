@@ -41,12 +41,9 @@ class HomeFragment : Fragment() {
         ClientInterceptor.getUser.getFollowerPost().enqueue(object : Callback<HomeWrapperPostBean>{
             override fun onFailure(call: Call<HomeWrapperPostBean>, t: Throwable) {
                 val linearLayoutManager = LinearLayoutManager(context)
-                linearLayoutManager.stackFromEnd = true
-                linearLayoutManager.reverseLayout = true
                 HomeFollowerPosts.layoutManager = linearLayoutManager
                 HomeFollowerPosts.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-                val adapterFollowerPost =
-                    HomeFollowerPostAdapter(prefsDataBase.readPostData())
+                val adapterFollowerPost = HomeFollowerPostAdapter(prefsDataBase.readPostData())
                 HomeFollowerPosts.adapter = adapterFollowerPost
 
             }
