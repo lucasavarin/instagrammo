@@ -1,5 +1,6 @@
 package com.example.view.home_fragment
 
+import android.content.ComponentCallbacks
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ class HomeFollowerStoryAdapter (private val dataList : List<HomeUserResponseBean
     override fun onBindViewHolder(holder: HomeFollowerStoryHolder, position: Int) {
         holder.bindFollower(dataList.get(position))
     }
+
 
 
 }

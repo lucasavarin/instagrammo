@@ -7,9 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bean.buissnes.HomePayloadPostBean
 import com.example.login.R
 
-class HomeFollowerPostAdapter(private val dataList : List<HomePayloadPostBean>): RecyclerView.Adapter<HomeFollowerPostHolder>(){
 
+class HomeFollowerPostAdapter(private val dataList : List<HomePayloadPostBean>): RecyclerView.Adapter<HomeFollowerPostHolder>(){
+    private var callback: (() -> Unit)? = null
     private lateinit var context : Context
+
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFollowerPostHolder {
         context = parent.context
         val inflatedView = LayoutInflater.from(context).inflate(R.layout.item_home_follower_story, parent,false)
@@ -20,7 +24,16 @@ class HomeFollowerPostAdapter(private val dataList : List<HomePayloadPostBean>):
 
     override fun onBindViewHolder(holder: HomeFollowerPostHolder, position: Int) {
         holder.bindFollowerPost(dataList.get(position))
+        if(position >= itemCount -5){
+            callback?.invoke()
+        }
+    }
+
+    fun setOnLastItemsCallback(callback: () -> Unit){
+        this.callback = callback
     }
 
 
 }
+
+

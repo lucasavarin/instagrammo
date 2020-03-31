@@ -84,7 +84,7 @@ class AddFragment : Fragment() {
 
                 items.url = items.download_url
                 items.download_url = "https://picsum.photos/id/${items.id}/400/400"
-
+ 
             listFiltered.add(items)
         }
 

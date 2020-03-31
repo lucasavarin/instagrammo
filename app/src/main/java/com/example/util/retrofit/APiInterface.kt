@@ -32,7 +32,23 @@ interface APiInterface {
 
 
     @GET(value = "posts.php")
-    fun getFollowerPost() : Call<HomeWrapperPostBean>
+    fun getFollowerPost(
+//        @Query("from")  from: String,
+//        @Query("elements")  elements: String
+    ) : Call<HomeWrapperPostBean>
+
+    @GET(value = "posts.php")
+    fun getProceduralPosts(
+        @Query("from")  from: Int,
+        @Query("elements")  elements: Int
+    ) : Call<List<HomePayloadPostBean>>
+
+    @GET(value = "posts.php")
+    fun getProceduralPost(
+        @Query("from")  from: Int,
+        @Query("elements")  elements: Int
+    ) : Call<HomePayloadPostBean>
+
 
     @GET(value = "posts.php/{profiloUtente}")
     fun getPosts (
