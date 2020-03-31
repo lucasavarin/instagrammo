@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.follower_list_item.view.*
+import thushyanthan.scott.javalynx.instagrammo.R
 import thushyanthan.scott.javalynx.instagrammo.util.rest.FollowerPayload
 import thushyanthan.scott.javalynx.instagrammo.util.transformation.CircleTransformation
 
@@ -15,6 +16,6 @@ class FollowerHolder (view: View) : RecyclerView.ViewHolder(view){
         this.follower = follower
 
         if (follower.picture != "")
-        Picasso.get().load(follower.picture).transform(CircleTransformation()).into(v.followerImg)
+        Picasso.get().load(follower.picture).placeholder(R.drawable.progress_animation).transform(CircleTransformation()).into(v.followerImg)
     }
 }

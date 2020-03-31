@@ -122,10 +122,46 @@ class HomeFragment : Fragment() {
         })
     }
 
+    fun readFollowersFromDb() : List<FollowerPayload>{
+        val db = dbHelper.readableDatabase
+
+
+        val cursor = db.query(
+            FeedReaderContract.FollowersEntry.TABLE_NAME,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null)
+
+        val followerList = arrayListOf<FollowerPayload>()
+        with(cursor){
+            while (moveToNext()){
+                followerList.add(
+                    FollowerPayload(
+                        getString(getColumnIndexOrThrow(FeedReaderContract.FollowersEntry.COLUMN_NAME_FOLLOWERS_ID)),
+                                getString(getColumnIndexOrThrow(FeedReaderContract.FollowersEntry.COLUMN_NAME_NAME)),
+                        getString(getColumnIndexOrThrow(FeedReaderContract.FollowersEntry.COLUMN_NAME_DESCRIPTION)),
+                        getString(getColumnIndexOrThrow(FeedReaderContract.FollowersEntry.COLUMN_NAME_PICTURE))
+                    )
+                )
+            }
+        }
+        cursor.close()
+        return followerList
+    }
+
     fun getFollowers() {
         val followersCall = ApiClient.getClient.requestFollowers(prefs.profiloUtente)
         followersCall.enqueue(object : Callback<FollowerResponse> {
             override fun onFailure(call: Call<FollowerResponse>, t: Throwable) {
+                followers = readFollowersFromDb()
+                homeFollowersListLayout.adapter= FollowerAdapter(
+                    followers,
+                    context!!
+                )
+                homeFollowersListLayout.adapter?.notifyDataSetChanged()
                 Toast.makeText(activity, "Error1Followers", Toast.LENGTH_SHORT).show()
             }
 
@@ -143,7 +179,7 @@ class HomeFragment : Fragment() {
                                 context!!
                             )
                         homeFollowersListLayout.adapter?.notifyDataSetChanged()
-                        //createFollowers()
+                        createFollowers()
                     }
                 } else
                     Toast.makeText(activity, "Error2Followers", Toast.LENGTH_SHORT).show()
@@ -155,26 +191,16 @@ class HomeFragment : Fragment() {
         val db = dbHelper.writableDatabase
 
         val values = ContentValues().apply {
-            put(
-                FeedReaderContract.FollowersEntry.COLUMN_NAME_FOLLOWERS_ID,
-                followers.forEach { it.id }.toString()
-            )
-            put(
-                FeedReaderContract.FollowersEntry.COLUMN_NAME_NAME,
-                followers.forEach { it.name }.toString()
-            )
-            put(
-                FeedReaderContract.FollowersEntry.COLUMN_NAME_DESCRIPTION,
-                followers.forEach { it.description }.toString()
-            )
-            put(
-                FeedReaderContract.FollowersEntry.COLUMN_NAME_PICTURE,
-                followers.forEach { it.picture }.toString()
-            )
+
+            for (i in followers){
+                put(FeedReaderContract.FollowersEntry.COLUMN_NAME_NAME,i.name)
+                put(FeedReaderContract.FollowersEntry.COLUMN_NAME_PICTURE,i.picture)
+                put(FeedReaderContract.FollowersEntry.COLUMN_NAME_DESCRIPTION,i.description)
+
+            }
         }
 
-        val newRowFollowerId =
-            db?.insert(FeedReaderContract.FollowersEntry.TABLE_NAME, null, values)
+        val newRowFollowerId = db?.insert(FeedReaderContract.FollowersEntry.TABLE_NAME, null, values)
     }
 
     fun createPosts() {
@@ -209,8 +235,7 @@ class HomeFragment : Fragment() {
 
         val newRowPostId = db?.insert(FeedReaderContract.PostEntry.TABLE_NAME, null, valuesPosts)
 
-        val newRowProfileId =
-            db?.insert(FeedReaderContract.ProfileEntry.TABLE_NAME, null, valuesProfiles)
+        val newRowProfileId = db?.insert(FeedReaderContract.ProfileEntry.TABLE_NAME, null, valuesProfiles)
 
     }
 
