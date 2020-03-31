@@ -41,10 +41,10 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     fun assemblePost(post: PostPayload){
         this.post = post
         if (post.profile.profilePicture!=""){
-            Picasso.get().load(post.profile.profilePicture).transform(CircleTransformation()).into(v.profPicture)
+            Picasso.get().load(post.profile.profilePicture).placeholder(R.drawable.progress_animation).transform(CircleTransformation()).into(v.profPicture)
         }
 
-        Picasso.get().load(post.picture).resize(1000, 700).into(v.imagePost)
+        Picasso.get().load(post.picture).placeholder(R.drawable.progress_animation).resize(1000, 700).into(v.imagePost)
         v.titlePost.text = post.title
         v.datePost.text = post.uploadTime
         v.username.text = post.profile.name

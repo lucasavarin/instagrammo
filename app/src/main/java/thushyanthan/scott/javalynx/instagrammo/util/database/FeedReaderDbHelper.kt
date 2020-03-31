@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper
 class FeedReaderDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION ) {
 
     override fun onCreate(db: SQLiteDatabase?) {
+        db?.execSQL(Queries.SQL_CREATE_ENTRIES_PROFILE)
         db?.execSQL(Queries.SQL_CREATE_ENTRIES_POSTS)
         db?.execSQL(Queries.SQL_CREATE_ENTRIES_FOLLOWERS)
-        db?.execSQL(Queries.SQL_CREATE_ENTRIES_PROFILE)
 
     }
 

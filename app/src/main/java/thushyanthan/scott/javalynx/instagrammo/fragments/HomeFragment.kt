@@ -54,31 +54,12 @@ class HomeFragment : Fragment() {
     fun readPostsFromDb(): List<PostPayload> {
         val db = dbHelper.readableDatabase
 
-        val projection = arrayOf(
-            FeedReaderContract.ProfileEntry.COLUMN_NAME_PICTURE,
-            FeedReaderContract.PostEntry.COLUMN_NAME_PICTURE,
-            FeedReaderContract.PostEntry.COLUMN_NAME_TITLE,
-            FeedReaderContract.PostEntry.COLUMN_NAME_UPLOAD_TIME,
-            FeedReaderContract.ProfileEntry.COLUMN_NAME_NAME
-        )
+        val query =
+            "SELECT * FROM ${FeedReaderContract.PostEntry.TABLE_NAME} INNER JOIN ${FeedReaderContract.ProfileEntry.TABLE_NAME}" +
+                    " on ${FeedReaderContract.PostEntry.COLUMN_NAME_PROFILE_ID} = ${FeedReaderContract.ProfileEntry.COLUMN_NAME_PROFILE_ID}"
 
-        val sortOrder = "${FeedReaderContract.PostEntry.COLUMN_NAME_UPLOAD_TIME} DESC"
+        val cursor = db.rawQuery(query, null)
 
-        val cursor = db.query(
-            FeedReaderContract.PostEntry.TABLE_NAME,
-            projection,
-            null,
-            null,
-            null,
-            null,
-            sortOrder
-        )
-
-        /* val itemProfPics = mutableListOf<String>()
-         val itemPostPics = mutableListOf<String>()
-         val itemPostTitles = mutableListOf<String>()
-         val itemPostUploadTimes= mutableListOf<String>()
-         val itemProfNames = mutableListOf<String>()*/
 
         val postList = arrayListOf<PostPayload>()
 
@@ -101,17 +82,6 @@ class HomeFragment : Fragment() {
                         )
                     )
                 )
-
-                /*val itemProfPic = getString(getColumnIndexOrThrow(FeedReaderContract.ProfileEntry.COLUMN_NAME_PICTURE))
-                itemProfPics.add(itemProfPic)
-                val itemPostPic = getString(getColumnIndexOrThrow(FeedReaderContract.PostEntry.COLUMN_NAME_PICTURE))
-                itemPostPics.add(itemPostPic)
-                val itemPostTitle = getString(getColumnIndexOrThrow(FeedReaderContract.PostEntry.COLUMN_NAME_TITLE))
-                itemPostTitles.add(itemPostTitle)
-                val itemPostUploadTime = getString(getColumnIndexOrThrow(FeedReaderContract.PostEntry.COLUMN_NAME_UPLOAD_TIME))
-                itemPostUploadTimes.add(itemPostUploadTime)
-                val itemProfName = getString(getColumnIndexOrThrow(FeedReaderContract.ProfileEntry.COLUMN_NAME_NAME))
-                itemProfNames.add(itemProfName)*/
             }
         }
         cursor.close()
@@ -173,7 +143,7 @@ class HomeFragment : Fragment() {
                                 context!!
                             )
                         homeFollowersListLayout.adapter?.notifyDataSetChanged()
-                        createFollowers()
+                        //createFollowers()
                     }
                 } else
                     Toast.makeText(activity, "Error2Followers", Toast.LENGTH_SHORT).show()
@@ -181,40 +151,68 @@ class HomeFragment : Fragment() {
         })
     }
 
-    fun createFollowers(){
-        val db = dbHelper.writableDatabase
-
-        val values = ContentValues().apply{
-            put(FeedReaderContract.FollowersEntry.COLUMN_NAME_FOLLOWERS_ID, followers.forEach{it.id}.toString())
-            put(FeedReaderContract.FollowersEntry.COLUMN_NAME_NAME, followers.forEach{it.name}.toString())
-            put(FeedReaderContract.FollowersEntry.COLUMN_NAME_DESCRIPTION, followers.forEach{it.description}.toString())
-            put(FeedReaderContract.FollowersEntry.COLUMN_NAME_PICTURE, followers.forEach{it.picture}.toString())
-        }
-
-        val newRowFollowerId = db?.insert(FeedReaderContract.FollowersEntry.TABLE_NAME, null, values)
-    }
-
-    fun createPosts(){
+    fun createFollowers() {
         val db = dbHelper.writableDatabase
 
         val values = ContentValues().apply {
-            put(FeedReaderContract.PostEntry.COLUMN_NAME_POST_ID, posts.forEach{it.postId}.toString())
-            put(FeedReaderContract.PostEntry.COLUMN_NAME_PROFILE_ID, posts.forEach{it.profileId}.toString())
-            put(FeedReaderContract.PostEntry.COLUMN_NAME_TITLE, posts.forEach{it.title}.toString())
-            put(FeedReaderContract.PostEntry.COLUMN_NAME_PICTURE, posts.forEach{it.picture}.toString())
-            put(FeedReaderContract.PostEntry.COLUMN_NAME_UPLOAD_TIME, posts.forEach{it.uploadTime}.toString())
+            put(
+                FeedReaderContract.FollowersEntry.COLUMN_NAME_FOLLOWERS_ID,
+                followers.forEach { it.id }.toString()
+            )
+            put(
+                FeedReaderContract.FollowersEntry.COLUMN_NAME_NAME,
+                followers.forEach { it.name }.toString()
+            )
+            put(
+                FeedReaderContract.FollowersEntry.COLUMN_NAME_DESCRIPTION,
+                followers.forEach { it.description }.toString()
+            )
+            put(
+                FeedReaderContract.FollowersEntry.COLUMN_NAME_PICTURE,
+                followers.forEach { it.picture }.toString()
+            )
         }
 
-        val newRowPostId = db?.insert(FeedReaderContract.PostEntry.TABLE_NAME, null,values)
+        val newRowFollowerId =
+            db?.insert(FeedReaderContract.FollowersEntry.TABLE_NAME, null, values)
     }
 
+    fun createPosts() {
+        val db = dbHelper.writableDatabase
 
+        val valuesPosts = ContentValues().apply {
+            for (i in posts) {
+                //put(FeedReaderContract.PostEntry.COLUMN_NAME_POST_ID, i.postId.toInt())
+                //put(FeedReaderContract.PostEntry.COLUMN_NAME_PROFILE_ID, i.profileId.toInt())
+                put(FeedReaderContract.PostEntry.COLUMN_NAME_TITLE, i.title)
+                put(FeedReaderContract.PostEntry.COLUMN_NAME_PICTURE, i.picture)
+                put(FeedReaderContract.PostEntry.COLUMN_NAME_UPLOAD_TIME, i.uploadTime)
 
+            }
 
+        }
 
+        val valuesProfiles = ContentValues().apply {
+            for (i in posts) {
+                //put(FeedReaderContract.ProfileEntry.COLUMN_NAME_PROFILE_ID, i.profile.profileId)
+                put(FeedReaderContract.ProfileEntry.COLUMN_NAME_NAME, i.profile.name)
+                put(FeedReaderContract.ProfileEntry.COLUMN_NAME_DESCRIPTION, i.profile.description)
+                put(FeedReaderContract.ProfileEntry.COLUMN_NAME_PICTURE, i.profile.profilePicture)
+                put(
+                    FeedReaderContract.ProfileEntry.COLUMN_NAME_FOLLOWERS_NUMBER,
+                    i.profile.followersNumber
+                )
+                put(FeedReaderContract.ProfileEntry.COLUMN_NAME_POSTS_NUMBER, i.profile.postsNumber)
 
+            }
+        }
 
+        val newRowPostId = db?.insert(FeedReaderContract.PostEntry.TABLE_NAME, null, valuesPosts)
 
+        val newRowProfileId =
+            db?.insert(FeedReaderContract.ProfileEntry.TABLE_NAME, null, valuesProfiles)
+
+    }
 
 
 }

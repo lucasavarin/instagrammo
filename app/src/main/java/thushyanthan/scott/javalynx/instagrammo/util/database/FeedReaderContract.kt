@@ -14,7 +14,6 @@ object FeedReaderContract {
 
     object FollowersEntry :BaseColumns{
         const val TABLE_NAME = "followers"
-        const val COLUMN_NAME_PROFILE_ID = "profileId"
         const val COLUMN_NAME_FOLLOWERS_ID = "followersId"
         const val COLUMN_NAME_NAME = "name"
         const val COLUMN_NAME_DESCRIPTION = "description"
