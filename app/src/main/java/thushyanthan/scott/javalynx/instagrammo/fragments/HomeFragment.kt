@@ -143,7 +143,7 @@ class HomeFragment : Fragment() {
                                 context!!
                             )
                         homePostsListLayout.adapter?.notifyDataSetChanged()
-                        CreatePosts()
+                        createPosts()
                     }
                 } else
                     Toast.makeText(activity, "Error2Posts", Toast.LENGTH_SHORT).show()
@@ -173,7 +173,7 @@ class HomeFragment : Fragment() {
                                 context!!
                             )
                         homeFollowersListLayout.adapter?.notifyDataSetChanged()
-                        CreateFollowers()
+                        createFollowers()
                     }
                 } else
                     Toast.makeText(activity, "Error2Followers", Toast.LENGTH_SHORT).show()
@@ -181,7 +181,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    fun CreateFollowers(){
+    fun createFollowers(){
         val db = dbHelper.writableDatabase
 
         val values = ContentValues().apply{
@@ -194,7 +194,7 @@ class HomeFragment : Fragment() {
         val newRowFollowerId = db?.insert(FeedReaderContract.FollowersEntry.TABLE_NAME, null, values)
     }
 
-    fun CreatePosts(){
+    fun createPosts(){
         val db = dbHelper.writableDatabase
 
         val values = ContentValues().apply {
