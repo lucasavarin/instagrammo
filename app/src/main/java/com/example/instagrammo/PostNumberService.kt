@@ -11,6 +11,8 @@ import com.example.instagrammo.model.HomeWrapperPostBean
 import com.example.instagrammo.model.PostsNumberResponse
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.ui.activity.MainActivity
+import com.example.instagrammo.Prefs
+import com.example.instagrammo.prefs
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback
@@ -20,46 +22,30 @@ class PostNumberService : Service() {
 
     lateinit var notification : Notification
     private var post: Int = 0
+    private var diff : Int = 0
     private var nPost: String = ""
     private val GROUP_KEY =  "group_key"
 
-
     companion object {
         const val CHANNEL_ID = "ForegroundServiceChannel"
+        var changed : Boolean = false
+        var number : Int = 0
     }
 
-    override fun onCreate() {
-        super.onCreate()
-    }
 
-    override fun onBind(intent: Intent?): IBinder? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onBind(intent: Intent): IBinder? {
+       return null
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         createNotification()
-     /*   val intent = PendingIntent.getActivity(
-            applicationContext, 0, Intent(applicationContext, MainActivity::class.java), 0
-        )
-      */
+
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
 
         getPostsNumber(pendingIntent)
-        notification  =
-            NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-                .setContentTitle("Titolo")
-                .setContentText("Nuovi post: $post")
-                .setSmallIcon(R.mipmap.favicon)
-                .setContentIntent(pendingIntent)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setShowWhen(false)
-                .setOnlyAlertOnce(true)
-                .build()
-        startForeground(1, notification)
         return START_NOT_STICKY
     }
-
 
 
     private fun createNotification() {
@@ -80,6 +66,7 @@ class PostNumberService : Service() {
         val handler = Handler()
         handler.post(object : Runnable{
             override fun run() {
+                getNPost(pendingIntent)
             }
         })
         val delay : Long = 5000
@@ -90,7 +77,42 @@ class PostNumberService : Service() {
             }
         }, delay)
     }
+    private fun getNPost(pendingIntent: PendingIntent) {
+        RetrofitController.getClient.getNPosts().enqueue(object : Callback<PostsNumberResponse>{
+            override fun onFailure(call: Call<PostsNumberResponse>, t: Throwable) {
+            }
+            override fun onResponse(
+                call: Call<PostsNumberResponse>,
+                response: Response<PostsNumberResponse>
+            ) {
+               if (post != 0){
+                    diff = response.body()!!.payload.toInt() - post
+                }
+                post = response.body()!!.payload.toInt()
 
+                if (diff!= 0){
+                    prefs.postNumber = prefs.postNumber + diff
+                    prefs.changedPost = true
+                }
+
+                if (!prefs.changedPost){
+                    prefs.postNumber = 0
+                }
+
+
+                notification  = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                    .setContentTitle("Titolo")
+                    .setContentText("Nuovi post: ${prefs.postNumber}") //
+                    .setSmallIcon(R.mipmap.favicon)
+                    .setContentIntent(pendingIntent)
+                    .setShowWhen(false)
+                    .setOnlyAlertOnce(true)
+                    .setGroup(GROUP_KEY)
+                    .build()
+                startForeground(1000, notification)
+            }
+        })
+    }
     private fun getNumberPost(pendingIntent: PendingIntent) : Unit {
         var oldCallPostNumber:Int=0
 

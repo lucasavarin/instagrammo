@@ -7,6 +7,8 @@ class Prefs(context : Context){
     val PREFS_FILENAME = "com.example.instagrammo.prefs"
     val REMEMBER = "rememberMe"
     val USERNAME = "username"
+    val Post_Number = "postNumber"
+    val Post_Changed = "PostChanged"
     val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0);
 
     var rememberMe: Boolean
@@ -16,6 +18,15 @@ class Prefs(context : Context){
     var username: String
         get() = prefs.getString(USERNAME, "") ?: ""
         set(value) = prefs.edit().putString(USERNAME, value).apply()
+
+    var postNumber : Int
+        get() = prefs.getInt(Post_Number, 0)
+        set(value) = prefs.edit().putInt(Post_Number, value).apply()
+
+    var changedPost : Boolean
+        get() = prefs.getBoolean(Post_Changed, false)
+        set(value) = prefs.edit().putBoolean(Post_Changed, value).apply()
+
 
 }
 

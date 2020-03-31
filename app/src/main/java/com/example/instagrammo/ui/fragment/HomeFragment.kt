@@ -66,7 +66,8 @@ class HomeFragment : Fragment() {
                     val nuovo :PostDb = PostDb(it.profileId,it.postId,it.title,it.uploadTime)
                     daSalvare.add(nuovo)
                 }
-              db.savePostOnDb(daSalvare)
+                db.savePostOnDb(daSalvare)
+                // AppDbHelper(context!!).saveFollowerOnDb(followers)
             }
         })
         return inflater.inflate(R.layout.home_fragment_layout, container, false)
