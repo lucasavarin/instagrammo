@@ -59,10 +59,10 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                             cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.Post.COLUMN_PROFILE_ID))),
                         cursor.getString(getColumnIndexOrThrow(BaseColumns._ID)),
                         cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.Post.COLUMN_TITLE_USER)),
-                        "https://picsum.photos/id/12/400/400",
+                        "",
                         cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.Post.COLUMN_TITLE_POSTTIME)),
                         HomeProfilePostBean(cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.Post.COLUMN_PROFILE_ID))
-                            ,"",cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.Post.COLUMN_TITLE_DESC)),"https://picsum.photos/id/12/400/400","",""
+                            ,"",cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.Post.COLUMN_TITLE_DESC)),"","",""
                         )
                     )
                 )
