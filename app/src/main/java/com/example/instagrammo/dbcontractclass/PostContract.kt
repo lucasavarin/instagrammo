@@ -9,9 +9,8 @@ object PostContract {
         const val TABLE_NAME = "Post"
         const val COLUMN_TITLE = "title"
         const val COLUMN_PROFILE_ID ="profileId"
-        const val COLUMN_PICTURE ="picture"
-        const val COLUMN_POST_ID ="post id"
-        const val COLUMN_UPLOADTIME="up time"
+        const val COLUMN_ID ="postId"
+        const val COLUMN_UPLOADTIME="uploadTime"
 
     }
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.db
 import com.example.instagrammo.R
 import com.example.instagrammo.adapter.Adapter
 import com.example.instagrammo.adapter.HomeFollowerPostAdapter
@@ -51,7 +52,7 @@ class HomeFragment : Fragment() {
                 HomeFollowerPosts.layoutManager = linearLayoutManager
                 HomeFollowerPosts.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
                 val adapterFollowerPost =
-                    HomeFollowerPostAdapter(AppDbHelper(context!!).getPostsFromDb())
+                    HomeFollowerPostAdapter(db.getPostsFromDb())
                 HomeFollowerPosts.adapter = adapterFollowerPost
 
             }
@@ -65,7 +66,7 @@ class HomeFragment : Fragment() {
                     val nuovo :PostDb = PostDb(it.profileId,it.postId,it.title,it.uploadTime)
                     daSalvare.add(nuovo)
                 }
-              AppDbHelper(context!!).savePostOnDb(daSalvare)
+              db.savePostOnDb(daSalvare)
             }
         })
         return inflater.inflate(R.layout.home_fragment_layout, container, false)
