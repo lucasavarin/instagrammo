@@ -13,8 +13,10 @@ class HomeFollowerPostHolder(itemView: View)  : RecyclerView.ViewHolder(itemView
 
     fun bindFollowerPost(followerPost : HomePayloadPostBean){
         this.followerPost = followerPost
-        Picasso.get().load(followerPost.picture).into(view.userPost)
-        Picasso.get().load(followerPost.HomeProfilePostBean.picture).transform(CircleTransform()).into(view.userPostProfile)
+        if(followerPost.picture != ""){
+            Picasso.get().load(followerPost.picture).into(view.userPost)
+            Picasso.get().load(followerPost.HomeProfilePostBean.picture).transform(CircleTransform()).into(view.userPostProfile)
+        }
         view.nameProfile.setText(followerPost.HomeProfilePostBean.name)
         view.titlePost.setText(followerPost.title)
         view.oraPost.setText(followerPost.uploadTime)

@@ -114,6 +114,7 @@ class ForegroundService : Service() {
                         createCustomNotification()
                     }
                 }
+                //createCustomNotification()
 
                 if(prefs.isNewPostNumber == false){
                    prefs.newPostNumber = "0"
@@ -160,6 +161,7 @@ class ForegroundService : Service() {
                         singlePostNotification.add(summaryNotification)*/
 
                         lastPosts.forEach {
+                            var idnot : Int = 0
                             val notificationIntent = Intent(applicationContext, FragmentsActivity::class.java).apply {
                                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                             }
@@ -185,12 +187,13 @@ class ForegroundService : Service() {
                                      getProfileImage(it.HomeProfilePostBean.picture, it.picture, newNotification)
 
                             singlePostNotification.add(newNotification.build())
-                          }
 
-                        NotificationManagerCompat.from(applicationContext).apply {
+                        }
+
+                       NotificationManagerCompat.from(applicationContext).apply {
                             singlePostNotification.forEachIndexed { index, notification ->
                                 notify(index, notification)
-                            }
+                           }
                         }
 
                     }
