@@ -188,12 +188,12 @@ class ForegroundService : Service() {
 
                             singlePostNotification.add(newNotification.build())
 
-                        }
+                            NotificationManagerCompat.from(applicationContext).apply {
+                                singlePostNotification.forEach { notification ->
+                                    notify(it.postId.toInt(), notification)
+                                }
+                            }
 
-                       NotificationManagerCompat.from(applicationContext).apply {
-                            singlePostNotification.forEachIndexed { index, notification ->
-                                notify(index, notification)
-                           }
                         }
 
                     }

@@ -7,19 +7,18 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
 import com.instagrammo.bean.buissnes.HomePayloadPostBean
 import com.instagrammo.bean.buissnes.HomeProfilePostBean
-import com.instagrammo.bean.buissnes.ProfilePostBean
-import com.instagrammo.util.retrofit.Session
-import retrofit2.Response
 
 class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     //create
     fun insertPostData(response: List<HomePayloadPostBean>){
         val db = this.writableDatabase
+        SQL_DELETE_ENTRIES
 
         response.forEach {
 
             val values = ContentValues().apply {
+                    put(BaseColumns._ID, it.postId)
                     put(DataBaseContract.Post.COLUMN_PROFILE_ID, it.HomeProfilePostBean.profileId)
                     put(DataBaseContract.Post.COLUMN_TITLE_POSTTIME, it.uploadTime)
                     put(DataBaseContract.Post.COLUMN_TITLE_USER, it.title)
