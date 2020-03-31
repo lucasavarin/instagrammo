@@ -18,7 +18,8 @@ class HomeFollowerPostHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         view.Profile_name.text = followerPost.profile.name
         view.Post_title.text = followerPost.title
         view.Post_hour.text = followerPost.uploadTime
-        Picasso.get().load(followerPost.profile.picture).transform(CircleTrasformation()).into(view.Post_user_profile)
+        if(followerPost.profile.picture.isNotEmpty())
+                Picasso.get().load(followerPost.profile.picture).transform(CircleTrasformation()).into(view.Post_user_profile)
         if (followerPost.picture.isNotEmpty()) {
             Picasso.get().load(followerPost.picture).into(view.Post_user)
         }else{

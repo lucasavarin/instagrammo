@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
 import com.example.instagrammo.adapter.Adapter
 import com.example.instagrammo.adapter.HomeFollowerPostAdapter
-import com.example.instagrammo.model.HomeWrapperPostBean
-import com.example.instagrammo.model.Session
-import com.example.instagrammo.model.StoriesResponse
+import com.example.instagrammo.db.AppDbHelper
+import com.example.instagrammo.model.*
 import com.example.instagrammo.retrofit.RetrofitController
-import com.google.android.material.badge.BadgeDrawable
 import kotlinx.android.synthetic.main.home_fragment_layout.*
 import kotlinx.android.synthetic.main.home_fragment_layout.view.*
-import kotlinx.android.synthetic.main.main_activity.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,9 +43,16 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         RetrofitController.getClient.getFollowerPost().enqueue(object : Callback<HomeWrapperPostBean>{
             override fun onFailure(call: Call<HomeWrapperPostBean>, t: Throwable) {
+                val linearLayoutManager = LinearLayoutManager(context)
+                linearLayoutManager.stackFromEnd = true
+                linearLayoutManager.reverseLayout = true
+                HomeFollowerPosts.layoutManager = linearLayoutManager
+                HomeFollowerPosts.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                val adapterFollowerPost =
+                    HomeFollowerPostAdapter(AppDbHelper(context!!).getPostsFromDb())
+                HomeFollowerPosts.adapter = adapterFollowerPost
 
             }
             override fun onResponse(
@@ -54,6 +60,12 @@ class HomeFragment : Fragment() {
                 response: Response<HomeWrapperPostBean>
             ) {
                 createPost(response)
+                val daSalvare = arrayListOf<PostDb>()
+                response!!.body()!!.payload.forEach{
+                    val nuovo :PostDb = PostDb(it.profileId,it.postId,it.title,it.uploadTime)
+                    daSalvare.add(nuovo)
+                }
+              AppDbHelper(context!!).savePostOnDb(daSalvare)
             }
         })
         return inflater.inflate(R.layout.home_fragment_layout, container, false)
@@ -100,5 +112,8 @@ class HomeFragment : Fragment() {
         HomeFollowerPosts.adapter = adapterFollowerPost
         return HomeFollowerPosts
     }
+
+
+
 
 }
