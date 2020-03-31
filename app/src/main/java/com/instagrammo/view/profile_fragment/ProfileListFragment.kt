@@ -15,24 +15,33 @@ import com.instagrammo.bean.buissnes.ProfileImgWrapper
 import com.instagrammo.bean.buissnes.ProfilePostBean
 import com.example.login.R
 import com.instagrammo.util.retrofit.ClientInterceptor
+import com.instagrammo.util.retrofit.Session
 import kotlinx.android.synthetic.main.profile_list_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileListFragment() : Fragment() {
+class ProfileListFragment(private val profileId : String) : Fragment() {
+
+    companion object {
+
+        fun newInstance(profileId : String = Session.profileId): ProfileListFragment {
+            val profileListFragment = ProfileListFragment(profileId)
+            return profileListFragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater!!.inflate(R.layout.profile_list_layout, container, false);
+        return inflater.inflate(R.layout.profile_list_layout, container, false);
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ClientInterceptor.getUser.getPosts().enqueue(object : Callback<ProfileImgWrapper> {
+        ClientInterceptor.getUser.getPosts(this.profileId).enqueue(object : Callback<ProfileImgWrapper> {
 
             override fun onFailure(call: Call<ProfileImgWrapper>, t: Throwable) {
                 Toast.makeText(
@@ -50,7 +59,7 @@ class ProfileListFragment() : Fragment() {
                     if(!response.body()?.payloadProfile?.isEmpty()!!) {
 
                         putImg(response.body()!!.payloadProfile)
-                        Log.d("risposta", response!!.body().toString())
+                        Log.d("risposta", response.body().toString())
                     }
 
                 }

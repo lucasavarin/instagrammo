@@ -58,7 +58,6 @@ class ProfileFragment(private val profileId:String) : Fragment() {
             }
         })
 
-
         return inflater.inflate(R.layout.profile_layout,container ,false)
 
     }
@@ -66,7 +65,7 @@ class ProfileFragment(private val profileId:String) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = activity?.supportFragmentManager?.let { PostsViewAdapter(it) }
+        val adapter = activity?.supportFragmentManager?.let { PostsViewAdapter(it,this.profileId) }
         pager.adapter = adapter
         pager.offscreenPageLimit = 1
         tab_layout.setupWithViewPager(pager)

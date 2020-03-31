@@ -199,7 +199,7 @@ class ForegroundService : Service() {
         })
     }
 
-    private fun getProfileImage(url: String, urlPost : String, notification : NotificationCompat.Builder) : Unit {
+    private fun getProfileImage(url: String, urlPost : String, notification : NotificationCompat.Builder)  {
 
         Picasso.get().load(url).transform(CircleTransform()).into(object : Target{
             override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
