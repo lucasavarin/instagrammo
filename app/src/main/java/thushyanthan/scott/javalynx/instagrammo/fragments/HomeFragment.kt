@@ -1,10 +1,12 @@
 package thushyanthan.scott.javalynx.instagrammo.fragments
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.contentValuesOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,8 +18,12 @@ import thushyanthan.scott.javalynx.instagrammo.*
 import thushyanthan.scott.javalynx.instagrammo.adapter.FollowerAdapter
 import thushyanthan.scott.javalynx.instagrammo.adapter.HomeAdapter
 import thushyanthan.scott.javalynx.instagrammo.util.database.FeedReaderContract
-import thushyanthan.scott.javalynx.instagrammo.util.rest.*
+import thushyanthan.scott.javalynx.instagrammo.util.rest.FollowerPayload
+import thushyanthan.scott.javalynx.instagrammo.util.rest.FollowerResponse
+import thushyanthan.scott.javalynx.instagrammo.util.rest.PostPayload
+import thushyanthan.scott.javalynx.instagrammo.util.rest.PostsResponse
 import thushyanthan.scott.javalynx.instagrammo.util.sharedPrefs.dbHelper
+import thushyanthan.scott.javalynx.instagrammo.util.rest.*
 import thushyanthan.scott.javalynx.instagrammo.util.sharedPrefs.prefs
 import java.util.ArrayList
 
@@ -137,6 +143,7 @@ class HomeFragment : Fragment() {
                                 context!!
                             )
                         homePostsListLayout.adapter?.notifyDataSetChanged()
+                        CreatePosts()
                     }
                 } else
                     Toast.makeText(activity, "Error2Posts", Toast.LENGTH_SHORT).show()
@@ -166,11 +173,48 @@ class HomeFragment : Fragment() {
                                 context!!
                             )
                         homeFollowersListLayout.adapter?.notifyDataSetChanged()
+                        CreateFollowers()
                     }
                 } else
                     Toast.makeText(activity, "Error2Followers", Toast.LENGTH_SHORT).show()
             }
         })
     }
+
+    fun CreateFollowers(){
+        val db = dbHelper.writableDatabase
+
+        val values = ContentValues().apply{
+            put(FeedReaderContract.FollowersEntry.COLUMN_NAME_FOLLOWERS_ID, followers.forEach{it.id}.toString())
+            put(FeedReaderContract.FollowersEntry.COLUMN_NAME_NAME, followers.forEach{it.name}.toString())
+            put(FeedReaderContract.FollowersEntry.COLUMN_NAME_DESCRIPTION, followers.forEach{it.description}.toString())
+            put(FeedReaderContract.FollowersEntry.COLUMN_NAME_PICTURE, followers.forEach{it.picture}.toString())
+        }
+
+        val newRowFollowerId = db?.insert(FeedReaderContract.FollowersEntry.TABLE_NAME, null, values)
+    }
+
+    fun CreatePosts(){
+        val db = dbHelper.writableDatabase
+
+        val values = ContentValues().apply {
+            put(FeedReaderContract.PostEntry.COLUMN_NAME_POST_ID, posts.forEach{it.postId}.toString())
+            put(FeedReaderContract.PostEntry.COLUMN_NAME_PROFILE_ID, posts.forEach{it.profileId}.toString())
+            put(FeedReaderContract.PostEntry.COLUMN_NAME_TITLE, posts.forEach{it.title}.toString())
+            put(FeedReaderContract.PostEntry.COLUMN_NAME_PICTURE, posts.forEach{it.picture}.toString())
+            put(FeedReaderContract.PostEntry.COLUMN_NAME_UPLOAD_TIME, posts.forEach{it.uploadTime}.toString())
+        }
+
+        val newRowPostId = db?.insert(FeedReaderContract.PostEntry.TABLE_NAME, null,values)
+    }
+
+
+
+
+
+
+
+
+
 
 }

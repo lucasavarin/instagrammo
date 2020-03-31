@@ -1,5 +1,6 @@
 package thushyanthan.scott.javalynx.instagrammo.fragments
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,9 @@ import retrofit2.Response
 import thushyanthan.scott.javalynx.instagrammo.adapter.HomeAdapter
 import thushyanthan.scott.javalynx.instagrammo.adapter.ProfileGridAdapter
 import thushyanthan.scott.javalynx.instagrammo.fragments.secondaryFragments.EditProfileFragment
+import thushyanthan.scott.javalynx.instagrammo.util.database.FeedReaderContract
 import thushyanthan.scott.javalynx.instagrammo.util.rest.*
+import thushyanthan.scott.javalynx.instagrammo.util.sharedPrefs.dbHelper
 import thushyanthan.scott.javalynx.instagrammo.util.transformation.CircleTransformation
 
 
@@ -60,16 +63,6 @@ class ProfileFragment: Fragment() {
         profilePostListLayout.layoutManager = linearLayoutManagerPost
         profilePostGridLayout.layoutManager = gridLayoutManagerPost
 
-
-       /* gridTabItem.setOnClickListener {
-            profilePostGridLayout.visibility = View.GONE
-            profilePostListLayout.visibility = View.VISIBLE
-        }
-
-        listTabItem.setOnClickListener {
-            profilePostGridLayout.visibility = View.VISIBLE
-            profilePostListLayout.visibility = View.GONE
-        }*/
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -160,8 +153,6 @@ class ProfileFragment: Fragment() {
 
         })
     }
-
-
 
 
 }
