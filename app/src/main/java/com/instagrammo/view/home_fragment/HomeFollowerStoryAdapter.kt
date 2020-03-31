@@ -25,11 +25,9 @@ class HomeFollowerStoryAdapter (private val dataList : List<HomeUserResponseBean
     override fun onBindViewHolder(holder: HomeFollowerStoryHolder, position: Int) {
         holder.bindFollower(dataList.get(position))
 
-        if(holder.itemView.userPostProfile != null){
-            holder.itemView.userPostProfile.setOnClickListener {
+            holder.itemView.setOnClickListener {
                 callBackProfile?.invoke(dataList[position])
             }
-        }
 
     }
 

@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.instagrammo.bean.buissnes.HomePayloadPostBean
 import com.example.login.R
+import kotlinx.android.synthetic.main.item_home_follower_story.view.*
 
 
 class HomeFollowerPostAdapter(private val dataList : List<HomePayloadPostBean>): RecyclerView.Adapter<HomeFollowerPostHolder>(){
@@ -27,9 +28,12 @@ class HomeFollowerPostAdapter(private val dataList : List<HomePayloadPostBean>):
     override fun onBindViewHolder(holder: HomeFollowerPostHolder, position: Int) {
         holder.bindFollowerPost(dataList.get(position))
 
-        holder.itemView.setOnClickListener {
-            callBackProfile?.invoke(dataList[position])
+        if(holder.itemView.userPostProfile != null){
+            holder.itemView.userPostProfile.setOnClickListener {
+                callBackProfile?.invoke(dataList[position])
+            }
         }
+
 
         if(position >= itemCount -5){
             callback?.invoke()

@@ -10,7 +10,6 @@ import com.instagrammo.bean.buissnes.HomeProfilePostBean
 
 class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
-    //create
     fun insertPostData(response: List<HomePayloadPostBean>){
         val db = this.writableDatabase
         SQL_DELETE_ENTRIES
@@ -28,7 +27,6 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             }
         }
 
-    //read
     fun readPostData() : List<HomePayloadPostBean>{
         val db = this.readableDatabase
         val projection = arrayOf(BaseColumns._ID,
@@ -37,7 +35,6 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             DataBaseContract.Post.COLUMN_TITLE_USER,
             DataBaseContract.Post.COLUMN_PROFILE_ID)
 
-    //    val selection = "${DataBaseContract.Post.COLUMN_TITLE_USER} = ?"
         val sortOrder = "${DataBaseContract.Post.COLUMN_TITLE_POSTTIME} DESC"
 
         val cursor = db.query(
