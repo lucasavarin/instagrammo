@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.instagrammo.R
+import com.example.instagrammo.activities.MainActivity
 import com.example.instagrammo.adapters.PostGridRecyclerAdapter
 import com.example.instagrammo.adapters.PostsListRecyclerAdapter
 import com.example.instagrammo.adapters.TabAdapter
@@ -21,6 +22,7 @@ import com.example.instagrammo.beans.response.ProfileWrapperResponseREST
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.util.CircleTransform
 import com.example.instagrammo.util.Session
+import com.example.instagrammo.util.replaceFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
 import retrofit2.Call
@@ -56,18 +58,7 @@ class ProfileFragment: Fragment(){
         adapter = TabAdapter(childFragmentManager)
         performCall()
         modifica.setOnClickListener{
-            val fragmentManager: FragmentManager = activity !!.supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-            val fragment = ModifyProfileFragment()
-            transaction.replace(R.id.container, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
-            val bundle  = Bundle()
-            bundle.putString("picture", profile!!.picture)
-            bundle.putString("description", profile?.description)
-            bundle.putString("nomeProfilo", profile?.name)
-            bundle.putString("idProfilo", profile?.profileId)
-            fragment.setArguments(bundle)
+            (activity as MainActivity).replaceFragment(ModifyProfileFragment.makeInstance(profile!!.picture,profile!!.description,profile!!.name,profile!!.profileId), R.id.container, "")
         }
 
     }

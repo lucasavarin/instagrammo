@@ -13,6 +13,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.instagrammo.R
+import com.example.instagrammo.activities.MainActivity
 import com.example.instagrammo.beans.business.Profile
 import com.example.instagrammo.beans.request.ProfilePutREST
 import com.example.instagrammo.beans.response.ProfilePutResponseREST
@@ -20,6 +21,7 @@ import com.example.instagrammo.beans.response.ProfileWrapperResponseREST
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.util.CircleTransform
 import com.example.instagrammo.util.Session
+import com.example.instagrammo.util.replaceFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_modifyprofile.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -30,27 +32,35 @@ import retrofit2.Response
 import java.net.URI
 
 
-class ModifyProfileFragment: Fragment(){
+class ModifyProfileFragment private constructor(
+    val picture: String,
+    val profileId: String,
+    val description: String,
+    val nomeProfilo: String
+): Fragment(){
+
     private var profile: Profile? = null
-    //lateinit var profileId: String
-    //lateinit var picture: String
-    lateinit var picture: String
-    lateinit var profileId: String
-    lateinit var description: String
-    lateinit var nomeProfilo: String
 
-
+    companion object {
+        fun makeInstance(picture: String,
+                         profileId: String,
+                         description: String,
+                         nomeProfilo: String
+        ): ModifyProfileFragment {
+            return ModifyProfileFragment(
+                picture,
+                profileId,
+                description,
+                nomeProfilo
+            )
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val bundle1 = getArguments()
-        picture = bundle1!!.getString("picture")!!
-        profileId = bundle1.getString("idProfilo")!!
-        description = bundle1.getString("description")!!
-        nomeProfilo = bundle1.getString("nomeProfilo")!!
         //super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.fragment_modifyprofile, container, false)
 
@@ -68,12 +78,7 @@ class ModifyProfileFragment: Fragment(){
             }
         }
         backButton.setOnClickListener {
-            val fragmentManager: FragmentManager = activity !!.supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-            val fragment = ProfileFragment()
-            transaction.replace(R.id.container, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            (activity as MainActivity).replaceFragment(ProfileFragment.makeInstance(), R.id.container, "")
         }
 
         saveButton.setOnClickListener {
@@ -94,7 +99,7 @@ class ModifyProfileFragment: Fragment(){
                         Toast.makeText(context, "Aggiornamento andato a buon fine.", Toast.LENGTH_LONG).show()
                             val fragmentManager = activity !!.supportFragmentManager
                             val fragmentTransaction = fragmentManager.beginTransaction()
-                            val fragment = ModifyProfileFragment()
+                            val fragment = ModifyProfileFragment(picture, profileId, description, nomeProfilo)
                             fragmentTransaction.remove(fragment)
                             fragmentTransaction.commit()
                             fragmentManager.popBackStack()
@@ -112,13 +117,13 @@ class ModifyProfileFragment: Fragment(){
         editTextPicture.setText(getIdParam(picture))
     }*/
 
-    private fun getIdParam(path: String): String? {
+    /*private fun getIdParam(path: String): String? {
         val uri = URI(path)
         val pathImage: String = uri.path
         val pathFiltered = pathImage.substringAfter("id/")
 
         return pathFiltered.substringBefore("/4")
-    }
+    }*/
 
     private fun updateProfile():ProfilePutREST{
 
