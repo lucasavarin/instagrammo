@@ -129,6 +129,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context,
                 ))
             }
         }
+        cursor.close()
         return posts
     }
 
@@ -168,6 +169,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context,
                 )
             }
         }
+        cursor.close()
         return followers
     }
 
