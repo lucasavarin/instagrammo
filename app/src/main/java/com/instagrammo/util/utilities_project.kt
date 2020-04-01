@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.login.R
 import java.util.*
+import java.util.concurrent.ThreadLocalRandom
 
 class utilities_project {
 
@@ -28,13 +29,6 @@ class utilities_project {
 
         }
 
-        fun generateRandomNumbers(from: Int, to: Int) : Int {
-
-            val random = Random()
-
-            return random.nextInt(to - from) + from
-
-        }
     }
 
 

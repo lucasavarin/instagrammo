@@ -19,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileGridFragment(val profileId : String) : Fragment() {
+class ProfileGridFragment private constructor(private val profileId : String) : Fragment() {
 
     companion object {
 

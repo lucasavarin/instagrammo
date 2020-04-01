@@ -34,7 +34,7 @@ class AddPostStoryAdapter(var dataList : List<AddPostResponseBean>) : RecyclerVi
 
         }
 
-        if(position >= itemCount - 5){
+        if(position >= itemCount - 10){
           callback?.invoke()
         }
 

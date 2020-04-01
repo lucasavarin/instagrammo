@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.add_layout_click_item.*
 import kotlinx.android.synthetic.main.add_layout_click_item.view.*
 import kotlinx.android.synthetic.main.custom_view_layout.*
 
-class AddSecondFragment(private val addBeanSessionFragment: AddPostResponseBean)  : Fragment() {
+class AddSecondFragment private constructor(private val addBeanSessionFragment: AddPostResponseBean)  : Fragment() {
 
     companion object {
         fun makeInstance(it: AddPostResponseBean): Fragment {
@@ -39,7 +39,7 @@ class AddSecondFragment(private val addBeanSessionFragment: AddPostResponseBean)
 
         backButton.setOnClickListener { utilities_project.deleteFragment(AddSecondFragment(addBeanSessionFragment), activity!!) }
 
-        createPost.setOnClickListener { utilities_project.addFragment(AddThirdFragment(addBeanSessionFragment), activity!!)}
+        createPost.setOnClickListener { utilities_project.addFragment(AddThirdFragment.makeInstance(addBeanSessionFragment), activity!!)}
 
 
     }

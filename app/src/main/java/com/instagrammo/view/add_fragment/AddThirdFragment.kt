@@ -23,7 +23,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddThirdFragment(private val addBeanSessionFragment: AddPostResponseBean) : Fragment() {
+class AddThirdFragment private constructor(private val addBeanSessionFragment: AddPostResponseBean) : Fragment() {
+
+    companion object {
+        fun makeInstance(it: AddPostResponseBean): Fragment {
+            return AddThirdFragment(it)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +78,7 @@ class AddThirdFragment(private val addBeanSessionFragment: AddPostResponseBean) 
                     if(response.body()!!.result){
                         Toast.makeText(context, "Creazione andata a buon fine.", Toast.LENGTH_LONG).show()
                         utilities_project.deleteFragment(AddThirdFragment(addBeanSessionFragment), activity!!)
-                        utilities_project.deleteFragment(AddSecondFragment(addBeanSessionFragment), activity!!)
+                        utilities_project.deleteFragment(AddSecondFragment.makeInstance(addBeanSessionFragment), activity!!)
                     }
                 }
             }

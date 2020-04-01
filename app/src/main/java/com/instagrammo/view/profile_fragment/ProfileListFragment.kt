@@ -21,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileListFragment(private val profileId : String) : Fragment() {
+class ProfileListFragment private constructor(private val profileId : String) : Fragment() {
 
     companion object {
 
