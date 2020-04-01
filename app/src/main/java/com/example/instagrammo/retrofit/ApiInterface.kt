@@ -21,6 +21,9 @@ interface ApiInterface {
     @GET(value = "posts.php")
     fun getPosts(): Call<HomeWrapperPostBean>
 
+    @GET(value = "posts.php/{profiloUtente}")
+    fun getPostsProfile (@Path("profiloUtente") profiloUtente : String) : Call<ProfilePostImgWrapperBean>
+
     @GET(value = "profiles.php/{profiloUtente}")
     fun getProfile(@Path("profiloUtente") profiloUtente: String = Session.profileId) : Call<ProfileWrapperBean>
 
