@@ -1,5 +1,6 @@
 package com.instagrammo.util
 import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -25,11 +26,13 @@ import retrofit2.Response
 
 
 class ForegroundService : Service() {
-
-    lateinit var notification : Notification
+    private lateinit var notification : Notification
     private var  postNumber: Int = 0
     private var  countPost: Int = 0
     private val GROUP_KEY = "group.key"
+
+
+
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
@@ -67,6 +70,7 @@ class ForegroundService : Service() {
             manager?.createNotificationChannel(serviceChannel)
         }
     }
+
 
     private fun getPostsNumber(pendingIntent: PendingIntent) {
 
@@ -114,7 +118,6 @@ class ForegroundService : Service() {
                         createCustomNotification()
                     }
                 }
-                //createCustomNotification()
 
                 if(prefs.isNewPostNumber == false){
                    prefs.newPostNumber = "0"
@@ -125,6 +128,7 @@ class ForegroundService : Service() {
                         .setContentTitle("Recupero Post")
                         .setContentText("Nuovi post pubblicati: ${prefs.newPostNumber}")
                         .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                        .setColorized(true)
                         .setContentIntent(pendingIntent)
                         .setShowWhen(false)
                         .setOnlyAlertOnce(true)
@@ -136,7 +140,6 @@ class ForegroundService : Service() {
     }
 
     private fun  createCustomNotification(){
-        val singlePostNotification = arrayListOf<Notification>()
 
         ClientInterceptor.getUser.getFollowerPost().enqueue(object : Callback<HomeWrapperPostBean>{
 
@@ -152,22 +155,19 @@ class ForegroundService : Service() {
                     if (response.body()!!.result) {
                         val lastPosts = response.body()!!.payload.reversed().take(prefs.newPostNumber.toInt())
 
-                       /* val summaryNotification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-                            .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                            .setGroupSummary(true)
-                            .setStyle(NotificationCompat.InboxStyle())
-                            .setGroup(GROUP_KEY)
-                            .build()
-                        singlePostNotification.add(summaryNotification)*/
-
                         lastPosts.forEach {
-                            var idnot : Int = 0
+
                             val notificationIntent = Intent(applicationContext, FragmentsActivity::class.java).apply {
                                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                             }
+
                             notificationIntent.putExtra("profileId" , it.profileId)
 
-                            val pendingMainIntent = PendingIntent.getActivity(applicationContext, 0, notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT)
+                            val stackBuilder = TaskStackBuilder.create(applicationContext)
+                            stackBuilder.addParentStack(FragmentsActivity::class.java)
+                            stackBuilder.addNextIntent(notificationIntent)
+
+                            val pendingMainIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
 
                             val addIntent = Intent(applicationContext, FragmentsActivity::class.java).apply {
                                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -186,20 +186,18 @@ class ForegroundService : Service() {
                                     .addAction(R.drawable.ic_launcher_background, "PROFILE", pendingMainIntent)
                                      getProfileImage(it.HomeProfilePostBean.picture, it.picture, newNotification)
 
-                            singlePostNotification.add(newNotification.build())
+                            val notification  = newNotification.build()
 
-                            NotificationManagerCompat.from(applicationContext).apply {
-                                singlePostNotification.forEach { notification ->
-                                    notify(it.postId.toInt(), notification)
-                                }
+                            val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                            notificationManager.notify(it.postId.toInt(), notification)
+
                             }
-
                         }
 
                     }
                 }
-            }
-        })
+            })
+        }
     }
 
     private fun getProfileImage(url: String, urlPost : String, notification : NotificationCompat.Builder)  {
@@ -212,7 +210,8 @@ class ForegroundService : Service() {
             }
 
             override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-              notification.setLargeIcon(bitmap)
+                notification.setLargeIcon(bitmap)
+
             }
         })
 
@@ -231,4 +230,4 @@ class ForegroundService : Service() {
     }
 
 
-}
+

@@ -17,7 +17,6 @@ object DataBaseContract {
         const val TABLE_NAME_FOLLOWER = "follower"
         const val COLUMN_ID ="idFollower"
         const val COLUMN_NAME = "name"
-        const val COLUMN_PICTURE = "picture"
         const val COLUMN_DESCRIPTION = "description"
     }
 }
