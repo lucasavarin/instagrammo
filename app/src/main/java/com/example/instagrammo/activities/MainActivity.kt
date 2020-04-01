@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import com.example.instagrammo.util.*
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.badge_layout_item.*
 
@@ -141,5 +142,7 @@ class MainActivity: AppCompatActivity() {
     private fun startServices() {
         val serviceIntent = Intent(this, ForegroundNotificationService::class.java)
         startService(serviceIntent)
+
+        FirebaseApp.initializeApp(applicationContext)
     }
 }
