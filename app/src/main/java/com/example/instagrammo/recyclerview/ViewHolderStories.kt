@@ -2,7 +2,7 @@ package com.example.instagrammo.recyclerview
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.instagrammo.data_class.Profilo
+import com.example.instagrammo.data_class.ProfiloStories
 import com.example.instagrammo.R
 import com.example.instagrammo.util.CircleTrasformation
 import com.squareup.picasso.Picasso
@@ -15,10 +15,10 @@ class ViewHolderStories (val v: View) : RecyclerView.ViewHolder(v) , View.OnClic
 
     }
 
-    fun fillStories(s : Profilo) {
+    fun fillStories(s : ProfiloStories) {
 
         if (s.picture.isEmpty()) {
-            v.recyclerViewFollowers.setImageResource(R.drawable.baseline_person_white_48)
+            v.recyclerViewFollowers.setImageResource(R.drawable.baseline_apps_black_36)
         }else{
             Picasso.get().load(s.picture).fit()
                 .transform(CircleTrasformation()).into(v.recyclerViewFollowers)

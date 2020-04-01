@@ -7,4 +7,4 @@ data class ResponseStories(
     @Expose
     @SerializedName("result") val result :String,
     @Expose
-    @SerializedName("payload") val payload : Array<Profilo>)
+    @SerializedName("payload") val payload : Array<ProfiloStories>)

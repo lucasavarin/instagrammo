@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.instagrammo.notification.ForegroundService
 import com.example.instagrammo.R
 import com.example.instagrammo.primary_fragments.*
+import com.example.instagrammo.retrofit.Session
 import com.example.instagrammo.shared_prefs.prefs
 import com.example.instagrammo.util.addFragment
 import com.example.instagrammo.util.replaceFragment
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
                 R.id.user ->{
-                    replaceFragment(UserFragment.makeInstance(),
+                    replaceFragment(UserFragment.makeInstance(Session.profileId),
                         R.id.container
                     )
                 }
