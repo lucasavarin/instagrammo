@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
 import com.instagrammo.bean.buissnes.HomePayloadPostBean
 import com.instagrammo.bean.buissnes.HomeProfilePostBean
+import com.instagrammo.bean.buissnes.HomeUserResponseBean
 
 class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -26,6 +27,22 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                   db?.insert(DataBaseContract.Post.TABLE_NAME, null, values)
             }
         }
+
+    fun insertFollowerData(response : List<HomeUserResponseBean>){
+        val db = this.writableDatabase
+        SQL_DELETE_FOLLOWER
+
+        response.forEach {
+
+            val values = ContentValues().apply {
+                put(DataBaseContract.Follower.COLUMN_ID, it.id.toInt())
+                put(DataBaseContract.Follower.COLUMN_NAME, it.name)
+                put(DataBaseContract.Follower.COLUMN_DESCRIPTION, it.description)
+            }
+            db?.insert(DataBaseContract.Follower.TABLE_NAME_FOLLOWER,null, values)
+        }
+
+    }
 
     fun readPostData() : List<HomePayloadPostBean>{
         val db = this.readableDatabase
@@ -69,13 +86,50 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return items
     }
 
+    fun readFollowerData() : List<HomeUserResponseBean>{
+        val db = this.readableDatabase
+        val projection = arrayOf(DataBaseContract.Follower.COLUMN_ID,
+            DataBaseContract.Follower.COLUMN_NAME,
+            DataBaseContract.Follower.COLUMN_DESCRIPTION)
+
+        val cursor = db.query(
+            DataBaseContract.Follower.TABLE_NAME_FOLLOWER,
+            projection,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        val items = arrayListOf<HomeUserResponseBean>()
+        with(cursor) {
+            while (moveToNext()) {
+                items.add((HomeUserResponseBean(
+                    cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.Follower.COLUMN_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.Follower.COLUMN_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.Follower.COLUMN_DESCRIPTION)),
+                    ""
+                )))
+
+            }
+        }
+
+        cursor.close()
+
+        return items
+
+    }
+
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(SQL_CREATE_ENTRIES)
+        db.execSQL(SQL_CREATE_FOLLOWER)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL(SQL_DELETE_ENTRIES)
+        db.execSQL(SQL_DELETE_FOLLOWER)
         onCreate(db)
     }
 
@@ -88,8 +142,19 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                     "${DataBaseContract.Post.COLUMN_TITLE_USER} TEXT," +
                     "${DataBaseContract.Post.COLUMN_TITLE_POSTTIME} TEXT," +
                     "${DataBaseContract.Post.COLUMN_TITLE_DESC} TEXT," +
-                    "${DataBaseContract.Post.COLUMN_PROFILE_ID} TEXT)"
+                    "${DataBaseContract.Post.COLUMN_PROFILE_ID} TEXT," +
+                    " CONSTRAINT fk_profile" +
+                    " FOREIGN KEY (${DataBaseContract.Post.COLUMN_PROFILE_ID})" +
+                    " REFERENCES ${DataBaseContract.Follower.TABLE_NAME_FOLLOWER} (${DataBaseContract.Follower.COLUMN_ID}))"
 
+        private const val SQL_CREATE_FOLLOWER =
+            "CREATE TABLE ${DataBaseContract.Follower.TABLE_NAME_FOLLOWER} (" +
+                    "${DataBaseContract.Follower.COLUMN_ID} INTEGER PRIMARY KEY," +
+                    "${DataBaseContract.Follower.COLUMN_NAME} TEXT, " +
+                    "${DataBaseContract.Follower.COLUMN_DESCRIPTION} TEXT)"
+
+        private const val SQL_DELETE_FOLLOWER =
+            "DROP TABLE IF EXISTS ${DataBaseContract.Follower.TABLE_NAME_FOLLOWER}"
 
         private const val SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS ${DataBaseContract.Post.TABLE_NAME}"

@@ -34,7 +34,6 @@ class HomeFollowerPostAdapter(private val dataList : List<HomePayloadPostBean>):
             }
         }
 
-
         if(position >= itemCount -5){
             callback?.invoke()
         }

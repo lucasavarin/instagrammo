@@ -26,9 +26,14 @@ class HomeFragment : Fragment() {
 
 
         ClientInterceptor.getUser.getFollowers().enqueue(object : Callback<HomeWrapperResponse>{
-
             override fun onFailure(call: Call<HomeWrapperResponse>, t: Throwable) {
-
+                val linearLayoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+                linearLayoutManager.stackFromEnd = true
+                linearLayoutManager.reverseLayout = true
+                HomeFollowerStory.layoutManager = linearLayoutManager
+                HomeFollowerStory.setHasFixedSize(true)
+                val adapterFollowers = HomeFollowerStoryAdapter(prefsDataBase.readFollowerData())
+                HomeFollowerStory.adapter = adapterFollowers
             }
 
             override fun onResponse(
@@ -36,6 +41,7 @@ class HomeFragment : Fragment() {
                 response: Response<HomeWrapperResponse>
             ) {
                createFollowerStories(response)
+                prefsDataBase.insertFollowerData(response.body()!!.payload)
             }
         })
 
