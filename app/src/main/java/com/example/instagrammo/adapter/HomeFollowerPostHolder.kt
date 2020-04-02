@@ -23,7 +23,7 @@ class HomeFollowerPostHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         if (followerPost.picture.isNotEmpty()) {
             Picasso.get().load(followerPost.picture).into(view.Post_user)
         }else{
-            itemView.Post_user.setImageResource(R.drawable.ic_account_circle_black_24dp)
+            itemView.Post_user.setImageResource(R.drawable.ic_portable_wifi_off_black_24dp)
         }
 
     }

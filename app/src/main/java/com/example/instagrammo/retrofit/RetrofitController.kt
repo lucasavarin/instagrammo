@@ -24,13 +24,13 @@ object RetrofitController{
                 .writeTimeout(30L,TimeUnit.SECONDS)
                 .readTimeout(30L,TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
-                .addInterceptor({chain ->
+                .addInterceptor { chain ->
                     val originalRequest = chain.request()
                     val builder = originalRequest.newBuilder().header("x-api-key",
                         Session.token)
                     val finalRequest = builder.build()
-                     chain.proceed(finalRequest)
-                }).build()
+                    chain.proceed(finalRequest)
+                }.build()
 
             val gson = GsonBuilder().create()
 
@@ -52,13 +52,13 @@ fun getIstance():ApiInterface{
         .writeTimeout(30L,TimeUnit.SECONDS)
         .readTimeout(30L,TimeUnit.SECONDS)
         .addInterceptor(interceptor)
-        .addInterceptor({chain ->
+        .addInterceptor { chain ->
             val originalRequest = chain.request()
             val builder = originalRequest.newBuilder().header("x-api-key",
                 Session.token)
             val finalRequest = builder.build()
             chain.proceed(finalRequest)
-        }).build()
+        }.build()
 
     val gson = GsonBuilder().create()
 
