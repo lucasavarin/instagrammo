@@ -57,24 +57,4 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-//    fun setDataRememberMe(){
-//        remember.isChecked = prefs.rememberMe
-//        if (remember.isChecked) {
-//            user.setText(prefs.user)
-//            password.setText(prefs.password)
-//        }
-//    }
-//
-//    fun setSharedPreferenceData(){
-//        if(remember.isChecked) {
-//            prefs.user = user.text.toString()
-//            prefs.password = password.text.toString()
-//            prefs.rememberMe = true
-//        } else{
-//            prefs.user = ""
-//            prefs.password = ""
-//            prefs.rememberMe = false
-//        }
-//    }
-
 }
