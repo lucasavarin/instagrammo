@@ -21,6 +21,7 @@ import retrofit2.Response
 
 class UserFragment(private val profileId : String): Fragment() {
 
+    private lateinit var adapter : TabLayoutAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -38,9 +39,7 @@ class UserFragment(private val profileId : String): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = activity?.supportFragmentManager?.let {
-            TabLayoutAdapter(it, this.profileId)
-        }
+        adapter = TabLayoutAdapter(childFragmentManager, this.profileId)
         viewer.adapter = adapter
 
         viewer.offscreenPageLimit = 1
