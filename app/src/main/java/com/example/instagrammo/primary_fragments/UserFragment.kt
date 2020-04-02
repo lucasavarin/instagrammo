@@ -95,7 +95,7 @@ class UserFragment(private val profileId : String): Fragment() {
 
     private fun fillData(response : Response<ProfileWrapperBean>){
         Picasso.get().load(response.body()!!.payload[0].picture).transform(CircleTrasformation()).into(profile_img)
-        nPost_text.text = response.body()!!.payload[0].postNumber
+        nPost_text.text = response.body()!!.payload[0].postsNumber
         desc_profile.text = response.body()!!.payload[0].description
         friend_text.text = response.body()!!.payload[0].followersNumber
         name_profile.text = response.body()!!.payload[0].name

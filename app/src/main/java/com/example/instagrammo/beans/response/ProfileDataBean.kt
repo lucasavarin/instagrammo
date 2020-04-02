@@ -15,5 +15,5 @@ class ProfileDataBean(
     @Expose
     @SerializedName(value = "followersNumber") val followersNumber : String,
     @Expose
-    @SerializedName(value = "postNumber") val postNumber : String
+    @SerializedName(value = "postsNumber") val postsNumber : String
 )
