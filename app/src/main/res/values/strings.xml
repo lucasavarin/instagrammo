@@ -3,4 +3,7 @@
     <string name="newfragment">Nuovo Fragment</string>
     <string name="detail">Detail</string>
     <string name="indietro">Indietro</string>
+    <string name="save_button">save button</string>
+    <string name="titolo">titolo</string>
+    <string name="descrizione">descrizione</string>
 </resources>

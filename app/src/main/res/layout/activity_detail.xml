@@ -15,6 +15,32 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/headerCustomView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:hint="@string/titolo"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edit_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:hint="@string/descrizione"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/save_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edit_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/save_button"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
