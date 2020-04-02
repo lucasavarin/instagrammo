@@ -47,7 +47,7 @@ fun normalizeDownloadUrlToScreenWidth(downloadUrl:String, screenWidth:Int):Strin
         val ratio:Float = screenWidth/split[split.size-2].toFloat()
         height = split[split.size-1].toFloat()*ratio
         final += "${screenWidth}/${height.toInt()}"
-    } catch (e: NumberFormatException) {
+    } catch (e: Exception) {
         final = downloadUrl
     }
     return final
@@ -60,6 +60,3 @@ fun isNetworkAvailable(context: Context): Boolean {
     val activeNetworkInfo = connectivityManager!!.activeNetworkInfo
     return activeNetworkInfo != null && activeNetworkInfo.isConnected
 }
-
-const val NO_IMAGE_AVAILABLE = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
-const val NO_PROFILE_PIC = "https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg"

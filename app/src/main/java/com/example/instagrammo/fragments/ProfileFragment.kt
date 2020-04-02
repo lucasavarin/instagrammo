@@ -1,14 +1,11 @@
 package com.example.instagrammo.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.example.instagrammo.R
 import com.example.instagrammo.activities.MainActivity
 import com.example.instagrammo.adapters.PostGridRecyclerAdapter
@@ -21,7 +18,6 @@ import com.example.instagrammo.beans.response.ProfilePostResponseWrapperREST
 import com.example.instagrammo.beans.response.ProfileWrapperResponseREST
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.util.CircleTransform
-import com.example.instagrammo.util.PROFILE_ID
 import com.example.instagrammo.util.Session
 import com.example.instagrammo.util.replaceFragment
 import com.squareup.picasso.Picasso
@@ -30,7 +26,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileFragment: Fragment(){
+class ProfileFragment(val profileId:Int): Fragment(){
 
     private lateinit var adapter:TabAdapter
 
@@ -40,12 +36,11 @@ class ProfileFragment: Fragment(){
 
     var profileFlag:Boolean = false
     var postsFlag:Boolean = false
-    var profileId:Int = Session.profileId
 
 
     companion object{
-        fun makeInstance():ProfileFragment {
-            return ProfileFragment()
+        fun makeInstance(profileId: Int = Session.profileId):ProfileFragment {
+            return ProfileFragment(profileId)
         }
     }
 
@@ -56,9 +51,6 @@ class ProfileFragment: Fragment(){
     ): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
-        if(arguments != null) {
-            profileId = arguments!!.getInt(PROFILE_ID, Session.profileId)
-        }
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 

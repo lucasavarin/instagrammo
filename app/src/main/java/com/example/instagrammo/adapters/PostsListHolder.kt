@@ -9,10 +9,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagrammo.R
 import com.example.instagrammo.beans.business.Post
 import com.example.instagrammo.util.CircleTransform
-import com.example.instagrammo.util.NO_IMAGE_AVAILABLE
-import com.example.instagrammo.util.NO_PROFILE_PIC
 import com.example.instagrammo.util.normalizeDownloadUrlToScreenWidth
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
@@ -30,7 +29,7 @@ class PostsListHolder(v:View):RecyclerView.ViewHolder(v){
         if(post.picture.isNotEmpty()) {
             val size = Point()
             (view.context as AppCompatActivity).windowManager.defaultDisplay.getSize(size)
-            Picasso.get().load(post.picture).transform(BlurTransformation(view.context)).into(object: Target{
+            Picasso.get().load(normalizeDownloadUrlToScreenWidth(post.picture, size.x)).transform(BlurTransformation(view.context)).into(object: Target{
                 override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
                 }
 
@@ -44,7 +43,7 @@ class PostsListHolder(v:View):RecyclerView.ViewHolder(v){
             Picasso.get().load(normalizeDownloadUrlToScreenWidth(post.picture, size.x)).into(view.img)
 
         }else {
-            Picasso.get().load(NO_IMAGE_AVAILABLE).into(view.img)
+            Picasso.get().load(R.mipmap.no_post_image).into(view.img)
         }
         if(post.profile == null){
             view.propic.visibility = View.GONE
@@ -53,11 +52,11 @@ class PostsListHolder(v:View):RecyclerView.ViewHolder(v){
             view.name.visibility = View.GONE
         }else if(post.profile.picture.isNotEmpty()) {
             Picasso.get().load(post.profile.picture).transform(CircleTransform()).into(view.propic)
-            view.title.text = post.title
-            view.date.text = post.uploadTime
-            view.name.text = post.profile.name
         }else{
-            Picasso.get().load(NO_PROFILE_PIC).transform(CircleTransform()).into(view.propic)
+            Picasso.get().load(R.mipmap.no_profile_pic).transform(CircleTransform()).into(view.propic)
         }
+        view.title.text = post.title
+        view.date.text = post.uploadTime
+        view.name.text = post.profile?.name
     }
 }

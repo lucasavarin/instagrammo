@@ -84,7 +84,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context,
                 put(DatabaseContract.FollowersProfileEntry.FOLLOWERS_NUMBER, profile.followersNumber)
             }
 
-            val newRowId = db.insert(DatabaseContract.PostEntry.TABLE_NAME, null, values)
+            val newRowId = db.insert(DatabaseContract.FollowersProfileEntry.TABLE_NAME, null, values)
             return (newRowId == profile.profileId.toLong())
         } catch (e: Exception){
             return false
@@ -96,36 +96,41 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context,
 
         val db = this.writableDatabase
 
-        var selection:String? = null
+        var query = """SELECT * 
+            FROM ${DatabaseContract.PostEntry.TABLE_NAME} p 
+            LEFT JOIN ${DatabaseContract.FollowersProfileEntry.TABLE_NAME} f 
+            ON p.${DatabaseContract.PostEntry.PROFILE_ID} = f.${DatabaseContract.FollowersProfileEntry.ID}
+            """
+
+
         var selectionArgs:Array<String>? = null
         if(profileId != null){
-            selection = "${DatabaseContract.PostEntry.PROFILE_ID} = ?"
-            selectionArgs = arrayOf(profileId.toString())
+            query += "WHERE f.${DatabaseContract.FollowersProfileEntry.ID} = ?"
+            selectionArgs = arrayOf(profileId.toString(), profileId.toString())
         }
 
-        val sortOrder = "${DatabaseContract.PostEntry.UPLOAD_TIME} DESC"
+        query += "ORDER BY ${DatabaseContract.PostEntry.UPLOAD_TIME} DESC"
 
-        val cursor = db.query(
-            DatabaseContract.PostEntry.TABLE_NAME,
-            null,
-            selection,
-            selectionArgs,
-            null,
-            null,
-            sortOrder
-        )
+        val cursor = db.rawQuery(query, selectionArgs)
 
         val posts = mutableListOf<Post>()
 
         with(cursor){
             while (moveToNext()){
                 posts.add(Post(
-                    getLong(getColumnIndexOrThrow(DatabaseContract.PostEntry.PROFILE_ID)).toString(),
-                    getLong(getColumnIndexOrThrow(DatabaseContract.PostEntry.POST_ID)).toString(),
-                    getString(getColumnIndexOrThrow(DatabaseContract.PostEntry.TITLE)),
-                    getString(getColumnIndexOrThrow(DatabaseContract.PostEntry.UPLOAD_TIME)),
-                    getString(getColumnIndexOrThrow(DatabaseContract.PostEntry.PICTURE)),
-                    null
+                    getLong(getColumnIndexOrThrow(DatabaseContract.PostEntry.PROFILE_ID)).toString()?: "",
+                    getLong(getColumnIndexOrThrow(DatabaseContract.PostEntry.POST_ID)).toString()?: "",
+                    getString(getColumnIndexOrThrow(DatabaseContract.PostEntry.TITLE))?: "",
+                    "",
+                    getString(getColumnIndexOrThrow(DatabaseContract.PostEntry.UPLOAD_TIME))?: "",
+                    Profile(
+                        getLong(getColumnIndexOrThrow(  DatabaseContract.FollowersProfileEntry.ID)).toString()?: "",
+                        getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.NAME))?: "",
+                        getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.DESCRIPTION))?: "",
+                        "",//getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.PICTURE)),
+                        getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.POST_NUMBER))?: "",
+                        getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.FOLLOWERS_NUMBER))?: ""
+                    )
                 ))
             }
         }
@@ -160,11 +165,11 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context,
                 followers.add(
                     Profile(
                     getLong(getColumnIndexOrThrow(  DatabaseContract.FollowersProfileEntry.ID)).toString(),
-                    getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.NAME)),
-                    getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.DESCRIPTION)),
-                    getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.PICTURE)),
-                    getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.POST_NUMBER)),
-                    getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.FOLLOWERS_NUMBER))
+                    getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.NAME))?: "",
+                    getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.DESCRIPTION))?: "",
+                    "",//getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.PICTURE)),
+                    getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.POST_NUMBER))?: "",
+                    getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.FOLLOWERS_NUMBER))?: ""
                 )
                 )
             }
