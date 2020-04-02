@@ -13,10 +13,9 @@ class DetailActivity : AppCompatActivity(){
     }
 
     fun getBackToMainActivity(){
-        backButton.setOnClickListener {
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intent)
-        }
+        //backButton.setOnClickListener {
+          //  finish()
+       // }
     }
 
 }
