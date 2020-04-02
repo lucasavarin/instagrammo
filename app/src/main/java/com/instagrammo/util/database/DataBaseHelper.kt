@@ -13,7 +13,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     fun insertPostData(response: List<HomePayloadPostBean>){
         val db = this.writableDatabase
-        SQL_DELETE_ENTRIES
+        db.delete(DataBaseContract.Post.TABLE_NAME,null,null)
 
         response.forEach {
 
@@ -30,7 +30,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     fun insertFollowerData(response : List<HomeUserResponseBean>){
         val db = this.writableDatabase
-        SQL_DELETE_FOLLOWER
+        db.delete(DataBaseContract.Follower.TABLE_NAME_FOLLOWER,null,null)
 
         response.forEach {
 
