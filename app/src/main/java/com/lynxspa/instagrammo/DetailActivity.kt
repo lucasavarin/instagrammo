@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.custom_view_header.*
 
 class DetailActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,9 +14,9 @@ class DetailActivity : AppCompatActivity(){
     }
 
     fun getBackToMainActivity(){
-        //backButton.setOnClickListener {
-          //  finish()
-       // }
+        headerCustomView.setOnBackClickListener {
+            finish()
+        }
     }
 
 }
