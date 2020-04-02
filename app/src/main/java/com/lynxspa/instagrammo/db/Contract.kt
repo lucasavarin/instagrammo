@@ -1,4 +1,4 @@
-package com.lynxspa.instagrammo
+package com.lynxspa.instagrammo.db
 
 import android.provider.BaseColumns
 
@@ -8,10 +8,10 @@ object Contract : BaseColumns{
     val COLUMN_TITLE = "titolo"
 
     val CREATE_SQL_TABLE = """
-        CREATE TABLE ${Contract.TABLE_NAME} (
+        CREATE TABLE $TABLE_NAME (
         ${BaseColumns._ID} INT PRIMARY KEY AUTOINCREMENT, 
-        ${Contract.COLUMN_TITLE} TEXT,
-        ${Contract.COLUMN_DESCRIPTION} TEXT
+        $COLUMN_TITLE TEXT,
+        $COLUMN_DESCRIPTION TEXT
         )
     """.trimIndent()
 }

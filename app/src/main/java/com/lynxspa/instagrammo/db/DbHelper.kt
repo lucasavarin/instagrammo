@@ -1,11 +1,15 @@
-package com.lynxspa.instagrammo
+package com.lynxspa.instagrammo.db
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.lynxspa.instagrammo.model.AppDataBean
 
-class DbHelper(context : Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DbHelper(context : Context) : SQLiteOpenHelper(context,
+    DATABASE_NAME, null,
+    DATABASE_VERSION
+) {
     override fun onCreate(p0: SQLiteDatabase?) {
         p0?.execSQL(Contract.CREATE_SQL_TABLE)
     }
@@ -30,9 +34,9 @@ class DbHelper(context : Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         val lista : ArrayList<AppDataBean>  = arrayListOf()
         while (cursor.moveToNext()){
             val appdataBean = AppDataBean(
-            cursor.getString(cursor.getColumnIndexOrThrow(Contract.COLUMN_TITLE)),
-            cursor.getString(cursor.getColumnIndexOrThrow(Contract.COLUMN_DESCRIPTION))
-                )
+                cursor.getString(cursor.getColumnIndexOrThrow(Contract.COLUMN_TITLE)),
+                cursor.getString(cursor.getColumnIndexOrThrow(Contract.COLUMN_DESCRIPTION))
+            )
             lista.add(appdataBean)
         }
         cursor.close()

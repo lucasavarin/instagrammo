@@ -1,11 +1,11 @@
-package com.lynxspa.instagrammo
+package com.lynxspa.instagrammo.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.lynxspa.instagrammo.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.custom_view_header.*
 
 class MainActivity : AppCompatActivity() {
 

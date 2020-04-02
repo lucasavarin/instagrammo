@@ -1,4 +1,4 @@
-package com.lynxspa.instagrammo
+package com.lynxspa.instagrammo.model
 
  data class AppDataBean(
      val titolo : String,
