@@ -9,7 +9,7 @@ object Contract : BaseColumns{
 
     val CREATE_SQL_TABLE = """
         CREATE TABLE $TABLE_NAME (
-        ${BaseColumns._ID} INT PRIMARY KEY AUTOINCREMENT, 
+        ${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, 
         $COLUMN_TITLE TEXT,
         $COLUMN_DESCRIPTION TEXT
         )
