@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
         homeStoriesLayout.layoutManager = layoutManagerStories
 
         val layoutManagerPosts = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        homePostsLayout.layoutManager = layoutManagerPosts
+        postsLayout.layoutManager = layoutManagerPosts
     }
 
     private fun getStories(stories: MutableList<Story>) {
@@ -106,7 +106,7 @@ class HomeFragment : Fragment() {
                 if (responseHome.isSuccessful) {
                     val body = responseHome.body()!!
                     if (body.result) {
-                        Toast.makeText(activity, "its ok", Toast.LENGTH_LONG).show()
+//                        Toast.makeText(activity, "its ok", Toast.LENGTH_LONG).show()
                         for (homepost in body.payload) {
                             homeposts.add(
                                 HomePost(
@@ -120,7 +120,7 @@ class HomeFragment : Fragment() {
                             )
                         }
                         val adapter = HomePostsRecyclerAdapter(homeposts)
-                        homePostsLayout.adapter = adapter
+                        postsLayout.adapter = adapter
                         adapter.notifyDataSetChanged()
                     } else {
                         Toast.makeText(activity, "NO posts", Toast.LENGTH_LONG).show()

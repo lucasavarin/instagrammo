@@ -9,7 +9,7 @@ import com.mst.instagrammo.model.beans.HomePost
 class HomePostsRecyclerAdapter(val homeposts: List<HomePost>) : RecyclerView.Adapter<HomePostsHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomePostsHolder {
-        val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.layout_home_posts_items, parent, false)
+        val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.layout_posts_items_list, parent, false)
         return HomePostsHolder(inflatedView)
     }
 
@@ -18,6 +18,6 @@ class HomePostsRecyclerAdapter(val homeposts: List<HomePost>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: HomePostsHolder, position: Int) {
-        holder.bind(homeposts.get(position))
+        holder.bind(homeposts[position])
     }
 }

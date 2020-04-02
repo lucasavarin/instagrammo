@@ -37,7 +37,9 @@ class ProfileFragment : Fragment(){
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         getProfile(profile)
+        buttonEditProfile.visibility = if(profile[0].profileId!!.toInt() == Session.profileId) View.VISIBLE else View.INVISIBLE
 
         profilePagerAdapter = ProfilePagerAdapter(childFragmentManager)
         viewPager = view.viewPagerPictures

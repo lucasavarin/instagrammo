@@ -6,18 +6,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mst.instagrammo.R
 import com.mst.instagrammo.model.beans.ProfilePost
 
-class ProfilePostsListRecyclerAdapter(val profileposts: List<ProfilePost>) : RecyclerView.Adapter<ProfilePostsHolder>(){
+class ProfilePostsListRecyclerAdapter(val profileposts: List<ProfilePost>) : RecyclerView.Adapter<ProfilePostsListHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilePostsHolder {
-        val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.layout_fragment_profile_list, parent, false)
-        return ProfilePostsHolder(inflatedView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilePostsListHolder {
+        val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.layout_posts_items_list, parent, false)
+        return ProfilePostsListHolder(inflatedView)
     }
 
     override fun getItemCount(): Int {
         return profileposts.size
     }
 
-    override fun onBindViewHolder(holder: ProfilePostsHolder, position: Int) {
-//        holder.bind(profileposts.get(position))
+    override fun onBindViewHolder(holder: ProfilePostsListHolder, position: Int) {
+        holder.bind(profileposts[position])
     }
 }

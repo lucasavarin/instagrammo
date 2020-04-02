@@ -97,12 +97,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/profilo_button_modifica"
+        android:textStyle="bold"
         android:layout_margin="5dp"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayoutGridList"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonEditProfile"

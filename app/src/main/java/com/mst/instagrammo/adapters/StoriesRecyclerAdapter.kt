@@ -18,6 +18,6 @@ class StoriesRecyclerAdapter(val stories: List<Story>) : RecyclerView.Adapter<St
     }
 
     override fun onBindViewHolder(holder: StoriesHolder, position: Int) {
-        holder.bind(stories.get(position))
+        holder.bind(stories[position])
     }
 }
