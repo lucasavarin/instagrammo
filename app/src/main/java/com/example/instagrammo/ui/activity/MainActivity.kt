@@ -50,13 +50,13 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null){
             makeTransaction(HomeFragment.newInstance())
         }
-
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar?.setCustomView(R.layout.header)
         bottom.setOnNavigationItemSelectedListener {
 
             when (it.itemId) {
                 R.id.home -> {
+                    prefs.postNumber = 0
                     makeText(badgeTextView)
                     makeTransaction(HomeFragment.newInstance())
                     true

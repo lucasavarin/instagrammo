@@ -85,7 +85,6 @@
         app:layout_constraintTop_toTopOf="@id/remem"
         app:layout_constraintBottom_toBottomOf="@id/remem"/>
 
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn"
         android:layout_width="0dp"
