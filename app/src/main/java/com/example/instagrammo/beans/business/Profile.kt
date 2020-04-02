@@ -7,8 +7,8 @@ data class Profile(
     val name:String,
     val description:String,
     val picture:String,
-    val postsNumber:String,
-    val followersNumber:String
+    val postsNumber:String?,
+    val followersNumber:String?
 
 ){
 
