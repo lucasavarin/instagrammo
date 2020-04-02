@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.provider.BaseColumns
 import com.lynxspa.instagrammo.model.AppDataBean
 
 class DbHelper(context : Context) : SQLiteOpenHelper(context,
@@ -35,7 +36,8 @@ class DbHelper(context : Context) : SQLiteOpenHelper(context,
         while (cursor.moveToNext()){
             val appdataBean = AppDataBean(
                 cursor.getString(cursor.getColumnIndexOrThrow(Contract.COLUMN_TITLE)),
-                cursor.getString(cursor.getColumnIndexOrThrow(Contract.COLUMN_DESCRIPTION))
+                cursor.getString(cursor.getColumnIndexOrThrow(Contract.COLUMN_DESCRIPTION)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID))
             )
             lista.add(appdataBean)
         }
@@ -43,6 +45,18 @@ class DbHelper(context : Context) : SQLiteOpenHelper(context,
         db.close()
         return lista
     }
+
+    fun deleteRecord(appDataBean: AppDataBean) {
+        val db = this.writableDatabase
+
+        "${BaseColumns._ID} = ?"
+        db.delete(Contract.TABLE_NAME,"${BaseColumns._ID} = ${appDataBean.id}", null)
+
+        db.close()
+    }
+
+
+
     companion object{
         var DATABASE_NAME = "AppDb"
         var DATABASE_VERSION = 1
