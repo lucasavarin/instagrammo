@@ -54,8 +54,6 @@ class ProfiloFragment(private val profileId:String) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val daIntent = arguments?.getString("profileId")
-
 
         RetrofitController.getClient.getProfile(this.profileId.toInt()).enqueue(object : Callback<ProfileWrapperRest>{
             override fun onFailure(call: Call<ProfileWrapperRest>, t: Throwable) {
@@ -94,7 +92,7 @@ class ProfiloFragment(private val profileId:String) : Fragment() {
             fragmentManager!!.beginTransaction().add(R.id.frame, f, "TAG").commit()
         }
 
-        RetrofitController.getClient.getProfilePost().enqueue(object : Callback<ProfilePostBean>{
+        RetrofitController.getClient.getProfilePost(this.profileId.toInt()).enqueue(object : Callback<ProfilePostBean>{
             override fun onFailure(call: Call<ProfilePostBean>, t: Throwable) {
 
             }

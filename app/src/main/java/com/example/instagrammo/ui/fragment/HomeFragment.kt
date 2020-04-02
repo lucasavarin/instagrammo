@@ -19,6 +19,7 @@ import com.example.instagrammo.model.*
 import com.example.instagrammo.retrofit.RetrofitController
 import kotlinx.android.synthetic.main.home_fragment_layout.*
 import kotlinx.android.synthetic.main.home_fragment_layout.view.*
+import org.jetbrains.annotations.Contract
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -74,7 +75,9 @@ class HomeFragment : Fragment() {
                         val nuovo: PostDb = PostDb(it.profileId, it.postId, it.title, it.uploadTime)
                         daSalvare.add(nuovo)
                     }
+                    db.writableDatabase.execSQL("DELETE FROM ${com.example.instagrammo.dbcontractclass.Contract.PostEntry.TABLE_NAME}")
                     db.savePostOnDb(daSalvare)
+
                 }
             })
         return inflater.inflate(R.layout.home_fragment_layout, container, false)
@@ -103,6 +106,7 @@ class HomeFragment : Fragment() {
                     response: Response<StoriesResponse>
                 ) {
                     view.progressBar2.visibility = View.GONE
+                    db.writableDatabase.execSQL("DELETE FROM ${com.example.instagrammo.dbcontractclass.Contract.FollowerEntry.TABLE_NAME}")
                     db.saveFollowerOnDb(response.body()!!.payload)
                     // val ad = Adapter( response!!.body()!!.payload)
                     Log.d("response", response!!.body()!!.payload.toString())
