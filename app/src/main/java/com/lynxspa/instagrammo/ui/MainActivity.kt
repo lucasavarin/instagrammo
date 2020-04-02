@@ -7,17 +7,19 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.lynxspa.instagrammo.R
+import com.lynxspa.instagrammo.adapters.CustomAdapter
 import com.lynxspa.instagrammo.db
 import com.lynxspa.instagrammo.model.AppDataBean
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    var lista: MutableList<AppDataBean> = arrayListOf()
+    private val adapter:CustomAdapter = CustomAdapter(arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        recyclerview.adapter = adapter
         passActivity()
     }
 
@@ -32,10 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        lista = db.query().toMutableList()
-        for(bean in lista){
-            Log.wtf("LISTA_BEAN", bean.toString())
-        }
+        adapter.list = db.query().toMutableList()
+        adapter.notifyDataSetChanged()
     }
-
 }
