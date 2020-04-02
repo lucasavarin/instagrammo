@@ -2,4 +2,5 @@
     <string name="app_name">Instagrammo</string>
     <string name="newfragment">Nuovo Fragment</string>
     <string name="detail">Detail</string>
+    <string name="indietro">Indietro</string>
 </resources>
