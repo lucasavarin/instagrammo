@@ -11,6 +11,7 @@ import com.instagrammo.util.retrofit.Session
 import com.instagrammo.util.utilities_project
 import com.instagrammo.view.home_fragment.CircleTransform
 import com.google.android.material.tabs.TabLayout
+import com.instagrammo.bean.buissnes.HomeProfilePostBean
 import com.instagrammo.bean.buissnes.ProfileWrapperResponse
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.profile_layout.*
@@ -23,11 +24,12 @@ import retrofit2.Response
 
 class ProfileFragment private constructor(private val profileId:String) : Fragment() {
 
+    private var beanResponse : HomeProfilePostBean ? = null
+
     companion object {
 
         fun newInstance(profileId : String = Session.profileId): ProfileFragment {
-            val profileFragment = ProfileFragment(profileId)
-            return profileFragment
+            return ProfileFragment(profileId)
         }
     }
 
@@ -50,6 +52,8 @@ class ProfileFragment private constructor(private val profileId:String) : Fragme
             ) {
                 if (response.isSuccessful){
                     if(!response.body()?.payloadProfile?.isEmpty()!!) {
+                        beanResponse = response.body()!!.payloadProfile[0]
+                        ModifyUserFragment.newInstance(response.body()!!.payloadProfile[0])
                         putUserInfo(response)
                     }
 
@@ -90,7 +94,7 @@ class ProfileFragment private constructor(private val profileId:String) : Fragme
             modifyButton.visibility = View.VISIBLE
         else modifyButton.visibility = View.INVISIBLE
 
-        modifyButton.setOnClickListener{ utilities_project.addFragment(ModifyUserFragment(), activity!!) }
+        modifyButton.setOnClickListener{ utilities_project.addFragment(ModifyUserFragment.newInstance(beanResponse!!), activity!!) }
     }
 
     private fun putUserInfo(response: Response<ProfileWrapperResponse>) {

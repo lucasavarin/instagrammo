@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.instagrammo.bean.buissnes.ProfileModifyBean
 import com.instagrammo.bean.buissnes.ProfileUpdateResponse
-import com.instagrammo.bean.buissnes.ProfileWrapperDataBean
 import com.example.login.R
+import com.instagrammo.bean.buissnes.HomeProfilePostBean
 import com.instagrammo.util.retrofit.ClientInterceptor
 import com.instagrammo.util.utilities_project
 import com.instagrammo.view.home_fragment.CircleTransform
@@ -23,10 +23,15 @@ import retrofit2.Response
 import java.net.URI
 
 
-class ModifyUserFragment : Fragment() {
+class ModifyUserFragment private constructor(private val profileBean : HomeProfilePostBean) : Fragment() {
 
-    lateinit var profileId: String
-    lateinit var profilePicture: String
+    companion object {
+
+        fun newInstance(profileBean : HomeProfilePostBean): ModifyUserFragment {
+            return ModifyUserFragment(profileBean)
+        }
+    }
+
 
     override fun onCreateView(
 
@@ -35,29 +40,14 @@ class ModifyUserFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        ClientInterceptor.getUser.getProfileData()
-            .enqueue(object : Callback<ProfileWrapperDataBean> {
-                override fun onFailure(call: Call<ProfileWrapperDataBean>, t: Throwable) {
-                    Toast.makeText(context, "ErroreNellaChiamata", Toast.LENGTH_LONG).show()
-                }
-
-                override fun onResponse(
-                    call: Call<ProfileWrapperDataBean>,
-                    response: Response<ProfileWrapperDataBean>
-                ) {
-                    getDataProfile(response)
-                    profileId = response.body()!!.payload[0].profileId
-                    profilePicture = response.body()!!.payload[0].picture
-                }
-
-            })
-
         return inflater.inflate(R.layout.modify_profile_layout, container, false)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        getDataProfile()
 
         activity?.window?.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
@@ -71,7 +61,7 @@ class ModifyUserFragment : Fragment() {
             }
         }
 
-        backButton.setOnClickListener { utilities_project.deleteFragment(ModifyUserFragment(),activity!!) }
+        backButton.setOnClickListener { utilities_project.deleteFragment(ModifyUserFragment(profileBean),activity!!) }
 
         saveButton.setOnClickListener {
             ClientInterceptor.getUser.updateProfileData(createBeanUpdate())
@@ -89,19 +79,19 @@ class ModifyUserFragment : Fragment() {
                         response: Response<ProfileUpdateResponse>
                     ) {
                         Toast.makeText(context, "Aggiornamento andato a buon fine.", Toast.LENGTH_LONG).show()
-                        utilities_project.deleteFragment(ModifyUserFragment(), activity!!)
+                        utilities_project.deleteFragment(ModifyUserFragment(profileBean), activity!!)
                     }
                 })
 
         }
     }
 
-    private fun getDataProfile(response: Response<ProfileWrapperDataBean>) {
-        modifyName.setText(response.body()!!.payload[0].name)
-        description.setText(response.body()!!.payload[0].description)
-        Picasso.get().load(response.body()!!.payload[0].picture).transform(CircleTransform())
+    private fun getDataProfile() {
+        modifyName.setText(profileBean.name)
+        description.setText(profileBean.description)
+        Picasso.get().load(profileBean.picture).transform(CircleTransform())
             .into(profileImg)
-        editImg.setText(getIdParam(response.body()!!.payload[0].picture))
+        editImg.setText(getIdParam(profileBean.picture))
     }
 
     private fun getIdParam(path: String): String? {
@@ -114,10 +104,10 @@ class ModifyUserFragment : Fragment() {
 
     private fun createBeanUpdate(): ProfileModifyBean {
         val profileModifyBean = ProfileModifyBean(
-            profileId,
+            profileBean.profileId,
             modifyName.text.toString(),
             description.text.toString(),
-            profilePicture
+            profileBean.picture
         )
 
         if (editImg.text.toString() != "") {
