@@ -5,33 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarEditProfile"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        android:background="@color/violaScuro"
-        android:layout_marginTop="36dp"
-        >
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/backButtonEditProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_back_black_24dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:background="@drawable/selector_tick_button"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/TextAppearance.Design.CollapsingToolbar.Expanded"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/edit_profile"
-            android:layout_gravity="center"
-            android:textColor="@color/rosaChiaro"
-            />
-    </androidx.appcompat.widget.Toolbar>
+    <thushyanthan.scott.javalynx.instagrammo.util.customView.HeaderCustomView
+        android:id="@+id/toolbarEditProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/violaScuro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/containerEditableData"
+        />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerEditableData"
@@ -39,6 +24,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/toolbarEditProfile"
         app:layout_constraintBottom_toTopOf="@id/saveEditsButton"
+        android:layout_marginTop="32dp"
         android:background="@color/violaScuro">
 
         <androidx.constraintlayout.widget.ConstraintLayout

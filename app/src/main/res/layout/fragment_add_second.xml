@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <thushyanthan.scott.javalynx.instagrammo.util.customView.HeaderCustomView
+        android:id="@+id/toolbarEditProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/violaScuro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id= "@+id/picFullScreen"
         android:layout_width="match_parent"

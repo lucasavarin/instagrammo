@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.custom_view_header.view.*
 import kotlinx.android.synthetic.main.fragment_add_third.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +42,15 @@ class AddFragmentThird private constructor(val picToPost: RandomPictures): Fragm
             picData.title = picDescription.text.toString()
             addNewPictures(picData)
         }
+
+        toolbarEditProfile.backButton.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment_container,
+                AddFragmentSecond.makeInstance(picToPost)
+            )?.commit()
+        }
+
+        toolbarEditProfile.toolbarTitle.text = "Upload Picture"
     }
 
     fun addNewPictures(picData: AddPictureRequest){

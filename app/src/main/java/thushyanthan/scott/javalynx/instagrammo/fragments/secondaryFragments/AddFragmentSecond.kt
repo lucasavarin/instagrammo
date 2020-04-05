@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.custom_view_header.view.*
 import kotlinx.android.synthetic.main.fragment_add_second.*
+import kotlinx.android.synthetic.main.fragment_add_second.toolbarEditProfile
 import thushyanthan.scott.javalynx.instagrammo.R
+import thushyanthan.scott.javalynx.instagrammo.fragments.AddFragment
 import thushyanthan.scott.javalynx.instagrammo.util.rest.RandomPictures
 
 class AddFragmentSecond private constructor(val randomPic: RandomPictures): Fragment(){
@@ -29,6 +32,14 @@ class AddFragmentSecond private constructor(val randomPic: RandomPictures): Frag
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.fragment_container, AddFragmentThird.makeInstance(randomPic))?.commit()
         }
+        toolbarEditProfile.backButton.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment_container,
+                AddFragment()
+            )?.commit()
+        }
+
+        toolbarEditProfile.toolbarTitle.text = "Confirm Picture"
     }
 
 }

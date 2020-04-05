@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.custom_view_header.view.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.view.*
 import retrofit2.Call
@@ -52,10 +53,12 @@ class EditProfileFragment private constructor(val profileId:String, val username
 
 
         super.onActivityCreated(savedInstanceState)
-        backButtonEditProfile.setOnClickListener {
+        toolbarEditProfile.backButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment_container,ProfileFragment())?.commit()
         }
+
+        toolbarEditProfile.toolbarTitle.text = "Edit Profile"
 
         saveEditsButton.setOnClickListener {
             saveEdits()
