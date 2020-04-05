@@ -30,7 +30,8 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     fun insertFollowerData(response : List<HomeUserResponseBean>){
         val db = this.writableDatabase
-        db.delete(DataBaseContract.Follower.TABLE_NAME_FOLLOWER,null,null)
+//        db.execSQL("DELETE FROM ${DataBaseContract.Follower.TABLE_NAME_FOLLOWER}")
+//        db.delete(DataBaseContract.Follower.TABLE_NAME_FOLLOWER,null,null)
 
         response.forEach {
 
@@ -135,7 +136,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     companion object {
         const val DATABASE_NAME = "database.db"
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 2
         private const val SQL_CREATE_ENTRIES =
             "CREATE TABLE ${DataBaseContract.Post.TABLE_NAME} (" +
                     "${BaseColumns._ID} INTEGER PRIMARY KEY," +
@@ -149,7 +150,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         private const val SQL_CREATE_FOLLOWER =
             "CREATE TABLE ${DataBaseContract.Follower.TABLE_NAME_FOLLOWER} (" +
-                    "${DataBaseContract.Follower.COLUMN_ID} INTEGER PRIMARY KEY," +
+                    "${DataBaseContract.Follower.COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "${DataBaseContract.Follower.COLUMN_NAME} TEXT, " +
                     "${DataBaseContract.Follower.COLUMN_DESCRIPTION} TEXT)"
 
