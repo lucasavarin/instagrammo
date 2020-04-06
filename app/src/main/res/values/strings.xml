@@ -14,4 +14,6 @@
     <string name="savedata">Salva Dati</string>
     <string name="confirm">Conferma</string>
     <string name="confirmPost">Conferma Aggiunta Post</string>
+    <string name="ciao_da_favorite">Ciao da favorite</string>
+    <string name="ciao_da_search">Ciao da search</string>
 </resources>

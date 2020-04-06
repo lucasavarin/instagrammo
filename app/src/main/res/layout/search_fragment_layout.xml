@@ -6,14 +6,11 @@
     android:layout_height="match_parent">
 
 
-
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ciao da search"
+        android:text="@string/ciao_da_search"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        ></EditText>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

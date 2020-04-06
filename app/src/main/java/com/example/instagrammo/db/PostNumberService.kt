@@ -1,4 +1,4 @@
-package com.example.instagrammo
+package com.example.instagrammo.db
 
 import android.app.*
 import android.content.Intent
@@ -7,8 +7,10 @@ import android.os.Handler
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.example.instagrammo.R
 import com.example.instagrammo.model.HomeWrapperPostBean
 import com.example.instagrammo.model.PostsNumberResponse
+import com.example.instagrammo.prefs
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.ui.activity.MainActivity
 import retrofit2.Call
@@ -101,7 +103,9 @@ class PostNumberService : Service() {
                 }
 
 
-                notification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                notification = NotificationCompat.Builder(applicationContext,
+                    CHANNEL_ID
+                )
                     .setContentTitle("Titolo")
                     .setContentText("Nuovi post: ${prefs.postNumber}") //
                     .setSmallIcon(R.mipmap.favicon)
@@ -141,7 +145,9 @@ class PostNumberService : Service() {
                 oldCallPostNumber = post
 
                 notification =
-                    NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                    NotificationCompat.Builder(applicationContext,
+                        CHANNEL_ID
+                    )
                         .setContentTitle("Titolo")
                         .setContentText("Nuovi post: $post")
                         .setSmallIcon(R.mipmap.favicon)
@@ -181,7 +187,9 @@ class PostNumberService : Service() {
                         )
 
                         val newMessageNotification =
-                            NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                            NotificationCompat.Builder(applicationContext,
+                                CHANNEL_ID
+                            )
                                 .setContentTitle("Nuovo post di ${it.profile.name}")
                                 .setSmallIcon(R.mipmap.logo)
                                 .setContentText(it.title)
@@ -193,7 +201,9 @@ class PostNumberService : Service() {
 
                     }
                     val summaryNotification =
-                        NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                        NotificationCompat.Builder(applicationContext,
+                            CHANNEL_ID
+                        )
                             .setContentText("${notifications.size} new posts")
                             .setSmallIcon(R.drawable.ic_arrow_forward_black_24dp)
                             .setStyle(NotificationCompat.InboxStyle())

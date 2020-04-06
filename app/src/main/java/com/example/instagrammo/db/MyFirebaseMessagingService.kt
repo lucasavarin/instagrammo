@@ -1,4 +1,4 @@
-package com.example.instagrammo
+package com.example.instagrammo.db
 
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
