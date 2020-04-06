@@ -9,12 +9,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.instagrammo.R
-import com.example.instagrammo.retrofit.RetrofitController
-import kotlinx.android.synthetic.main.login_activity.*
 import com.example.instagrammo.model.AuthResponse
 import com.example.instagrammo.model.Session
 import com.example.instagrammo.model.User
 import com.example.instagrammo.prefs
+import com.example.instagrammo.retrofit.RetrofitController
+import kotlinx.android.synthetic.main.login_activity.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,13 +22,13 @@ import retrofit2.Response
 class LoginActivity : AppCompatActivity() {
 
     private var isShowPsw = false
-    val ctx = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
         val retrofit = RetrofitController.getClient
         supportActionBar?.hide()
+        setData()
 
         //Show/Hide button
         show_pass_btn.setOnClickListener {
@@ -66,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
                     if(valori.authToken!=null && valori.profileId!=null) {
                         Session.token = valori.authToken
                         Session.profileId = Integer.parseInt(valori.profileId)
+                        setSharedPreferenceData()
                         startActivity(intent)
                         this@LoginActivity.finish()
                     }
@@ -75,12 +76,26 @@ class LoginActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+    private fun setData(){
+        remem.isChecked = prefs.rememberMe
 
         if (remem.isChecked) {
             editText.setText(prefs.username)
-            remem.isChecked = prefs.rememberMe
         }
     }
+
+    private fun setSharedPreferenceData(){
+
+        if(remem.isChecked) {
+            prefs.username = editText.text.toString()
+            prefs.rememberMe = true
+        }else{
+            prefs.username = ""
+            prefs.rememberMe = false
+        }
+    }
+
     private fun showpsw(isShow: Boolean){
         if(isShow){
             editTextpwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
@@ -91,5 +106,4 @@ class LoginActivity : AppCompatActivity() {
         }
         editTextpwd.setSelection(editTextpwd.text.toString().length)
     }
-
 }
