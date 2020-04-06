@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginStart="10dp"
-            android:text="Amici: "
+            android:text="@string/amici"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/profileImg"
             />
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
 
-            android:hint="num friends"
+            android:hint="@string/num_friends"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/friends"
             />
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Posts: "
+            android:text="@string/posts"
             app:layout_constraintTop_toBottomOf="@id/friends"
             app:layout_constraintLeft_toRightOf="@id/profileImg"
             />
@@ -64,7 +64,7 @@
             android:id="@+id/numposts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="num posts"
+            android:hint="@string/num_posts"
             app:layout_constraintTop_toBottomOf="@id/numFriends"
             app:layout_constraintLeft_toRightOf="@id/posts"
             />
@@ -99,9 +99,7 @@
         android:background="@color/white"
         android:id="@+id/pager"
         app:layout_constraintTop_toBottomOf="@id/tab_layout"
-
-
-        />
+         />
 
 
 

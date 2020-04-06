@@ -32,4 +32,8 @@
     <string name="instagrammo_header">Instagrammo</string>
     <string name="default_notification_application_id">com.ggwp.instagrammo</string>
     <string name="modifica">modifica</string>
+    <string name="num_posts">num posts</string>
+    <string name="posts">Posts:</string>
+    <string name="num_friends">num friends</string>
+    <string name="amici">Amici:</string>
 </resources>
