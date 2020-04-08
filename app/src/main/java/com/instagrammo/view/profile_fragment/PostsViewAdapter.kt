@@ -8,17 +8,17 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 
 class PostsViewAdapter(fragmentPagerAdapter: FragmentManager, private val profileId : String) : FragmentStatePagerAdapter(fragmentPagerAdapter) {
 
-    val tabTitles = arrayOf("list", "grid")
+    val tabTitles = arrayOf("","")
     override fun getItem(position: Int): Fragment {
         when (position) {
             0 -> {
 
-                println("Lista")
+
                 return ProfileListFragment.newInstance(profileId)
             }
 
             1 -> {
-                println("Griglia")
+
                 return ProfileGridFragment.newInstance(profileId)
             }
             else -> return ProfileListFragment.newInstance(profileId)

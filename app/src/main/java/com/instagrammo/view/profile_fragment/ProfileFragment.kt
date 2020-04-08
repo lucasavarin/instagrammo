@@ -1,5 +1,6 @@
 package com.instagrammo.view.profile_fragment
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -73,12 +74,13 @@ class ProfileFragment private constructor(private val profileId:String) : Fragme
         pager.adapter = adapter
         pager.offscreenPageLimit = 1
         tab_layout.setupWithViewPager(pager)
-
+        setupTabIcons()
 
         tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 pager.currentItem = tab!!.position
+
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -97,12 +99,18 @@ class ProfileFragment private constructor(private val profileId:String) : Fragme
         modifyButton.setOnClickListener{ utilities_project.addFragment(ModifyUserFragment.newInstance(beanResponse!!), activity!!) }
     }
 
+    private fun setupTabIcons(){
+        tab_layout.getTabAt(0)?.setIcon(R.drawable.ic_reorder_black_24dp)
+        tab_layout.getTabAt(1)?.setIcon(R.drawable.ic_apps_black_24dp)
+    }
+
     private fun putUserInfo(response: Response<ProfileWrapperResponse>) {
 
         numFriends.text = response.body()!!.payloadProfile[0].followersNumber
         numposts.text = response.body()!!.payloadProfile[0].postsNumber
         Picasso.get().load(response.body()!!.payloadProfile[0].picture).transform(CircleTransform()).into(profileImg.profileImg)
         profileName.text = response.body()!!.payloadProfile[0].name
+        profileName.typeface = Typeface.DEFAULT_BOLD
         profileDescr.text = response.body()!!.payloadProfile[0].description
 
     }
