@@ -14,6 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseApp
 import com.instagrammo.util.ForegroundService
+import com.instagrammo.util.addFragment
+import com.instagrammo.util.replace
 import com.instagrammo.util.shared_prefs.prefs
 import com.instagrammo.view.add_fragment.AddFragment
 import com.instagrammo.view.favourite_fragment.FavouriteFragment
@@ -29,12 +31,12 @@ class FragmentsActivity : AppCompatActivity(){
         val action = intent!!.action
 
         if(action.equals("add")){
-            loadFragment(AddFragment())
+            replace(AddFragment(),R.id.fragment_container)
         }
         else{
             val profileId = intent.extras?.get("profileId")
             if(profileId != null){
-                loadFragment(ProfileFragment.newInstance(profileId.toString()))
+                replace(ProfileFragment.newInstance(profileId.toString()),R.id.fragment_container)
             }
         }
     }
@@ -59,34 +61,34 @@ class FragmentsActivity : AppCompatActivity(){
         reloadBadgeContent(badgeTextView)
 
         if(savedInstanceState == null)
-            loadFragment(HomeFragment())
+            addFragment(HomeFragment(),R.id.fragment_container)
 
         bottomNavigationMenu.setOnNavigationItemSelectedListener { item ->
             when(item.itemId){
 
                 R.id.home -> {
                     makeTextViewPost(badgeTextView)
-                    loadFragment(HomeFragment())
+                    replace(HomeFragment(),R.id.fragment_container)
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.Profile -> {
-                    loadFragment(ProfileFragment.newInstance())
+                    replace(ProfileFragment.newInstance(),R.id.fragment_container)
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.Add -> {
-                    loadFragment(AddFragment())
+                    replace(AddFragment.makeInstance(),R.id.fragment_container)
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.favourite -> {
-                    loadFragment(FavouriteFragment())
+                    replace(FavouriteFragment(),R.id.fragment_container)
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.search -> {
-                    loadFragment(SearchFragment())
+                    replace(SearchFragment(),R.id.fragment_container)
                     return@setOnNavigationItemSelectedListener true
 
                 }
@@ -99,13 +101,6 @@ class FragmentsActivity : AppCompatActivity(){
     override fun onDestroy() {
         super.onDestroy()
         stopServices()
-    }
-
-    private fun loadFragment(fragment : Fragment){
-        supportFragmentManager.beginTransaction().also { fragmentTransaction ->
-            fragmentTransaction.replace(R.id.fragment_container, fragment)
-            fragmentTransaction.commit()
-        }
     }
 
     private fun makeTextViewPost(textView: TextView){

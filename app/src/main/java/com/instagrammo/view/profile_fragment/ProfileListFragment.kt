@@ -69,15 +69,16 @@ class ProfileListFragment private constructor(private val profileId : String) : 
         })
     }
     private fun putImg(response: List<ProfilePostBean>) : RecyclerView {
-        var gridLayoutManager: LayoutManager? = null
-            gridLayoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
-            profileRecycleView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        var linearLayoutManager: LayoutManager? = null
+        linearLayoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+        linearLayoutManager.stackFromEnd = true
+        linearLayoutManager.reverseLayout = true
 
+        profileRecycleView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        profileRecycleView.layoutManager = linearLayoutManager
 
-        profileRecycleView.layoutManager = gridLayoutManager
-        val adapterFollowers =
-            ProfilePostListAdapter(response)
-        profileRecycleView.adapter = adapterFollowers
+        val adapterList = ProfilePostListAdapter(response)
+        profileRecycleView.adapter = adapterList
 
         return profileRecycleView
     }

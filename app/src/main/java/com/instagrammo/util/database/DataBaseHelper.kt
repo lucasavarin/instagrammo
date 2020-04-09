@@ -31,7 +31,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     fun insertFollowerData(response : List<HomeUserResponseBean>){
         val db = this.writableDatabase
 //        db.execSQL("DELETE FROM ${DataBaseContract.Follower.TABLE_NAME_FOLLOWER}")
-//        db.delete(DataBaseContract.Follower.TABLE_NAME_FOLLOWER,null,null)
+        db.delete(DataBaseContract.Follower.TABLE_NAME_FOLLOWER,null,null)
 
         response.forEach {
 

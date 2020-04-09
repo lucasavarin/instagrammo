@@ -23,6 +23,12 @@ class AddFragment : Fragment() {
     private var postList : MutableList<AddPostResponseBean> =  arrayListOf()
     private lateinit var adapterAddPost : AddPostStoryAdapter
 
+    companion object {
+        fun makeInstance(): Fragment {
+            return AddFragment()
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

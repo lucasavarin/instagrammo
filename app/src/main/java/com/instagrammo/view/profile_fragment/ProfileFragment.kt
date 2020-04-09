@@ -73,6 +73,7 @@ class ProfileFragment private constructor(private val profileId:String) : Fragme
         val adapter = activity?.supportFragmentManager?.let { PostsViewAdapter(it,this.profileId) }
         pager.adapter = adapter
         pager.offscreenPageLimit = 1
+
         tab_layout.setupWithViewPager(pager)
         setupTabIcons()
 

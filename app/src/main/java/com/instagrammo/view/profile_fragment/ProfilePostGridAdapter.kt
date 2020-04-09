@@ -12,7 +12,7 @@ class ProfilePostGridAdapter(private val dataList : List<ProfilePostBean>): Recy
         private lateinit var context : Context
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilePostGridHolder {
             context = parent.context
-            val inflatedView = LayoutInflater.from(context).inflate(R.layout.item_profile, parent,false)
+            val inflatedView = LayoutInflater.from(context).inflate(R.layout.item_profile_grid, parent,false)
             return ProfilePostGridHolder(inflatedView)
         }
 

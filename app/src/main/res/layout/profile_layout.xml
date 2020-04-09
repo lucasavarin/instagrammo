@@ -50,25 +50,23 @@
 
             android:hint="@string/num_friends"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/friends"
-            />
+            app:layout_constraintLeft_toRightOf="@id/friends" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/posts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="@string/posts"
             app:layout_constraintTop_toBottomOf="@id/friends"
-            app:layout_constraintLeft_toRightOf="@id/profileImg"
-            />
+            app:layout_constraintLeft_toRightOf="@id/profileImg" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/numposts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/num_posts"
             app:layout_constraintTop_toBottomOf="@id/numFriends"
-            app:layout_constraintLeft_toRightOf="@id/posts"
-            />
+            app:layout_constraintLeft_toRightOf="@id/posts" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/modifyButton"
@@ -90,23 +88,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-
         app:layout_constraintTop_toBottomOf="@id/modifyButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@color/white"
         android:id="@+id/pager"
-        app:layout_constraintTop_toBottomOf="@id/tab_layout"
-         />
-
-
-
-
+        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
