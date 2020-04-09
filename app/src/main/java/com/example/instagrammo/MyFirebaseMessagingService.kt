@@ -15,17 +15,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     override fun onCreate() {
         super.onCreate()
-
-//        FirebaseInstanceId.getInstance().instanceId
-//            .addOnCompleteListener(OnCompleteListener { task ->
-//                if (!task.isSuccessful){
-//                    Log.w(TAG, "getInstanceId", task.exception)
-//                    return@OnCompleteListener
-//                }
-//
-//                val token = task.result?.token
-//
-//            })
     }
 
     override fun onNewToken(token: String) {

@@ -27,7 +27,8 @@
             tools:ignore="LockedOrientationActivity" />
         <activity android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:launchMode="singleTop"/>
 
         <service android:name=".ForegroundService"
             android:enabled="true"/>
