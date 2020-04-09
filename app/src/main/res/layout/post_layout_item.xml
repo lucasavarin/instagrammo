@@ -60,6 +60,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"/>
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/likeButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:checked="false"
+            android:text=""
+            android:textOff=""
+            android:textOn=""
+            android:background="@drawable/button_like"/>
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/date"
             android:layout_width="wrap_content"

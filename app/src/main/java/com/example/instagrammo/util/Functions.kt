@@ -53,10 +53,10 @@ fun normalizeDownloadUrlToScreenWidth(downloadUrl:String, screenWidth:Int):Strin
     return final
 }
 
-fun isNetworkAvailable(context: Context): Boolean {
+fun isNetworkAvailable(context: Context?): Boolean {
 
     val connectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
     val activeNetworkInfo = connectivityManager!!.activeNetworkInfo
     return activeNetworkInfo != null && activeNetworkInfo.isConnected
 }

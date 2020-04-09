@@ -17,5 +17,14 @@ data class Follower(
                 rest.picture
             )
         }
+
+        fun getFollowerFromProfile(bean:Profile): Follower{
+            return Follower(
+                bean.profileId,
+                bean.name,
+                bean.description,
+                bean.picture
+            )
+        }
     }
 }

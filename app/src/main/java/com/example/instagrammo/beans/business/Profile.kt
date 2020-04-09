@@ -18,9 +18,9 @@ data class Profile(
                 rest.profileId,
                 rest.name,
                 rest.description,
-                rest.followersNumber,
+                rest.picture,
                 rest.postsNumber,
-                rest.picture
+                rest.followersNumber
             )
         }
     }

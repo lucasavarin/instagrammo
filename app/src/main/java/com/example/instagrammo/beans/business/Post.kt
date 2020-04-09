@@ -8,7 +8,8 @@ data class Post(
     val title:String,
     val picture:String,
     val uploadTime:String,
-    val profile: Profile?
+    val profile: Profile?,
+    var like:Boolean?=false
 ){
     companion object Post{
         fun createBusinessBean(rest: PostResponseREST): com.example.instagrammo.beans.business.Post {

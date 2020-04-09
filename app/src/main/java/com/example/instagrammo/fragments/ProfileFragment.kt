@@ -26,7 +26,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileFragment(val profileId:Int): Fragment(){
+class ProfileFragment(private val profileId:Int): Fragment(){
 
     private lateinit var adapter:TabAdapter
 
@@ -70,7 +70,7 @@ class ProfileFragment(val profileId:Int): Fragment(){
         }
     }
 
-    private fun performCall(profileId: Int = Session.profileId){
+    private fun performCall(profileId: Int){
         val callProfile = RetrofitController.getClient.getProfileSingle(profileId)
 
         callProfile.enqueue(object: Callback<ProfileWrapperResponseREST> {
@@ -98,7 +98,7 @@ class ProfileFragment(val profileId:Int): Fragment(){
 
         })
 
-        val callPosts = RetrofitController.getClient.getProfilePosts(Session.profileId)
+        val callPosts = RetrofitController.getClient.getProfilePosts(profileId)
 
         callPosts.enqueue(object: Callback<ProfilePostResponseWrapperREST>{
             override fun onFailure(call: Call<ProfilePostResponseWrapperREST>, t: Throwable) {

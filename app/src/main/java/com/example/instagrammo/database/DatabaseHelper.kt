@@ -31,6 +31,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context,
                 ${DatabaseContract.PostEntry.TITLE}                 TEXT,
                 ${DatabaseContract.PostEntry.UPLOAD_TIME}           DATE,
                 ${DatabaseContract.PostEntry.PICTURE}               TEXT,
+                ${DatabaseContract.PostEntry.IS_LIKED}               INTEGER default 0,
                 
                 CONSTRAINT fk_profile
                     FOREIGN KEY (${DatabaseContract.PostEntry.PROFILE_ID})
@@ -121,16 +122,17 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context,
                     getLong(getColumnIndexOrThrow(DatabaseContract.PostEntry.PROFILE_ID)).toString()?: "",
                     getLong(getColumnIndexOrThrow(DatabaseContract.PostEntry.POST_ID)).toString()?: "",
                     getString(getColumnIndexOrThrow(DatabaseContract.PostEntry.TITLE))?: "",
-                    "",
+                    getString(getColumnIndexOrThrow(DatabaseContract.PostEntry.PICTURE))?:"",
                     getString(getColumnIndexOrThrow(DatabaseContract.PostEntry.UPLOAD_TIME))?: "",
                     Profile(
                         getLong(getColumnIndexOrThrow(  DatabaseContract.FollowersProfileEntry.ID)).toString()?: "",
                         getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.NAME))?: "",
                         getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.DESCRIPTION))?: "",
-                        "",//getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.PICTURE)),
+                        getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.PICTURE))?:"",
                         getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.POST_NUMBER))?: "",
                         getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.FOLLOWERS_NUMBER))?: ""
-                    )
+                    ),
+                    getInt(getColumnIndexOrThrow(DatabaseContract.PostEntry.IS_LIKED)) == 1
                 ))
             }
         }
@@ -167,7 +169,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context,
                     getLong(getColumnIndexOrThrow(  DatabaseContract.FollowersProfileEntry.ID)).toString(),
                     getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.NAME))?: "",
                     getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.DESCRIPTION))?: "",
-                    "",//getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.PICTURE)),
+                    getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.PICTURE)),
                     getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.POST_NUMBER))?: "",
                     getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.FOLLOWERS_NUMBER))?: ""
                 )
@@ -201,5 +203,100 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context,
             selectionArgs
         )
         return count > 0
+    }
+
+    fun likePost(post:Post, like:Boolean? = true): Boolean{
+        val db = this.writableDatabase
+
+        val values = ContentValues().apply {
+            put(DatabaseContract.PostEntry.PICTURE, post.picture)
+            put(DatabaseContract.PostEntry.POST_ID, post.postId)
+            put(DatabaseContract.PostEntry.PROFILE_ID, post.profileId)
+            put(DatabaseContract.PostEntry.TITLE, post.title)
+            put(DatabaseContract.PostEntry.UPLOAD_TIME, post.uploadTime)
+            if(like != null && like) {
+                put(DatabaseContract.PostEntry.IS_LIKED, 1)
+            } else{
+                put(DatabaseContract.PostEntry.IS_LIKED, 0)
+            }
+        }
+
+        val selection = "${DatabaseContract.PostEntry.POST_ID} = ?"
+        val selectionArgs = arrayOf(post.postId)
+
+        val count = db.update(
+            DatabaseContract.PostEntry.TABLE_NAME,
+            values,
+            selection,
+            selectionArgs
+        )
+        return count > 0
+    }
+
+    fun getPostLike(postId:String):Boolean{
+        val db = this.writableDatabase
+
+        val selection = "${DatabaseContract.PostEntry.POST_ID} = ?"
+        val selectionArgs:Array<String>? = arrayOf(postId)
+
+        val cursor = db.query(
+            DatabaseContract.PostEntry.TABLE_NAME,
+            null,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null
+        )
+
+        var value:Boolean = false
+        with(cursor){
+            while (moveToNext()){
+                value = getInt(getColumnIndexOrThrow(DatabaseContract.PostEntry.IS_LIKED)) == 1
+            }
+        }
+        return value
+    }
+
+    fun getLikedPosts():List<Post>{
+        val db = this.writableDatabase
+
+        var query = """SELECT * 
+            FROM ${DatabaseContract.PostEntry.TABLE_NAME} p 
+            LEFT JOIN ${DatabaseContract.FollowersProfileEntry.TABLE_NAME} f 
+            ON p.${DatabaseContract.PostEntry.PROFILE_ID} = f.${DatabaseContract.FollowersProfileEntry.ID}
+            """
+
+        val selectionArgs = arrayOf("1")
+        query += "WHERE p.${DatabaseContract.PostEntry.IS_LIKED} = ?"
+
+        query += "ORDER BY ${DatabaseContract.PostEntry.UPLOAD_TIME} DESC"
+
+        val cursor = db.rawQuery(query, selectionArgs)
+
+        val posts = mutableListOf<Post>()
+
+        with(cursor){
+            while (moveToNext()){
+                posts.add(Post(
+                    getLong(getColumnIndexOrThrow(DatabaseContract.PostEntry.PROFILE_ID)).toString()?: "",
+                    getLong(getColumnIndexOrThrow(DatabaseContract.PostEntry.POST_ID)).toString()?: "",
+                    getString(getColumnIndexOrThrow(DatabaseContract.PostEntry.TITLE))?: "",
+                    getString(getColumnIndexOrThrow(DatabaseContract.PostEntry.PICTURE))?:"",
+                    getString(getColumnIndexOrThrow(DatabaseContract.PostEntry.UPLOAD_TIME))?: "",
+                    Profile(
+                        getLong(getColumnIndexOrThrow(  DatabaseContract.FollowersProfileEntry.ID)).toString()?: "",
+                        getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.NAME))?: "",
+                        getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.DESCRIPTION))?: "",
+                        getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.PICTURE))?:"",
+                        getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.POST_NUMBER))?: "",
+                        getString(getColumnIndexOrThrow(DatabaseContract.FollowersProfileEntry.FOLLOWERS_NUMBER))?: ""
+                    ),
+                    getInt(getColumnIndexOrThrow(DatabaseContract.PostEntry.IS_LIKED)) == 1
+                ))
+            }
+        }
+        cursor.close()
+        return posts
     }
 }

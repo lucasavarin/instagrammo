@@ -2,6 +2,7 @@ package com.example.instagrammo.fragments
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.example.instagrammo.R
 import com.example.instagrammo.activities.MainActivity
 import com.example.instagrammo.adapters.FollowerListRecyclerAdapter
 import com.example.instagrammo.adapters.PostsListRecyclerAdapter
+import com.example.instagrammo.applicationUtils.db
 import com.example.instagrammo.beans.business.Follower
 import com.example.instagrammo.beans.business.Post
 import com.example.instagrammo.beans.business.Profile
@@ -22,6 +24,7 @@ import com.example.instagrammo.database.DatabaseHelper
 import com.example.instagrammo.retrofit.RetrofitController
 import com.example.instagrammo.util.isNetworkAvailable
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.post_layout_item.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,9 +32,11 @@ import retrofit2.Response
 class HomeFragment: Fragment() {
 
     private lateinit var activity:Activity
-    private lateinit var db: DatabaseHelper
     var followers: MutableList<Follower> = ArrayList()
     var posts: MutableList<Post> = ArrayList()
+
+    val postAdapter = PostsListRecyclerAdapter(arrayListOf())
+    val followersAdapter = FollowerListRecyclerAdapter(arrayListOf())
 
     private lateinit var linearLayoutManagerFollowers: LinearLayoutManager
     private lateinit var linearLayoutManagerPosts: LinearLayoutManager
@@ -48,18 +53,31 @@ class HomeFragment: Fragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         activity = getActivity()!! as com.example.instagrammo.activities.MainActivity
-        db = activity.applicationContext.let { DatabaseHelper(it) }
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Toast.makeText(context, "Tenere premuto un post per mettere like", Toast.LENGTH_LONG).show()
+        followersAdapter.followers = followers
+        homeFollowerListLayout.adapter = followersAdapter
+        postAdapter.posts = posts
+        homePostListLayout.adapter = postAdapter
+        postAdapter.setOnItemLongClickListener {
+            it.like = !(it.like != null && it.like!!)
+            db.likePost(it, it.like)
+        }
+        postAdapter.setOnLikeChangeListener {
+            it.like = !(it.like != null && it.like!!)
+            db.likePost(it, it.like)
+        }
         if(isNetworkAvailable(activity)){
             downloadHome()
         }
         else{
             loadDb()
         }
+
         linearLayoutManagerFollowers = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
         linearLayoutManagerPosts = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
@@ -79,9 +97,9 @@ class HomeFragment: Fragment() {
                 profile.picture
             ))
         }
-        homeFollowerListLayout.adapter = FollowerListRecyclerAdapter(followers)
+
         homeFollowerListLayout.adapter?.notifyDataSetChanged()
-        homePostListLayout.adapter = PostsListRecyclerAdapter(posts)
+
         homePostListLayout.adapter?.notifyDataSetChanged()
 
     }
@@ -106,7 +124,6 @@ class HomeFragment: Fragment() {
                                 null
                             ))
                         }
-                        homeFollowerListLayout.adapter = FollowerListRecyclerAdapter(followers)
                         homeFollowerListLayout.adapter?.notifyDataSetChanged()
                     }else{
                         Toast.makeText(activity, "Nessun follower trovato", Toast.LENGTH_SHORT).show()
@@ -133,7 +150,6 @@ class HomeFragment: Fragment() {
                             posts.add(post)
                             db.insertPost(post)
                         }
-                        homePostListLayout.adapter = PostsListRecyclerAdapter(posts)
                         homePostListLayout.adapter?.notifyDataSetChanged()
                     }else{
                         Toast.makeText(activity, "Nessun post trovato", Toast.LENGTH_SHORT).show()

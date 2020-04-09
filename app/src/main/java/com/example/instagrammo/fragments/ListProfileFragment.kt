@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_list_profile.*
 class ListProfileFragment: Fragment() {
 
     var posts: List<Post> = ArrayList()
-    var adapter: PostsListRecyclerAdapter = PostsListRecyclerAdapter(posts)
+    var adapter: PostsListRecyclerAdapter = PostsListRecyclerAdapter(posts.toMutableList())
 
     companion object{
         fun makeInstance(): ListProfileFragment{
