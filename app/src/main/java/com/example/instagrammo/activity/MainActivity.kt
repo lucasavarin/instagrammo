@@ -10,7 +10,7 @@ import android.os.IBinder
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import com.example.instagrammo.notification.ForegroundService
+import com.example.instagrammo.ForegroundService
 import com.example.instagrammo.R
 import com.example.instagrammo.primary_fragments.*
 import com.example.instagrammo.retrofit.Session
