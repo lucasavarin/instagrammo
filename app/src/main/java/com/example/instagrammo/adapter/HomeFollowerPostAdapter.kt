@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
-import com.example.instagrammo.model.Post
+import com.example.instagrammo.model.business.Post
 
 
 class HomeFollowerPostAdapter(private val dataList: List<Post>): RecyclerView.Adapter<HomeFollowerPostHolder>(){

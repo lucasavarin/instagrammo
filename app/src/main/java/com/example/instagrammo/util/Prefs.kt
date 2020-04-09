@@ -1,0 +1,32 @@
+package com.example.instagrammo.util
+
+import android.content.Context
+import android.content.SharedPreferences
+
+class Prefs(context : Context){
+    val PREFS_FILENAME = "com.example.instagrammo.util.getPrefs"
+    val REMEMBER = "rememberMe"
+    val USERNAME = "username"
+    val Post_Number = "postNumber"
+    val Post_Changed = "PostChanged"
+    val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0);
+
+    var rememberMe: Boolean
+        get() = prefs.getBoolean(REMEMBER, false)
+        set(value) = prefs.edit().putBoolean(REMEMBER, value).apply()
+
+    var username: String
+        get() = prefs.getString(USERNAME, "") ?: ""
+        set(value) = prefs.edit().putString(USERNAME, value).apply()
+
+    var postNumber : Int
+        get() = prefs.getInt(Post_Number, 0)
+        set(value) = prefs.edit().putInt(Post_Number, value).apply()
+
+    var changedPost : Boolean
+        get() = prefs.getBoolean(Post_Changed, false)
+        set(value) = prefs.edit().putBoolean(Post_Changed, value).apply()
+
+
+}
+

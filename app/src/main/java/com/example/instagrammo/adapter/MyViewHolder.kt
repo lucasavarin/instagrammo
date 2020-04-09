@@ -3,9 +3,9 @@ package com.example.instagrammo.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
-import com.example.instagrammo.picassotransformation.CircleTrasformation
+import com.example.instagrammo.util.picassotransformation.CircleTrasformation
 import com.squareup.picasso.Picasso
-import com.example.instagrammo.model.Payload
+import com.example.instagrammo.model.business.Payload
 import kotlinx.android.synthetic.main.item_follower_view_layout.view.*
 
 

@@ -9,21 +9,22 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.instagrammo.db.PostNumberService
-import com.example.instagrammo.prefs
+import com.example.instagrammo.util.PostNumberService
+import com.example.instagrammo.util.prefs
 import com.example.instagrammo.R
 import com.example.instagrammo.ui.fragment.*
+import com.example.instagrammo.util.makeTransaction
 import com.google.android.material.bottomnavigation.*
 import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.item_badge.view.*
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
-       override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         val profileId = intent?.extras?.get("profileId")
-        if(profileId!= null){
-            makeTransaction( ProfiloFragment.newInstance(profileId.toString()))
+        if (profileId != null) {
+            makeTransaction(ProfiloFragment.newInstance(profileId.toString()))
         }
 
     }
@@ -32,11 +33,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        val bottomNavigationMenu : BottomNavigationView = bottom
-        val bottomNavigationMenuView = bottomNavigationMenu.getChildAt(0) as BottomNavigationMenuView
+        val bottomNavigationMenu: BottomNavigationView = bottom
+        val bottomNavigationMenuView =
+            bottomNavigationMenu.getChildAt(0) as BottomNavigationMenuView
         val view: View = bottomNavigationMenuView.getChildAt(0)
         val items = view as BottomNavigationItemView
-        val badge: View = LayoutInflater.from(this).inflate(R.layout.item_badge, bottomNavigationMenuView, false)
+        val badge: View =
+            LayoutInflater.from(this).inflate(R.layout.item_badge, bottomNavigationMenuView, false)
         val badgeTextView = badge.notification_badge
 
         items.addView(badge)
@@ -46,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         startServices()
         var fragment: Fragment? = null
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             makeTransaction(HomeFragment.newInstance())
         }
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
@@ -89,16 +92,8 @@ class MainActivity : AppCompatActivity() {
         stopServices()
     }
 
-    fun AppCompatActivity.makeTransaction(f: Fragment) {
-        val manager = supportFragmentManager
-        val transaction = manager.beginTransaction()
-        if (f != null) {
-            transaction.replace(R.id.frame, f)
-            transaction.commit()
-        }
-    }
 
-    private fun makeText(textView: TextView){
+    private fun makeText(textView: TextView) {
         prefs.changedPost = false
         textView.visibility = View.INVISIBLE
     }
@@ -106,11 +101,11 @@ class MainActivity : AppCompatActivity() {
     private fun reloadBadge(textView: TextView) {
 
         val handler = Handler()
-        val delay : Long = 5000
+        val delay: Long = 5000
 
         handler.postDelayed(object : Runnable {
             override fun run() {
-                if(prefs.changedPost){
+                if (prefs.changedPost) {
                     textView.visibility = View.VISIBLE
                     textView.text = prefs.postNumber.toString()
                 }

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
-import com.example.instagrammo.model.Payload
+import com.example.instagrammo.model.business.Payload
 
 class Adapter(private val myDataset: Array<Payload>) :
     RecyclerView.Adapter<MyViewHolder>() {

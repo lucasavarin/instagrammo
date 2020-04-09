@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.instagrammo.R
-import com.example.instagrammo.model.AddResponseBeanApplicativo
+import com.example.instagrammo.model.business.AddResponseBeanApplicativo
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.inserisci_post_layout.*
 import java.lang.Exception
 
-class InsertPost(val item:AddResponseBeanApplicativo) : Fragment() {
+class InsertPost(val item: AddResponseBeanApplicativo) : Fragment() {
 
     companion object{
-        fun newInstance(item:AddResponseBeanApplicativo):InsertPost{
+        fun newInstance(item: AddResponseBeanApplicativo):InsertPost{
             return InsertPost(item)
         }
     }

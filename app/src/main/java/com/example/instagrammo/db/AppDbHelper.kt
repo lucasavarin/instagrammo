@@ -5,8 +5,11 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.example.instagrammo.dbcontractclass.Contract
-import com.example.instagrammo.model.*
+import com.example.instagrammo.db.dbcontractclass.Contract
+import com.example.instagrammo.model.business.Payload
+import com.example.instagrammo.model.business.Post
+import com.example.instagrammo.model.business.PostDb
+import com.example.instagrammo.model.business.Profile
 
 class AppDbHelper(ctx: Context) : SQLiteOpenHelper(ctx, DATABASE_NAME, null, DATABASE_VERSION) {
     private val CREATE_POST_TABLE = " CREATE TABLE ${Contract.PostEntry.TABLE_NAME} (" +
@@ -97,10 +100,11 @@ class AppDbHelper(ctx: Context) : SQLiteOpenHelper(ctx, DATABASE_NAME, null, DAT
         while (cursor!!.moveToNext()) {
             follower.add(
                 Payload(
-                    cursor.getInt(cursor.getColumnIndexOrThrow(Contract.FollowerEntry.COLUMN_ID)).toString(),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(Contract.FollowerEntry.COLUMN_ID))
+                        .toString(),
                     cursor.getString(cursor.getColumnIndexOrThrow(Contract.FollowerEntry.COLUMN_NAME)),
                     cursor.getString(cursor.getColumnIndexOrThrow(Contract.FollowerEntry.COLUMN_DESCRIPTION)),
-                   ""
+                    ""
                 )
             )
 

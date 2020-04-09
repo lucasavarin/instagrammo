@@ -5,21 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.instagrammo.db
+import com.example.instagrammo.util.db
 import com.example.instagrammo.R
 import com.example.instagrammo.adapter.Adapter
 import com.example.instagrammo.adapter.HomeFollowerPostAdapter
-import com.example.instagrammo.db.AppDbHelper
-import com.example.instagrammo.model.*
-import com.example.instagrammo.retrofit.RetrofitController
+import com.example.instagrammo.model.business.PostDb
+import com.example.instagrammo.model.business.Session
+import com.example.instagrammo.model.business.StoriesResponse
+import com.example.instagrammo.model.rest.response.HomeWrapperPostBean
+import com.example.instagrammo.util.retrofit.RetrofitController
 import kotlinx.android.synthetic.main.home_fragment_layout.*
 import kotlinx.android.synthetic.main.home_fragment_layout.view.*
-import org.jetbrains.annotations.Contract
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -72,10 +72,16 @@ class HomeFragment : Fragment() {
                     createPost(response)
                     val daSalvare = arrayListOf<PostDb>()
                     response!!.body()!!.payload.forEach {
-                        val nuovo: PostDb = PostDb(it.profileId, it.postId, it.title, it.uploadTime)
+                        val nuovo: PostDb =
+                            PostDb(
+                                it.profileId,
+                                it.postId,
+                                it.title,
+                                it.uploadTime
+                            )
                         daSalvare.add(nuovo)
                     }
-                    db.writableDatabase.execSQL("DELETE FROM ${com.example.instagrammo.dbcontractclass.Contract.PostEntry.TABLE_NAME}")
+                    db.writableDatabase.execSQL("DELETE FROM ${com.example.instagrammo.db.dbcontractclass.Contract.PostEntry.TABLE_NAME}")
                     db.savePostOnDb(daSalvare)
 
                 }
@@ -106,7 +112,7 @@ class HomeFragment : Fragment() {
                     response: Response<StoriesResponse>
                 ) {
                     view.progressBar2.visibility = View.GONE
-                    db.writableDatabase.execSQL("DELETE FROM ${com.example.instagrammo.dbcontractclass.Contract.FollowerEntry.TABLE_NAME}")
+                    db.writableDatabase.execSQL("DELETE FROM ${com.example.instagrammo.db.dbcontractclass.Contract.FollowerEntry.TABLE_NAME}")
                     db.saveFollowerOnDb(response.body()!!.payload)
                     // val ad = Adapter( response!!.body()!!.payload)
                     Log.d("response", response!!.body()!!.payload.toString())

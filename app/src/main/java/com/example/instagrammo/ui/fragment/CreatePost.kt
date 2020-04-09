@@ -1,17 +1,16 @@
 package com.example.instagrammo.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.instagrammo.R
-import com.example.instagrammo.model.AddPostInfo
-import com.example.instagrammo.model.AddPostResult
-import com.example.instagrammo.model.AddResponseBeanApplicativo
-import com.example.instagrammo.model.Session
-import com.example.instagrammo.retrofit.RetrofitController
+import com.example.instagrammo.model.rest.request.AddPostInfo
+import com.example.instagrammo.model.rest.response.AddPostResult
+import com.example.instagrammo.model.business.AddResponseBeanApplicativo
+import com.example.instagrammo.model.business.Session
+import com.example.instagrammo.util.retrofit.RetrofitController
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.confirm_add_layout.*
 import retrofit2.Call
@@ -45,7 +44,13 @@ class CreatePost(val post : AddResponseBeanApplicativo) : Fragment() {
         val retrofit = RetrofitController.getClient
         val desc = descr.text.toString()
         conf_btn.setOnClickListener {
-            retrofit.createPost(AddPostInfo(Session.profileId.toString(), desc, post.urlModificato))
+            retrofit.createPost(
+                AddPostInfo(
+                    Session.profileId.toString(),
+                    desc,
+                    post.urlModificato
+                )
+            )
                 .enqueue(
                     object : Callback<AddPostResult> {
                         override fun onFailure(call: Call<AddPostResult>, t: Throwable) {

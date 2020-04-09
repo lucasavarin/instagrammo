@@ -1,11 +1,9 @@
 package com.example.instagrammo.adapter
 
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
-import com.example.instagrammo.model.ProfilePost
+import com.example.instagrammo.model.business.ProfilePost
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_list_view_layout.view.*
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.instagrammo.R
 
-class FavoriteFragment : Fragment(){
+class FavoriteFragment : Fragment() {
 
 
     companion object {
@@ -19,6 +19,7 @@ class FavoriteFragment : Fragment(){
         }
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

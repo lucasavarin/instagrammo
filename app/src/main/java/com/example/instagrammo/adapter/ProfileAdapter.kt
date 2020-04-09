@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
-import com.example.instagrammo.model.*
+import com.example.instagrammo.model.business.ProfileRest
 
 class ProfileAdapter(private val posts: List<ProfileRest>): RecyclerView.Adapter<ProfileHolder>() {
 

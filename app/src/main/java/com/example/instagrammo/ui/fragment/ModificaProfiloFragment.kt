@@ -8,11 +8,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.instagrammo.R
-import com.example.instagrammo.model.SaveDataBean
-import com.example.instagrammo.model.SaveUserDataResponseBean
-import com.example.instagrammo.model.Session
-import com.example.instagrammo.picassotransformation.CircleTrasformation
-import com.example.instagrammo.retrofit.RetrofitController
+import com.example.instagrammo.model.business.SaveDataBean
+import com.example.instagrammo.model.business.SaveUserDataResponseBean
+import com.example.instagrammo.util.picassotransformation.CircleTrasformation
+import com.example.instagrammo.util.retrofit.RetrofitController
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_modifica_profilo_layout.*
 import retrofit2.Call
@@ -95,7 +94,7 @@ class ModificaProfiloFragment private constructor(
                         Toast.makeText(view.context, "Salvataggio riuscito", Toast.LENGTH_SHORT)
                             .show()
                         fragmentManager!!.beginTransaction().remove(ProfiloFragment.newInstance())
-                            .replace(R.id.frame,ProfiloFragment.newInstance()).commit()
+                            .replace(R.id.frame, ProfiloFragment.newInstance()).commit()
                     }
                 })
             }

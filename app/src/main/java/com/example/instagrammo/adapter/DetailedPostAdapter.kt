@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
-import com.example.instagrammo.model.ProfilePost
+import com.example.instagrammo.model.business.ProfilePost
 
 class DetailedPostAdapter(private val data : List<ProfilePost>): RecyclerView.Adapter<DetailedViewHolder>() {
     private lateinit var context : Context

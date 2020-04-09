@@ -3,15 +3,10 @@ package com.example.instagrammo.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
-import com.example.instagrammo.model.Post
-import com.example.instagrammo.model.ProfileRest
-import com.example.instagrammo.picassotransformation.CircleTrasformation
+import com.example.instagrammo.model.business.ProfileRest
+import com.example.instagrammo.util.picassotransformation.CircleTrasformation
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.RequestCreator
-import kotlinx.android.synthetic.main.profile_post_layout.*
-import kotlinx.android.synthetic.main.profile_post_layout.view.*
 import kotlinx.android.synthetic.main.profilo_fragment_layout.view.*
-import kotlinx.android.synthetic.main.splash_layout.view.*
 
 class ProfileHolder (v: View): RecyclerView.ViewHolder(v), View.OnClickListener {
 

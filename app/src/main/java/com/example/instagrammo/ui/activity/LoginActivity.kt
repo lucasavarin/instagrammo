@@ -9,11 +9,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.instagrammo.R
-import com.example.instagrammo.model.AuthResponse
-import com.example.instagrammo.model.Session
-import com.example.instagrammo.model.User
-import com.example.instagrammo.prefs
-import com.example.instagrammo.retrofit.RetrofitController
+import com.example.instagrammo.model.rest.response.AuthResponse
+import com.example.instagrammo.model.business.Session
+import com.example.instagrammo.model.rest.request.User
+import com.example.instagrammo.util.prefs
+import com.example.instagrammo.util.retrofit.RetrofitController
 import kotlinx.android.synthetic.main.login_activity.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,10 +38,15 @@ class LoginActivity : AppCompatActivity() {
         showpsw(isShowPsw)
 
 
-        Log.d("NOME", editText.text.toString() + " " +editTextpwd.text.toString())
+        Log.d("NOME", editText.text.toString() + " " + editTextpwd.text.toString())
         btn.setOnClickListener { v ->
             val call: Call<AuthResponse> =
-                retrofit.auth(User(editText.text.toString(),editTextpwd.text.toString()))
+                retrofit.auth(
+                    User(
+                        editText.text.toString(),
+                        editTextpwd.text.toString()
+                    )
+                )
             progressBar1.visibility = View.VISIBLE
             btn.visibility = View.GONE
             call.enqueue(object : Callback<AuthResponse> {
@@ -57,27 +62,35 @@ class LoginActivity : AppCompatActivity() {
                     call: Call<AuthResponse>?,
                     response: Response<AuthResponse>?
                 ) {
-                    val valori:AuthResponse= AuthResponse(response?.body()!!.result,response?.body()!!.authToken,response?.body()!!.profileId)
+                    val valori: AuthResponse =
+                        AuthResponse(
+                            response?.body()!!.result,
+                            response?.body()!!.authToken,
+                            response?.body()!!.profileId
+                        )
                     progressBar1.visibility = View.GONE
                     btn.visibility = View.VISIBLE
                     Session.user = editText.text.toString()
-                    val intent : Intent = Intent(applicationContext,
-                        MainActivity::class.java)
-                    if(valori.authToken!=null && valori.profileId!=null) {
+                    val intent: Intent = Intent(
+                        applicationContext,
+                        MainActivity::class.java
+                    )
+                    if (valori.authToken != null && valori.profileId != null) {
                         Session.token = valori.authToken
                         Session.profileId = Integer.parseInt(valori.profileId)
                         setSharedPreferenceData()
                         startActivity(intent)
                         this@LoginActivity.finish()
-                    }
-                    else{
-                        Toast.makeText(applicationContext, "Credenziali Errate", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(applicationContext, "Credenziali Errate", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             })
         }
     }
-    private fun setData(){
+
+    private fun setData() {
         remem.isChecked = prefs.rememberMe
 
         if (remem.isChecked) {
@@ -85,22 +98,22 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun setSharedPreferenceData(){
+    private fun setSharedPreferenceData() {
 
-        if(remem.isChecked) {
+        if (remem.isChecked) {
             prefs.username = editText.text.toString()
             prefs.rememberMe = true
-        }else{
+        } else {
             prefs.username = ""
             prefs.rememberMe = false
         }
     }
 
-    private fun showpsw(isShow: Boolean){
-        if(isShow){
+    private fun showpsw(isShow: Boolean) {
+        if (isShow) {
             editTextpwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
             show_pass_btn.setImageResource(R.drawable.ic_visibility_off_24dp)
-        }else{
+        } else {
             editTextpwd.transformationMethod = PasswordTransformationMethod.getInstance()
             show_pass_btn.setImageResource(R.drawable.ic_show_psw_24dp)
         }

@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagrammo.R
-import com.example.instagrammo.model.AddResponseBeanApplicativo
-import com.example.instagrammo.model.ProfilePost
+import com.example.instagrammo.model.business.AddResponseBeanApplicativo
 
 class AddPostAdapter (private val data : List<AddResponseBeanApplicativo>): RecyclerView.Adapter<AddPostsHolder>(){
 
