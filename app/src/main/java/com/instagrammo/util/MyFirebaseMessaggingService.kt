@@ -26,7 +26,7 @@ class MyFirebaseMessaggingService : FirebaseMessagingService() {
                 }
                 val token =  it.result?.token
                 //tokeeen
-                Toast.makeText(baseContext, token,Toast.LENGTH_SHORT).show()
+           //     Toast.makeText(baseContext, token,Toast.LENGTH_SHORT).show()
             })
     }
 
