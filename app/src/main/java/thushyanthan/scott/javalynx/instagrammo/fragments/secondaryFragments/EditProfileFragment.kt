@@ -33,6 +33,8 @@ class EditProfileFragment private constructor(val profileId:String, val username
         }
     }
 
+    var isTickButtonCLicked: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +54,8 @@ class EditProfileFragment private constructor(val profileId:String, val username
         editPicId.text = profIdEditable
 
 
+
+
         super.onActivityCreated(savedInstanceState)
         toolbarEditProfile.backButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
@@ -62,6 +66,10 @@ class EditProfileFragment private constructor(val profileId:String, val username
 
         saveEditsButton.setOnClickListener {
             saveEdits()
+        }
+
+        tickButton.setOnClickListener {
+            isTickButtonCLicked = true
         }
 
 
@@ -81,8 +89,13 @@ class EditProfileFragment private constructor(val profileId:String, val username
 
 
         if (!editPicId.text!!.equals(profileId)){
-            editsToSend.profileId = editPicId.text.toString()
-            valueChanged = true
+            if(isTickButtonCLicked){
+                editsToSend.profileId = editPicId.text.toString()
+                valueChanged = true
+            }
+
+
+
         }
 
         if (!editUsername.text!!.equals(username)) {
