@@ -19,17 +19,16 @@ class LoginActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        remember_me.isChecked = prefs.remember_user
+        setRememberMe()
 
         btn_submit.setOnClickListener{ view-> doLogin()}
-        remember_me.setOnCheckedChangeListener{buttonView, isChecked ->
-            prefs.remember_user = isChecked
-        }
-//        managePrefs()
     }
 
     fun doLogin(){
-        val call = Client.getClient.doAuth(AuthRequest(email_label.text.toString(), label_pwd.text.toString()))
+        val user = user_label.text.toString()
+        val pwd = label_pwd.text.toString()
+
+        val call = Client.getClient.doAuth(AuthRequest(user, pwd))
 
         call.enqueue(object: Callback<AuthResponse>{
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
@@ -44,6 +43,7 @@ class LoginActivity: AppCompatActivity() {
                             Session.token = response.body()!!.authToken
                             Session.profileId = response.body()!!.profileId
                             intent = Intent(applicationContext, MainActivity::class.java)
+                            setDataToLabels()
                             startActivity(intent)
                             finish()
                         }
@@ -66,18 +66,23 @@ class LoginActivity: AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    private fun setRememberMe(){
+        remember_me.isChecked = prefs.remember_user
+        if (remember_me.isChecked){
+            user_label.setText(prefs.user)
+            label_pwd.setText(prefs.password)
+        }
+    }
 
-//    fun managePrefs(){
-//        val prefsUser = getSharedPreferences("com.example.instagrammo.shared_prefs.prefs", Context.MODE_PRIVATE)
-//        val editor = prefsUser.edit()
-//        if (remember_me.isChecked){
-//            editor.putString("username", email_label.toString())
-//            editor.putString("password", label_pwd.toString())
-//            editor.apply()
-//        }else{
-//            editor.remove("username")
-//            editor.remove("password")
-//            editor.apply()
-//        }
-//    }
+    private fun setDataToLabels(){
+        if (remember_me.isChecked){
+            prefs.user = user_label.text.toString()
+            prefs.password = label_pwd.text.toString()
+            prefs.remember_user = true
+        }else{
+            prefs.user = ""
+            prefs.password = ""
+            prefs.remember_user = false
+        }
+    }
 }

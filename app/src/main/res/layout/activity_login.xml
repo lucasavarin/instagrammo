@@ -24,9 +24,9 @@
             android:layout_marginTop="-50dp"/>
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/email_label"
+            android:id="@+id/user_label"
             style="@style/EdittextStyle"
-            android:hint="@string/email_label"
+            android:hint="@string/user_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_background"
