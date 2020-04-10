@@ -22,22 +22,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-
-    private var post = 0
-    private lateinit var mBinder : ForegroundService
-
-    private val connection = object : ServiceConnection{
-        override fun onServiceDisconnected(name: ComponentName?) {
-
-        }
-
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            val binder = service as ForegroundService.LocalBinder
-            mBinder = binder.getService()
-        }
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -85,6 +69,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val profileId = intent?.getStringExtra("profileId")
+        if (profileId!=null){
+            replaceFragment(UserFragment.makeInstance(profileId), R.id.container)
+        }
+    }
+
     private fun initService(){
         val postNumberService = Intent(applicationContext, ForegroundService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -93,7 +85,6 @@ class MainActivity : AppCompatActivity() {
             startService(postNumberService)
         }
 
-//        bindService(postNumberService, connection, Context.BIND_AUTO_CREATE)
     }
 
     override fun onDestroy() {
