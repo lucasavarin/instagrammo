@@ -114,9 +114,11 @@ class HomeFragment : Fragment() {
                     view.progressBar2.visibility = View.GONE
                     db.writableDatabase.execSQL("DELETE FROM ${com.example.instagrammo.db.dbcontractclass.Contract.FollowerEntry.TABLE_NAME}")
                     db.saveFollowerOnDb(response.body()!!.payload)
-                    // val ad = Adapter( response!!.body()!!.payload)
-                    Log.d("response", response!!.body()!!.payload.toString())
-                    view.rView.adapter = Adapter(response!!.body()!!.payload)
+                     val ad = Adapter( response!!.body()!!.payload)
+                    ad.setFunc {
+                        fragmentManager?.beginTransaction()?.replace(R.id.frame , ProfiloFragment.newInstance(it.id))?.commit()
+                    }
+                    view.rView.adapter = ad
                 }
             })
     }
