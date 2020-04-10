@@ -1,6 +1,7 @@
 package thushyanthan.scott.javalynx.instagrammo.fragments
 
 import android.content.ContentValues
+import android.database.Cursor
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import thushyanthan.scott.javalynx.instagrammo.*
 import thushyanthan.scott.javalynx.instagrammo.adapter.FollowerAdapter
 import thushyanthan.scott.javalynx.instagrammo.adapter.HomeAdapter
 import thushyanthan.scott.javalynx.instagrammo.util.database.FeedReaderContract
+import thushyanthan.scott.javalynx.instagrammo.util.database.Queries
 import thushyanthan.scott.javalynx.instagrammo.util.rest.FollowerPayload
 import thushyanthan.scott.javalynx.instagrammo.util.rest.FollowerResponse
 import thushyanthan.scott.javalynx.instagrammo.util.rest.PostPayload
@@ -192,8 +194,12 @@ class HomeFragment : Fragment() {
     fun createFollowers() {
         val db = dbHelper.writableDatabase
 
+        db.execSQL(Queries.SQL_DELETE_ENTRIES_FOLLOWERS)
+        db.execSQL(Queries.SQL_CREATE_ENTRIES_FOLLOWERS)
+
         for (i in followers) {
             val values = ContentValues().apply {
+                put(FeedReaderContract.FollowersEntry.COLUMN_NAME_FOLLOWERS_ID, i.id)
                 put(FeedReaderContract.FollowersEntry.COLUMN_NAME_NAME, i.name)
                 put(FeedReaderContract.FollowersEntry.COLUMN_NAME_PICTURE, i.picture)
                 put(FeedReaderContract.FollowersEntry.COLUMN_NAME_DESCRIPTION, i.description)
@@ -209,17 +215,26 @@ class HomeFragment : Fragment() {
         val db = dbHelper.writableDatabase
 
 
+        db.execSQL(Queries.SQL_DELETE_ENTRIES_POSTS)
+        db.execSQL(Queries.SQL_CREATE_ENTRIES_POSTS)
+        db.execSQL(Queries.SQL_DELETE_ENTRIES_PROFILE)
+        db.execSQL(Queries.SQL_CREATE_ENTRIES_PROFILE)
+
+
+
         for (i in posts) {
-            //put(FeedReaderContract.PostEntry.COLUMN_NAME_POST_ID, i.postId.toInt())
-            //put(FeedReaderContract.PostEntry.COLUMN_NAME_PROFILE_ID, i.profileId.toInt())
+
             val valuesPosts = ContentValues().apply {
+                put(FeedReaderContract.PostEntry.COLUMN_NAME_POST_ID, i.postId.toInt())
                 put(FeedReaderContract.PostEntry.COLUMN_NAME_TITLE, i.title)
                 put(FeedReaderContract.PostEntry.COLUMN_NAME_PICTURE, i.picture)
                 put(FeedReaderContract.PostEntry.COLUMN_NAME_UPLOAD_TIME, i.uploadTime)
+                put(FeedReaderContract.PostEntry.COLUMN_NAME_PROFILE_ID, i.profileId.toInt())
 
             }
-            val newRowPostId =
-                db?.insert(FeedReaderContract.PostEntry.TABLE_NAME, null, valuesPosts)
+
+                val newRowPostId = db?.insert(FeedReaderContract.PostEntry.TABLE_NAME, null, valuesPosts)
+
         }
 
 
@@ -243,6 +258,7 @@ class HomeFragment : Fragment() {
 
         }
     }
+
 
 
 }
