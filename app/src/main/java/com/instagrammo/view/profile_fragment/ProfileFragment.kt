@@ -108,8 +108,10 @@ class ProfileFragment private constructor(private val profileId:String) : Fragme
     private fun putUserInfo(response: Response<ProfileWrapperResponse>) {
 
         numFriends.text = response.body()!!.payloadProfile[0].followersNumber
+        numFriends.typeface = Typeface.DEFAULT_BOLD
         numposts.text = response.body()!!.payloadProfile[0].postsNumber
         Picasso.get().load(response.body()!!.payloadProfile[0].picture).transform(CircleTransform()).into(profileImg.profileImg)
+        numposts.typeface = Typeface.DEFAULT_BOLD
         profileName.text = response.body()!!.payloadProfile[0].name
         profileName.typeface = Typeface.DEFAULT_BOLD
         profileDescr.text = response.body()!!.payloadProfile[0].description

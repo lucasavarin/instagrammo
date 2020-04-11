@@ -16,7 +16,7 @@ class ProfilePostGridHolder(itemView: View)  : RecyclerView.ViewHolder(itemView)
     fun bindImgProfile(profile: ProfilePostBean){
         view.progressProfileGrid.visibility = View.VISIBLE
 
-        Picasso.get().load(profile.picture).into(view.imagProfileGrid, object : Callback{
+        Picasso.get().load(profile.picture).resize(550, 550).into(view.imagProfileGrid, object : Callback{
             override fun onSuccess() {
                 view.progressProfileGrid.visibility = View.GONE
             }
